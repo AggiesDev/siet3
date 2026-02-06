@@ -1,0 +1,440 @@
+/* =========================================================
+   BASE / GLOBAL CSS 
+   ========================================================= */
+:root{
+  --brand-primary: #0d6efd;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+  --bg-soft: #f8fafc;
+  --shadow-soft: 0 10px 25px rgba(0,0,0,.08);
+
+  /* SIET letter colors */
+  --s-color: #2563eb;
+  --i-color: #16a34a;
+  --e-color: #f97316;
+  --t-color: #a855f7;
+}
+
+body{
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  color: var(--text-dark);
+}
+
+.smooth-scroll{ scroll-behavior: smooth; }
+
+/* =========================
+   TOP BAR (Login here)
+   ========================= */
+
+.siet-topbar{
+  background: linear-gradient(90deg, rgba(11,42,74,.98), rgba(13,110,253,.88));
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+
+.siet-topbar__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.siet-topbar__left{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.siet-topbar__badge{
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.18);
+  white-space: nowrap;
+}
+
+.siet-topbar__text{
+  font-size: 13px;
+  opacity: .95;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.siet-topbar__right{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.siet-topbar__hello{
+  font-size: 13px;
+  opacity: .95;
+}
+
+.siet-topbar__btn{
+  border-radius: 999px !important;
+  padding: 6px 14px !important;
+  font-weight: 600;
+}
+
+/* ======================
+   NAVBAR
+   ====================== */
+.navbar{ z-index: 1030; width: 100%; }
+.navbar .container-fluid{ width: 100%; }
+.brand-stack{ display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; }
+.brand-logo{ height: 100px; width:100px; display:block; }
+.brand-title{ font-size: 11px; line-height: 1.2; color:#0b1b3a; text-align:center; max-width: 220px; }
+@media (max-width: 1199.98px){
+  .brand-logo{ height: 75px; }
+  .brand-title{ display:none; }
+}
+
+/* Navbar search toggle (left icon) */
+.nav-search-toggle{
+  width:40px; height:40px; border:0; background:transparent; border-radius:999px;
+  display:inline-grid; place-items:center; transition: transform .15s ease, background .15s ease;
+}
+.nav-search-toggle svg{ width:20px; height:20px; fill:#0b1b3a; }
+.nav-search-toggle:hover{ background: rgba(13,110,253,.08); transform: translateY(-1px); cursor:pointer; }
+.nav-search-toggle:active{ transform: translateY(0); }
+
+/* Default hide search bar until user clicks icon */
+.nav-search.is-hidden{ display:none !important; }
+
+/* When shown, make it look premium */
+.nav-search-wrap{ position:relative; }
+.nav-search-results{ position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:1050; }
+
+/* Desktop: hover open dropdowns */
+@media (min-width: 1200px){
+  .dropdown:hover > .dropdown-menu{ display:block; }
+}
+
+/* Nested dropdown (submenu) */
+.dropdown-submenu{ position: relative; }
+@media (min-width: 1200px){
+  .dropdown-submenu > .dropdown-menu{
+    display:none;
+    position:absolute;
+    top:0;
+    left:100%;
+    margin-left:.15rem;
+  }
+  .dropdown-submenu:hover > .dropdown-menu{ display:block; }
+}
+
+@media (max-width: 1199.98px){
+  .dropdown-menu{ border:none; box-shadow:none; }
+  .dropdown-submenu .dropdown-menu{
+    position: static !important;
+    transform:none !important;
+    margin-left: 1rem;
+    padding-left: .75rem;
+    border-left: 2px solid #e9ecef;
+  }
+  .navbar-nav .nav-link{ padding: .75rem 1rem; }
+  .navbar-nav .dropdown-menu{ padding: .5rem 0; }
+  .navbar-nav .dropdown-item{ padding: .5rem 1.5rem; }
+  .dropdown-header{
+    padding: .5rem 1.5rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color:#6c757d;
+  }
+}
+
+/* =========================
+   NAVBAR TEXT SIZE CONTROL
+   ========================= */
+
+
+/* Brand title under logo (if you added subtitle text) */
+.navbar-brand span,
+.navbar-brand small{
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+
+/* ======================
+   NAVBAR SEARCH
+   ====================== */
+.nav-search{ min-width: 220px; }
+.nav-search-wrap{ position:relative; width: 240px; }
+@media (max-width: 1199.98px){
+  .nav-search{ width: 100%; }
+  .nav-search-wrap{ width: 100%; }
+}
+
+.nav-search-results{
+  position:absolute;
+  top: calc(100% + 6px);
+  left:0;
+  right:0;
+  background:#fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.10);
+  overflow:hidden;
+  display:none;
+  max-height: 320px;
+  overflow-y:auto;
+}
+.nav-search-results a{
+  display:block;
+  padding: .6rem .75rem;
+  text-decoration:none;
+  color: var(--text-dark);
+  font-size: .95rem;
+}
+.nav-search-results a:hover{ background: #f1f5f9; }
+.nav-search-results .muted{ color: var(--text-muted); font-size: .85rem; }
+
+/* ======================
+   SECTIONS / UTILITIES
+   ====================== */
+.section-soft{ background: var(--bg-soft); }
+.section-title{ font-weight: 900; letter-spacing: .2px; }
+
+/* Image hover + pointer effect */
+.img-hover{
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+  cursor: pointer;
+}
+.img-hover:hover{
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 14px 30px rgba(0,0,0,.14);
+  filter: saturate(1.05);
+}
+
+/* Card hover */
+.card-hover{
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card-hover:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+/* Download button */
+.btn-download{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  border-radius: 999px;
+  padding: .55rem 1.05rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.10);
+  transition: transform .18s ease, box-shadow .18s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-download:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0,0,0,.15);
+  filter: brightness(1.02);
+}
+
+.btn-download:focus-visible{
+  outline: 3px solid rgba(6,182,212,.35);
+  outline-offset: 3px;
+}
+
+/* ======================
+   FOOTER
+   ====================== */
+.site-footer{
+  background: linear-gradient(180deg, rgba(17,24,39,1) 0%, rgba(10,15,25,1) 100%);
+}
+.site-footer .row{ align-items: flex-start; }
+.site-footer h6{ letter-spacing: .2px; }
+
+.footer-link{
+  color: rgba(255,255,255,.80);
+  text-decoration:none;
+}
+.footer-link:hover{ color:#fff; text-decoration: underline; }
+
+/* Go to top button */
+.go-top{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(17,24,39,.92);
+  color:#fff;
+  text-decoration:none;
+  box-shadow: 0 18px 40px rgba(0,0,0,.24);
+  opacity: 0;
+  pointer-events:none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.go-top.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.go-top:hover{
+  transform: translateY(-2px);
+}
+
+
+/* ===== Navbar Search  ===== */
+.nav-search-icon { color: #0b2a4a; text-decoration: none; }
+.nav-search-icon:hover { color: #0d6efd; }
+.nav-search-glyph { font-size: 18px; line-height: 1; }
+
+/* ✅ Desktop Search Icon only on XL+ (>=1200px) */
+.nav-search-desktop{ display:none; }
+@media (min-width: 1200px){
+  .nav-search-desktop{ display:flex; }
+}
+
+.nav-search-panel { background: #ffffff; border-bottom: 1px solid rgba(0,0,0,.08); }
+.nav-search-panel.is-hidden { display: none !important; }
+.nav-search-panel__inner { padding: 12px 0 14px; }
+
+.nav-search-results {
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+.nav-search-result {
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #0b2a4a;
+}
+.nav-search-result:hover { background: rgba(13,110,253,.08); }
+.nav-search-empty { padding: 10px 12px; color: #6c757d; }
+
+/* Mobile search inside menu */
+.nav-search-mobile .form-control { border-radius: 12px; }
+
+@media (max-width: 1199.98px) {
+  /* Hide desktop search panel on mobile (mobile search is inside the menu) */
+  .nav-search-panel { display: none !important; }
+}
+
+
+/* ===== Edit Toolbar ===== */
+#editToolbar{
+  position: sticky;
+  top: 0;
+  z-index: 1055;
+  background: rgba(11,42,74,.96);
+  color: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+#editToolbar .btn{ border-radius: 12px; }
+#editToolbar small{ opacity: .9; }
+
+html.edit-mode .editable{
+  outline: 2px dashed rgba(13,110,253,.6);
+  outline-offset: 4px;
+  border-radius: 8px;
+  cursor: text;
+}
+
+html.edit-mode .editable-img{
+  outline: 2px dashed rgba(32,201,151,.65);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+/* =====================================================
+   SEARCH ICON – USER GUIDANCE & HOVER EFFECT
+   ===================================================== */
+
+.nav-search-desktop{
+  position: relative;
+}
+
+/* Button styling */
+.nav-search-icon{
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 
+    background-color .2s ease,
+    box-shadow .2s ease,
+    transform .15s ease;
+}
+
+/* Icon size */
+.nav-search-glyph{
+  font-size: 18px;
+}
+
+/* Hover / focus state */
+.nav-search-icon:hover,
+.nav-search-icon:focus-visible{
+  background-color: rgba(13,110,253,0.12);
+  box-shadow: 0 0 0 6px rgba(13,110,253,0.15);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Active click */
+.nav-search-icon:active{
+  transform: scale(0.95);
+  box-shadow: 0 0 0 4px rgba(13,110,253,0.25);
+}
+
+/* ===== Tooltip ===== */
+.nav-search-icon::after{
+  content: "Search";
+  position: absolute;
+  bottom: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0b2a4a;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.nav-search-icon:hover::after{
+  opacity: 1;
+  transform: translateX(-50%) translateY(2px);
+}
+
+/* ===== Idle pulse (very subtle) ===== */
+@keyframes searchPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(13,110,253,0.35); }
+  70%  { box-shadow: 0 0 0 10px rgba(13,110,253,0); }
+  100% { box-shadow: 0 0 0 0 rgba(13,110,253,0); }
+}
+
+.nav-search-icon{
+  animation: searchPulse 3s ease-out infinite;
+}
+
+/* Stop pulse once user interacts */
+.nav-search-icon:hover,
+.nav-search-icon:focus-visible{
+  animation: none;
+}

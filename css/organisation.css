@@ -1,0 +1,100 @@
+/* ============================
+   Organisation Structure Page
+   ============================ */
+
+.org-page{
+  background: #f7f9fc;
+}
+
+/* Main card (clean, readable, not heavy) */
+.org-card{
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.org-card__header{
+  padding: 28px 26px 10px;
+}
+
+.org-title{
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  color: #0b2a4a;
+  margin: 0;
+  text-shadow: 0 2px 0 rgba(0,0,0,.06); /* similar to your screenshot but subtle */
+}
+
+.org-title-rule{
+  height: 3px;
+  width: 170px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(13,110,253,.9), rgba(32,201,151,.85));
+  margin-top: 10px;
+}
+
+.org-lead{
+  margin: 14px 0 0;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.org-card__body{
+  padding: 18px 26px 28px;
+}
+
+/* Numbered list styling (like screenshot, but cleaner) */
+.org-ol{
+  margin: 0;
+  padding-left: 22px;
+  color: #0f172a;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.org-ol > li{
+  margin: 6px 0;
+}
+
+/* Nested list: a), b), c) style */
+.org-sub-ol{
+  margin-top: 8px;
+  padding-left: 22px;
+  list-style: lower-alpha;
+}
+
+.org-sub-ol > li{
+  margin: 4px 0;
+  color: #0f172a;
+}
+
+.org-dash{
+  padding: 0 6px;
+  opacity: .7;
+}
+
+/* Divider + paragraphs */
+.org-divider{
+  height: 1px;
+  background: rgba(0,0,0,.08);
+  margin: 18px 0 16px;
+}
+
+.org-paragraph{
+  color: #0f172a;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+/* Small screens */
+@media (max-width: 576px){
+  .org-card__header,
+  .org-card__body{
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
