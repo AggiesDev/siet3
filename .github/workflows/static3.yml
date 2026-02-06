@@ -22,4 +22,4 @@ jobs:
           ftp-username: $if0_40605312  # FTP Username stored as a GitHub Secret
           ftp-password: $ayenyein20128  # FTP Password stored as a GitHub Secret
           local-dir: ./  # Path to the folder containing your files (usually the root)
-          remote-dir: /htdocs/siet4  # The folder on your hosting where the files should gost
+          remote-dir: /htdocs/siet4  # The folder on your hosting where the files should go
