@@ -1,0 +1,25 @@
+name: Deploy to InfinityFree via FTP
+
+on:
+  push:
+    branches:
+      - main  # Trigger when pushing to the 'main' branch (or 'master' if using that)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the code from the GitHub repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Use FTP deployment action
+      - name: Deploy to InfinityFree via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          ftp-server: ftpupload.net  # InfinityFree FTP server address
+          ftp-username: $if0_40605312  # FTP Username stored as a GitHub Secret
+          ftp-password: $ayenyein20128  # FTP Password stored as a GitHub Secret
+          local-dir: ./  # Path to the folder containing your files (usually the root)
+          remote-dir: /htdocs/siet4  # The folder on your hosting where the files should go
