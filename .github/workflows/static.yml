@@ -16,9 +16,9 @@ jobs:
       - name: FTP Deploy to InfinityFree
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: $ftpupload.net
-          username: $if0_41085916
-          password: $VlFIjfg1CtL1
+          server: ${{ ftpupload.net }}
+          username: ${{ if0_41085916 }}
+          password: ${{ VlFIjfg1CtL1 }}
           server-dir: /htdocs/siet4   # InfinityFree usually uses /htdocs/
           local-dir: ./siet4          # deploy repo root
           exclude: |
