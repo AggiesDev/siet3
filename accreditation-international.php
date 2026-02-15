@@ -241,14 +241,17 @@
     font-weight: 900;
     margin-bottom: 8px;
     line-height: 1.25;
+    padding-left: 30px;
   }
 
   .accr-link{
     display:inline-block;
-    color:#000;
+    color:blue;
     font-weight: 900;
     text-decoration: underline;
     word-break: break-word;
+    text-align: left;
+    padding-left: 40px;
   }
 
   .accr-link:hover{

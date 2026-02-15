@@ -93,7 +93,7 @@
             <li>🚰 Licensed Sanitary &amp; Plumbing</li>
             <li>⚡ Licensed Electric Cable Jointing</li>
             <li>⚡ Licensed Cable Detection</li>
-            <li>📡 Telecommunication Cable Detection Worker’s License</li>
+            <li>📡 Licensed Telecommunication Cable Detection Worker</li>
           </ul>
         </div>
       </div>

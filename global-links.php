@@ -7,19 +7,19 @@
   $links = [
     "soc" => [
       [
-        "name" => "ASEAN Federation of Engineering Organisations (AFEO)",
+        "name" => "ASEAN Federation of Engineering Organisations",
         "url"  => "https://www.afeo.org/",
         "img"  => "images/global/afeo.png",
         "tag"  => "Society"
       ],
       [
-        "name" => "World Federation of Technology Organizations (WFTO)",
+        "name" => "World Federation of Technology Organizations ",
         "url"  => "https://wfto.com/",
         "img"  => "images/Affiliated Organisations Logo/SIET Affiliations Logo/logoWFTO.jpg",
         "tag"  => "Society"
       ],
       [
-        "name" => "Global Technological Alliance (GTA)",
+        "name" => "Global Technological Alliance ",
         "url"  => "https://mbot.org.my/",
         "img"  => "images/global/gta.png",
         "tag"  => "Alliance"
@@ -27,7 +27,7 @@
     ],
     "ins" => [
       [
-        "name" => "Engineering Council (United Kingdom)",
+        "name" => "Engineering Council ",
         "url"  => "https://www.engc.org.uk/",
         "img"  => "images/Affiliated Organisations Logo/SIET Affiliations Logo/Engineering Council UK Logo.jpg",
         "tag"  => "Institute"
@@ -39,7 +39,7 @@
         "tag"  => "Institute"
       ],
       [
-        "name" => "Institution of Engineering and Technology (IET, UK)",
+        "name" => "Institution of Engineering and Technology",
         "url"  => "https://www.theiet.org/",
         "img"  => "images/global/iet.png",
         "tag"  => "Institute"
@@ -47,13 +47,13 @@
     ],
     "oth" => [
       [
-        "name" => "Singapore Professional Centre (SPC)",
+        "name" => "Singapore Professional Centre ",
         "url"  => "https://singaporeprofessionalcentre.com/",
         "img"  => "images/global/spc.png",
         "tag"  => "Partner"
       ],
       [
-        "name" => "Malaysia Board of Technologists (MBOT)",
+        "name" => "Malaysia Board of Technologists ",
         "url"  => "https://www.mbot.org.my/",
         "img"  => "images/global/mbot.png",
         "tag"  => "Board"
