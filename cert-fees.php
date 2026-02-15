@@ -95,6 +95,16 @@
         </tbody>
       </table>
     </div>
+<div>
+  <p>The Executive  Council reserves the right to revise the Certification Fees.</p>
+  <h3>Payment for Application as a Certified Professional</h3>
+  <p>
+    Please refer to the details provided in the application form when making payment for your certification application. 
+Kindly ensure that payment is made to the bank account of the <span style="font: bold; color: blue;">“Singapore Institute of Engineering Technologists”</span>.
+For accuracy, applicants are strongly advised to double-check the payee details before completing the transaction.
+
+  </p>
+</div>
 
   </div>
 </section>

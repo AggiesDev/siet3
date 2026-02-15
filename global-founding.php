@@ -60,7 +60,7 @@
               Member of the Singapore Professional Centre (SPC)
               <ul>
                 <li>
-                  <a class="gf-link" href="https://spc.org.sg/" target="_blank" rel="noopener">
+                  <a class="gf-link" href="http://www.spc.org.sg" target="_blank" rel="noopener">
                     Welcome to the Singapore Professional Centre
                   </a>
                 </li>
@@ -71,7 +71,7 @@
       </div>
 
       <!-- RIGHT: IMAGE -->
-      <div class="col-lg-5">
+      <!-- <div class="col-lg-5">
         <div class="gf-img-card">
           <div class="gf-img-inner">
             <img
@@ -94,7 +94,7 @@
             <span class="gf-cap-sub">Certificate of Membership (Reference)</span>
           </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>

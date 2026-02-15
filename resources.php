@@ -1,5 +1,4 @@
 <?php
-  // If you later add a Resources menu, change to: $active = 'news' or 'resources'
   $active = 'news';
   $page_css = ['sections.css'];
   include 'header.php';
@@ -7,367 +6,440 @@
 
 <section class="page-hero">
   <div class="container py-5">
-    <h1 class="mb-2">Resources</h1>
-    <p class="text-muted mb-0">Expert services provided by SIET members to support the community.</p>
+    <h1 class="mb-2">Expert Services</h1>
+    <p class="text-muted mb-0">
+      Our members bring trusted expertise to the community, offering licensed and professional services that uphold safety, quality, and sustainable innovation.
+    </p>
   </div>
 </section>
 
 <section class="section-pad">
-  <div class="container resources-wrap">
+  <div class="container">
 
-    <!-- Intro -->
-    <div class="lead-card resources-intro-card">
-      <div class="resources-intro-top">
-        <div>
-          <div class="resources-kicker">Expert Services</div>
-          <p class="resources-lead mb-0">
-            SIET members are proud to provide a wide range of licensed and professional services that uphold safety, quality and innovation.
-            These services reflect our collective expertise and commitment to supporting the community.
-          </p>
+    <!-- Intro / Hotline -->
+    <div class="res-hero-card">
+      <div class="res-hero-left">
+        <div class="res-badge">Member Referral Platform</div>
+        <h2 class="res-h2">Find trusted professionals quickly</h2>
+        <p class="res-muted mb-0">
+          Explore service categories below. For a referral and quote, contact our hotline.
+        </p>
+
+        <div class="res-cta">
+          <a class="btn btn-primary btn-lg res-btn" href="tel:12345678">
+            📞 Call Hotline: any phone number
+          </a>
+          <a class="btn btn-outline-primary btn-lg res-btn" href="cert-application.php">
+            Get Certified with SIET
+          </a>
         </div>
+      </div>
 
-        <div class="resources-hotline">
-          <div class="resources-hotline-label">Hotline</div>
-          <a class="resources-hotline-num" href="tel:12345678">12345678</a>
-          <div class="resources-hotline-sub">For enquiry / quotation</div>
+      <div class="res-hero-right">
+        <div class="res-hotline-card">
+          <div class="res-hotline-title">Need Assistance?</div>
+          <div class="res-hotline-sub">Referral &amp; Quotation Support</div>
+          <div class="res-hotline-number">any phone number</div>
+          <div class="res-hotline-note text-muted">
+            Operating hours: Mon–Fri, 9:00 AM – 5:00 PM
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Grid of sections -->
-    <div class="row g-4 mt-1">
+    <!-- Categories -->
+    <div class="row g-4 mt-2">
 
-      <!-- 1 -->
-      <div class="col-lg-6">
-        <div class="resources-card card-hover h-100">
-          <div class="resources-card-head">
-            <span class="resources-badge">01</span>
+      <!-- 1) Built Environment & Safety -->
+      <div class="col-lg-4">
+        <div class="res-card h-100">
+          <div class="res-card-head">
+            <div class="res-card-icon">🏢</div>
             <div>
-              <h2 class="resources-h2 mb-0">Built Environment &amp; Safety</h2>
-              <div class="resources-sub">Services related to inspection, safety and supervision.</div>
+              <div class="res-card-title">Built Environment &amp; Safety</div>
+              <div class="res-card-sub">Compliance • Inspections • Maintenance</div>
             </div>
           </div>
 
-          <ol class="resources-alpha" type="a">
-            <li>Home Renovation Services</li>
-            <li>Lift &amp; Escalator Inspection</li>
-            <li>Painting Services</li>
-            <li>Periodic Facade Inspection</li>
-            <li>Pre- &amp; Post-Construction Condition Survey</li>
-            <li>Qualified Supervision Services</li>
-            <li>Safety &amp; Environmental Services</li>
-          </ol>
+          <ul class="res-list">
+            <li>❄️ Air-condition Services</li>
+            <li>🏢 Building Maintenance Services</li>
+            <li>🏠 Home Renovation Services</li>
+            <li>🛗 Lift &amp; Escalator Inspection</li>
+            <li>🎨 Painting Services</li>
+            <li>🏢 Periodic Facade Inspection</li>
+            <li>📝 Pre- &amp; Post-Construction Condition Survey</li>
+            <li>👷 Qualified Persons Supervision Services</li>
+            <li>🌱 Safety &amp; Environmental Services</li>
+          </ul>
         </div>
       </div>
 
-      <!-- 2 -->
-      <div class="col-lg-6">
-        <div class="resources-card card-hover h-100">
-          <div class="resources-card-head">
-            <span class="resources-badge">02</span>
+      <!-- 2) Utilities & Infrastructure -->
+      <div class="col-lg-4">
+        <div class="res-card h-100">
+          <div class="res-card-head">
+            <div class="res-card-icon">⚡</div>
             <div>
-              <h2 class="resources-h2 mb-0">Utilities &amp; Infrastructure</h2>
-              <div class="resources-sub">Licensed trades and detection services.</div>
+              <div class="res-card-title">Utilities &amp; Infrastructure</div>
+              <div class="res-card-sub">Licensed works • Detection • Systems</div>
             </div>
           </div>
 
-          <ol class="resources-alpha" type="a">
-            <li>Distribution Box Maker</li>
-            <li>Licensed Electrical Worker</li>
-            <li>Licensed Plumber</li>
-            <li>Licensed Electric Cable Jointer</li>
-            <li>Licensed Cable Detection</li>
-            <li>Telecommunication Cable Detection Worker’s License</li>
-          </ol>
+          <ul class="res-list">
+            <li>📹 CCTV pipeline &amp; manholes inspection service</li>
+            <li>⚙️ Distribution Box Maker Services</li>
+            <li>🔌 Licensed Electrical Worker</li>
+            <li>🚰 Licensed Sanitary &amp; Plumbing</li>
+            <li>⚡ Licensed Electric Cable Jointing</li>
+            <li>⚡ Licensed Cable Detection</li>
+            <li>📡 Telecommunication Cable Detection Worker’s License</li>
+          </ul>
         </div>
       </div>
 
-      <!-- 3 -->
-      <div class="col-lg-12">
-        <div class="resources-card card-hover">
-          <div class="resources-card-head">
-            <span class="resources-badge">03</span>
+      <!-- 3) Specialist Expertise -->
+      <div class="col-lg-4">
+        <div class="res-card h-100">
+          <div class="res-card-head">
+            <div class="res-card-icon">🧠</div>
             <div>
-              <h2 class="resources-h2 mb-0">Specialist Expertise</h2>
-              <div class="resources-sub">Professional specialist services for industry and technical work.</div>
+              <div class="res-card-title">Specialist Expertise</div>
+              <div class="res-card-sub">Digital • Audits • Modelling</div>
             </div>
           </div>
 
-          <ol class="resources-alpha" type="a">
-            <li>Arborist</li>
-            <li>Landscape Architecture</li>
-            <li>Data Centre Auditing</li>
-            <li>Energy Auditing &amp; GMP/LEED</li>
-            <li>Website Design &amp; Development</li>
-          </ol>
+          <ul class="res-list">
+            <li>🖥️ AI Analytics services</li>
+            <li>🌳 Arborist, Tree Felling &amp; Landscaping Services</li>
+            <li>🏗️ BIM Modelling</li>
+            <li>🌿 Landscape Architecture</li>
+            <li>🏢 Data Centre Auditing</li>
+            <li>♻️ Energy Auditing &amp; GMP/LEED</li>
+            <li>🌐 Website Design &amp; Development</li>
+          </ul>
         </div>
       </div>
 
     </div>
 
-    <!-- Join Us CTA -->
-    <div class="resources-cta mt-4">
-      <div class="resources-cta-inner">
-        <div>
-          <h3 class="resources-cta-title mb-1">Join Us</h3>
-          <p class="resources-cta-text mb-0">
-            We welcome both members and non-members to be Certified with SIET and contribute your specialist expertise.
-            Suggestions to add-on to the above services are welcome. Together, we strengthen this network and extend meaningful support to the community.
-          </p>
-        </div>
+    <!-- Join Us -->
+    <div class="res-join mt-4">
+      <div class="res-join-text">
+        <h3 class="res-h3 mb-1">Join Us</h3>
+        <p class="mb-0 res-muted">
+          Whether you are an existing member or a new professional, we welcome you to be certified with SIET and contribute your expertise.
+          Suggestions to add on to members’ expert services are welcome. Together, we strengthen our professional network and extend meaningful support to society.
+        </p>
+      </div>
+      <div class="res-join-actions">
+        <a class="btn btn-primary res-btn-wide" href="cert-application.php">Apply for Certification</a>
+        <a class="btn btn-outline-primary res-btn-wide" href="contact.php">Send a Suggestion</a>
+      </div>
+    </div>
 
-        <div class="resources-cta-actions">
-          <a class="btn btn-primary btn-download" href="contact.php">
-            Contact SIET
-          </a>
-          <a class="btn btn-outline-primary btn-download" href="why-member.php" style="background:none;">
-            Become a Member
-          </a>
+    <!-- Disclaimer & Contribution Framework (Accordion) -->
+    <div class="accordion res-acc mt-4" id="resAccordion">
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Disclaimer &amp; Indemnity
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#resAccordion">
+          <div class="accordion-body">
+            <p class="res-muted">
+              SIET is a professional body that provides a network and referral platform to connect the public with certified members offering specialised services.
+              SIET does not act as a contractor, employer, agency, or principal consultant, and does not enter into service agreements on behalf of members.
+            </p>
+
+            <div class="res-callouts">
+              <div class="res-callout">
+                <div class="res-callout-title">No Contractual Role</div>
+                <div class="res-muted mb-0">
+                  SIET does not act as a contractor, employer, agency, or principal consultant, and does not enter into service agreements on behalf of members.
+                </div>
+              </div>
+
+              <div class="res-callout">
+                <div class="res-callout-title">No Technical Liability</div>
+                <div class="res-muted mb-0">
+                  All technical outcomes, performance, and service quality remain the sole responsibility of the engaged professional.
+                </div>
+              </div>
+
+              <div class="res-callout">
+                <div class="res-callout-title">Non-Profit Integrity</div>
+                <div class="res-muted mb-0">
+                  Contributions made to SIET are voluntary sponsorships or capped referral donations, not commissions or fees.
+                  This ensures transparency, compliance, and protection of SIET’s non-profit standing.
+                </div>
+              </div>
+
+              <div class="res-callout">
+                <div class="res-callout-title">Community Assurance</div>
+                <div class="res-muted mb-0">
+                  By maintaining this framework, SIET upholds integrity, avoids regulatory risks, and ensures that both members and the institution remain safeguarded.
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Contribution Framework
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#resAccordion">
+          <div class="accordion-body">
+            <p class="res-muted">
+              To sustain this initiative while remaining legally safe and transparent, members who receive opportunities through SIET may contribute in the following way:
+            </p>
+
+            <div class="res-callouts">
+              <div class="res-callout">
+                <div class="res-callout-title">Referral / Administration Contribution</div>
+                <div class="res-muted mb-0">
+                  A small, capped referral or administration contribution (maximum 10% or a fixed nominal amount depending on the task)
+                  may be made voluntarily by the member to SIET as a sponsorship or donation.
+                </div>
+              </div>
+
+              <div class="res-callout">
+                <div class="res-callout-title">Non-Profit Integrity</div>
+                <div class="res-muted mb-0">
+                  These contributions are not commissions or service fees. This framework ensures transparency, compliance with regulatory requirements,
+                  and protection of SIET’s non-profit standing.
+                </div>
+              </div>
+            </div>
+
+            <p class="res-muted mt-3 mb-0">
+              By maintaining this framework, SIET upholds integrity, avoids regulatory risks, and safeguards the interests of both members and the institution.
+              All contractual, financial, and technical obligations remain strictly between the client and the engaged professional.
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 </section>
 
 <style>
-  /* =========================================================
-     RESOURCES — Modern, user-friendly, responsive
-     ========================================================= */
-
-  .resources-wrap{ max-width: 1100px; }
-
-  .resources-intro-card{
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* subtle background glow */
-  .resources-intro-card::before{
-    content:"";
-    position:absolute;
-    inset:-40px;
-    background: radial-gradient(circle at 20% 10%, rgba(13,110,253,.12), transparent 55%),
-                radial-gradient(circle at 85% 35%, rgba(6,182,212,.10), transparent 55%);
-    pointer-events:none;
-  }
-
-  .resources-intro-top{
-    position: relative;
-    display:flex;
+  /* ===== resources2.php styling (matches the DOCX "clean blocks" look) ===== */
+  .res-hero-card{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.10);
+    border-radius:18px;
+    box-shadow: 0 18px 38px rgba(0,0,0,.08);
+    padding: 20px;
+    display:grid;
+    grid-template-columns: 1.3fr .7fr;
     gap: 18px;
-    align-items:flex-start;
-    justify-content: space-between;
+    align-items:stretch;
   }
 
-  .resources-kicker{
-    font-weight: 800;
-    letter-spacing: .2px;
-    font-size: 14px;
-    color: #0b2a4a;
-    margin-bottom: 6px;
-  }
-
-  .resources-lead{
-    font-size: 15px;
-    line-height: 1.75;
-    color: #111827;
-    max-width: 780px;
-  }
-
-  .resources-hotline{
-    min-width: 220px;
-    background: rgba(255,255,255,.72);
-    border: 1px solid rgba(15,23,42,.08);
-    border-radius: 16px;
-    padding: 12px 14px;
-    box-shadow: 0 14px 34px rgba(0,0,0,.08);
-    backdrop-filter: blur(8px);
-    text-align: center;
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-
-  .resources-hotline:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 18px 44px rgba(0,0,0,.12);
-  }
-
-  .resources-hotline-label{
-    font-size: 12px;
-    font-weight: 800;
-    color: rgba(17,24,39,.7);
-    text-transform: uppercase;
-    letter-spacing: .6px;
-  }
-
-  .resources-hotline-num{
-    display:inline-block;
-    margin-top: 3px;
-    font-weight: 900;
-    font-size: 22px;
-    color: #d11a2a;
-    text-decoration:none;
-    padding: 2px 10px;
-    border-radius: 999px;
-    background: rgba(209,26,42,.08);
-    border: 1px dashed rgba(209,26,42,.35);
-  }
-  .resources-hotline-num:hover{
-    text-decoration: underline;
-    background: rgba(209,26,42,.12);
-  }
-
-  .resources-hotline-sub{
-    font-size: 12px;
-    margin-top: 6px;
-    color: rgba(17,24,39,.65);
-  }
-
-  /* Cards */
-  .resources-card{
-    background: #fff;
-    border-radius: 18px;
-    padding: 18px 18px 14px;
-    border: 1px solid rgba(15,23,42,.10);
-    box-shadow: 0 12px 28px rgba(0,0,0,.06);
-    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .resources-card::after{
-    content:"";
-    position:absolute;
-    top:0; left:0; right:0;
-    height: 4px;
-    background: linear-gradient(90deg, rgba(13,110,253,.95), rgba(6,182,212,.9));
-    opacity: .85;
-  }
-
-  .resources-card:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 18px 42px rgba(0,0,0,.10);
-    border-color: rgba(13,110,253,.18);
-  }
-
-  .resources-card-head{
-    display:flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 10px;
-    padding-top: 6px;
-  }
-
-  .resources-badge{
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    display:flex;
+  .res-badge{
+    display:inline-flex;
     align-items:center;
-    justify-content:center;
+    padding: 8px 12px;
+    border-radius: 999px;
     font-weight: 900;
-    color: #0b2a4a;
-    background: rgba(13,110,253,.10);
+    font-size: .85rem;
+    color:#0b3dff;
+    background: rgba(13,110,253,.08);
     border: 1px solid rgba(13,110,253,.18);
-    flex: 0 0 auto;
+    margin-bottom: 10px;
   }
 
-  .resources-h2{
-    font-size: 17px;
+  .res-h2{
     font-weight: 900;
+    letter-spacing: .2px;
+    margin: 0 0 8px 0;
     color: #111827;
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
   }
-
-  .resources-sub{
-    font-size: 13px;
-    color: rgba(17,24,39,.65);
-    margin-top: 2px;
-  }
-
-  /* a) lists */
-  .resources-alpha{
-    margin: 10px 0 0;
-    padding-left: 28px;
-    font-size: 14px;
-    line-height: 1.75;
-    color: #111827;
-    column-gap: 34px;
-  }
-
-  .resources-alpha li{
-    padding-left: 6px;
-    margin: 2px 0;
-  }
-
-  /* 2 columns on desktop for long lists */
-  @media (min-width: 992px){
-    .resources-alpha{
-      columns: 2;
-    }
-  }
-
-  /* CTA */
-  .resources-cta{
-    background: linear-gradient(135deg, rgba(13,110,253,.08), rgba(6,182,212,.07));
-    border: 1px solid rgba(15,23,42,.10);
-    border-radius: 20px;
-    padding: 18px;
-    box-shadow: 0 14px 34px rgba(0,0,0,.06);
-  }
-
-  .resources-cta-inner{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .resources-cta-title{
+  .res-h3{
     font-weight: 900;
-    font-size: 18px;
-    color: #111827;
+    letter-spacing: .2px;
+    color:#111827;
+  }
+  .res-muted{
+    color:#6b7280;
+    line-height:1.7;
   }
 
-  .resources-cta-text{
-    color: rgba(17,24,39,.75);
-    line-height: 1.7;
-    font-size: 14px;
-    max-width: 780px;
-  }
-
-  .resources-cta-actions{
+  .res-cta{
     display:flex;
     gap: 10px;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    margin-top: 14px;
+  }
+  .res-btn{
+    border-radius: 999px;
+    font-weight: 800;
+    padding: 10px 16px;
   }
 
-  /* Mobile adjustments */
+  .res-hotline-card{
+    height:100%;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,.10);
+    background: linear-gradient(180deg, rgba(13,110,253,.10), rgba(255,255,255,1));
+    padding: 16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+  }
+  .res-hotline-title{
+    font-weight: 900;
+    color:#111827;
+    font-size: 1.05rem;
+  }
+  .res-hotline-sub{
+    color:#6b7280;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .res-hotline-number{
+    font-weight: 900;
+    font-size: 2rem;
+    color:#0b3dff;
+    margin-top: 8px;
+    letter-spacing: .5px;
+  }
+  .res-hotline-note{
+    font-size: .92rem;
+    margin-top: 8px;
+  }
+
+  .res-card{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.10);
+    border-radius:18px;
+    box-shadow: 0 16px 30px rgba(0,0,0,.08);
+    padding: 18px;
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .res-card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 22px 44px rgba(0,0,0,.10);
+    border-color: rgba(13,110,253,.20);
+  }
+  .res-card-head{
+    display:flex;
+    gap: 12px;
+    align-items:center;
+    margin-bottom: 12px;
+  }
+  .res-card-icon{
+    width: 44px;
+    height: 44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius: 14px;
+    background: rgba(13,110,253,.10);
+    border: 1px solid rgba(13,110,253,.18);
+    font-size: 22px;
+    flex: 0 0 auto;
+  }
+  .res-card-title{
+    font-weight: 900;
+    color:#111827;
+    line-height:1.2;
+    font-size: 1.05rem;
+  }
+  .res-card-sub{
+    color:#6b7280;
+    font-weight: 700;
+    font-size: .92rem;
+    margin-top: 2px;
+  }
+
+  .res-list{
+    margin: 0;
+    padding-left: 18px;
+    display:grid;
+    gap: 8px;
+    color:#111827;
+  }
+  .res-list li{
+    line-height: 1.55;
+  }
+
+  .res-join{
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.10);
+    border-radius: 18px;
+    box-shadow: 0 16px 30px rgba(0,0,0,.08);
+    padding: 18px;
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .res-join-actions{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 240px;
+  }
+  .res-btn-wide{
+    border-radius: 999px;
+    font-weight: 800;
+    padding: 10px 16px;
+    width:100%;
+    white-space: nowrap;
+  }
+
+  .res-acc .accordion-item{
+    border-radius: 18px;
+    overflow:hidden;
+    border: 1px solid rgba(0,0,0,.10);
+    box-shadow: 0 16px 30px rgba(0,0,0,.08);
+    margin-bottom: 12px;
+  }
+  .res-acc .accordion-button{
+    font-weight: 900;
+    padding: 14px 16px;
+  }
+
+  .res-callouts{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .res-callout{
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 16px;
+    padding: 14px;
+    background: rgba(17,24,39,.02);
+  }
+  .res-callout-title{
+    font-weight: 900;
+    color:#111827;
+    margin-bottom: 6px;
+  }
+
   @media (max-width: 991.98px){
-    .resources-intro-top{
-      flex-direction: column;
-    }
-    .resources-hotline{
-      width: 100%;
-      text-align: left;
-      padding: 12px 14px;
-    }
-    .resources-hotline-num{
-      display:inline-flex;
-      margin-top: 6px;
-    }
-    .resources-cta-inner{
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .resources-cta-actions{
-      width: 100%;
-      justify-content: flex-start;
-    }
-    .resources-alpha{
-      columns: 1;
-    }
+    .res-hero-card{ grid-template-columns: 1fr; }
+    .res-join{ flex-direction: column; }
+    .res-join-actions{ width:100%; min-width: 0; }
+    .res-callouts{ grid-template-columns: 1fr; }
   }
 </style>
 
 <?php include 'footer.php'; ?>
+
+<!-- Source: Expert Services _ 20250208.docx -->
+<!-- :contentReference[oaicite:0]{index=0} -->

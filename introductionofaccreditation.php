@@ -35,7 +35,7 @@
 
           <p class="mb-3">
             The Singapore Institute of Engineering Technologists (SIET) serves as a professional body committed to
-            upholding the highest standards of recognition for engineering technologists and practitioners.
+            upholding the highest standards of recognition for ICT and engineering technologists and practitioners.
           </p>
 
           <p class="mb-3">

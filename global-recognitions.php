@@ -7,10 +7,10 @@
 <section class="page-hero">
   <div class="container py-5">
     <div class="d-flex align-items-center gap-3 flex-wrap">
-      <div class="globe-icon" aria-hidden="true">🌍</div>
+      <!-- <div class="globe-icon" aria-hidden="true">🌍</div> -->
       <div>
         <h1 class="mb-1">International Recognitions</h1>
-        <p class="text-muted mb-0">
+        <p class="text-muted mb-0" style="font-size: 20px;">
           Suitably qualified SIET members may apply for professional registration with leading international bodies,
           affirming their recognition on the global stage.
         </p>
@@ -75,7 +75,7 @@
             <div class="ir-row">
               <div class="ir-label">Registration Body</div>
               <div class="ir-value">
-                The Engineering Council UK
+                The Engineering Council UK<br>
                 <a class="ir-link"
                    href="https://www.engc.org.uk/"
                    target="_blank" rel="noopener">
@@ -257,7 +257,8 @@
   .ir-callout-text{
     color: #111827;
     font-weight: 600;
-    line-height: 1.6;
+    line-height: 2.0;
+    font-size: 20px;
   }
 
   @media (max-width: 575.98px){

@@ -29,7 +29,32 @@
             <li>Level 2 – Certified Engineering Technologist (CertET)</li>
             <li>Level 3 – Certified Technical Specialist (CertTS)</li>
           </ul>
+          <br>
+
+
+          <h2 class="h5 fw-bold">Membership Requirement</h2>
+          <p class="text-muted">
+            SIET Professional Certification remains valid only when the Certified Professional continues to be registered and is a current member of SIET.
+          </p>
+
+          <h2 class="h5 fw-bold">Integrity and Professional Standing </h2>
+          <p class="text-muted">
+            Membership in good standing is essential to uphold the integrity, ethics, recognition, and professional status conferred by the certification.
+          </p>
+
+          <h2 class="h5 fw-bold">Continuing Professional Development (CPD)</h2>
+          <p class="text-muted">
+            To renew registration, Certified Professionals must complete at least 20 PDU units or its equivalent over a period of three consecutive years.
+            <b>Note: 1PDU = 3 hours of CPD</b>
+          </p>
+
+          <h2 class="h5 fw-bold">Post-Nominal Entitlement</h2>
+          <p class="text-muted">
+            Certified Professionals in good standing are entitled to use the appropriate post-nominal letters after their names, for example: MSIET, CertET.
+          </p>
         </div>
+          
+
       </div>
 
       <div class="col-lg-4">
@@ -49,7 +74,7 @@
 <!-- ======================
      VISUAL REFERENCE SECTION 
      ====================== -->
-<section class="section-pad pt-0">
+<!-- <section class="section-pad pt-0">
   <div class="container">
     <div class="cert-layout-wrap">
       <img
@@ -59,7 +84,7 @@
       />
     </div>
   </div>
-</section>
+</section> -->
 
 <style>
   /* ============================

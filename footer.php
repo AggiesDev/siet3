@@ -6,7 +6,7 @@
       <div class="row g-4">
 
         <div class="col-md-3">
-          <img src="images/SIET Logo and Banner/SIET Logo for Media Platform.png" height="60" class="mb-3" alt="SIET" />
+          <img src="images/SIET Logo and Banner/sietlonglogo.PNG" height="60" class="mb-3" alt="SIET" />
 
           <p class="small mb-2">
             Singapore Institute of Engineering Technologists

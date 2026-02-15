@@ -107,7 +107,7 @@
 
               <div class="cpd-label mt-3">Examples</div>
               <ul class="cpd-list">
-                <li>Seminars on regulatory requirements by government agencies (e.g., BCA, FSB, ENV, LTA, URA, HDB, JTC, etc.)</li>
+                <li>Seminars on regulatory requirements by government agencies (e.g., BCA, FSB, ENV, LTA, NSAS, URA, HDB, JTC, etc.)</li>
                 <li>Workshops &amp; seminars on engineering topics by ITE, SP, NP, NYP, RP, TP, SIT, NUS, NTU, SUTD, SUSS, etc.</li>
                 <li>Workshops &amp; seminars by Professional Institutions &amp; specialised societies (e.g., EA, EC, IMechE, SIET, AEE, GeoSS, SEAS, SWA, TUCSS, etc.)</li>
               </ul>
@@ -223,7 +223,7 @@
           </div>
         </div>
 
-        <!-- Category 3 -->
+        <!-- Category 3 (A6) -->
         <div class="accordion-item cpd-item">
           <h3 class="accordion-header" id="s3Head">
             <button class="accordion-button collapsed cpd-btn" type="button"
@@ -233,41 +233,60 @@
               <span class="cpd-arrow" aria-hidden="true"></span>
             </button>
           </h3>
+
           <div id="s3" class="accordion-collapse collapse" aria-labelledby="s3Head" data-bs-parent="#cpdStructured">
             <div class="accordion-body cpd-body">
 
+              <div class="cpd-grid3-head d-none d-lg-grid">
+                <div>Activity</div>
+                <div>Description</div>
+                <div class="text-end">CPD Points</div>
+              </div>
+
               <div class="cpd-klist">
-                <div class="cpd-krow">
-                  <div class="cpd-kkey">(a) Conduct lectures (first time)</div>
-                  <div class="cpd-kval">
+                <div class="cpd-krow3">
+                  <div class="cpd-kcol cpd-kcol--title">(a) Conduct lectures (first time)</div>
+                  <div class="cpd-kcol cpd-kcol--desc">
                     Conduct lectures/seminars/conferences/training courses qualified for CPD by SIET for the first time
-                    (exclude regular lectures by full-time lecturers).
-                    <div class="cpd-points mt-2">4 CPDs for each lecture hour or part thereof</div>
+                    (Exclude regular lectures by full-time lecturers).
+                  </div>
+                  <div class="cpd-kcol cpd-kcol--points">
+                    <span class="cpd-points-chip">4 CPDs for each lecture hour or part thereof</span>
+                    <!-- <span class="cpd-points-sub">for each lecture hour or part thereof</span> -->
                   </div>
                 </div>
 
-                <div class="cpd-krow">
-                  <div class="cpd-kkey">(b) Conduct lectures (after first time)</div>
-                  <div class="cpd-kval">
-                    Same as above, after the first time (exclude regular lectures by full-time lecturers).
-                    <div class="cpd-points mt-2">2 CPDs for each lecture hour or part thereof</div>
+                <div class="cpd-krow3">
+                  <div class="cpd-kcol cpd-kcol--title">(b) Conduct lectures (after first time)</div>
+                  <div class="cpd-kcol cpd-kcol--desc">
+                    Conduct lectures/seminars/conferences/training courses qualified for CPD by SIET after the first time
+                    (Exclude regular lectures by full-time lecturers).
+                  </div>
+                  <div class="cpd-kcol cpd-kcol--points">
+                    <span class="cpd-points-chip">2 CPDs for each lecture hour or part thereof</span>
+                    <!-- <span class="cpd-points-sub">for each lecture hour or part thereof</span> -->
                   </div>
                 </div>
 
-                <div class="cpd-krow">
-                  <div class="cpd-kkey">(c) Write or edit technical articles/papers</div>
-                  <div class="cpd-kval">
+                <div class="cpd-krow3">
+                  <div class="cpd-kcol cpd-kcol--title">(c) Write or edit technical articles/papers</div>
+                  <div class="cpd-kcol cpd-kcol--desc">
                     Write or edit technical articles or papers published in distinguished publications, conference proceedings,
                     professional journals or books.
-                    <div class="cpd-points mt-2">15 CPDs for each topic</div>
+                  </div>
+                  <div class="cpd-kcol cpd-kcol--points">
+                    <span class="cpd-points-chip">15 CPDs for each topic</span>
+                    <!-- <span class="cpd-points-sub">for each topic</span> -->
                   </div>
                 </div>
 
-                <div class="cpd-krow">
-                  <div class="cpd-kkey">(d) Engineering patents</div>
-                  <div class="cpd-kval">
+                <div class="cpd-krow3">
+                  <div class="cpd-kcol cpd-kcol--title">(d) Engineering patents</div>
+                  <div class="cpd-kcol cpd-kcol--desc">
                     Engineering patents registered during the year.
-                    <div class="cpd-points mt-2">15 CPDs for each patent</div>
+                  </div>
+                  <div class="cpd-kcol cpd-kcol--points">
+                    <span class="cpd-points-chip">15 CPDs for each patent</span>
                   </div>
                 </div>
               </div>
@@ -434,9 +453,7 @@
     white-space: nowrap;
   }
 
-  .cpd-block-head{
-    margin-bottom: 12px;
-  }
+  .cpd-block-head{ margin-bottom: 12px; }
   .cpd-block-title{
     font-weight: 900;
     font-size: 1.4rem;
@@ -468,12 +485,8 @@
     color: #111827;
     box-shadow: none !important;
   }
-  .cpd-btn:hover{
-    background: #f1f5f9;
-  }
-
-  /* Hide default Bootstrap caret */
-  .cpd-btn::after{ display: none; }
+  .cpd-btn:hover{ background: #f1f5f9; }
+  .cpd-btn::after{ display: none; } /* hide bootstrap caret */
 
   .cpd-code{
     display: inline-flex;
@@ -518,8 +531,6 @@
     transform: rotate(45deg);
     top: 10px;
   }
-
-  /* Rotate arrow when open */
   .accordion-button:not(.collapsed) .cpd-arrow{
     background: rgba(34,197,94,.10);
     border-color: rgba(34,197,94,.25);
@@ -589,32 +600,78 @@
     margin-bottom: 6px;
   }
 
+  @media (max-width: 991.98px){
+    .cpd-grid{ grid-template-columns: 1fr; }
+    .cpd-split{ grid-template-columns: 1fr; }
+  }
+
+  /* =========================
+     A6 (Category 3) – match A4 style (but 3 columns)
+     ========================= */
+  .cpd-grid3-head{
+    grid-template-columns: 260px 1fr 260px;
+    gap: 14px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(17,24,39,.10);
+    background: rgba(17,24,39,.03);
+    font-weight: 900;
+    color: #111827;
+    margin-bottom: 12px;
+  }
+
   .cpd-klist{
     display: grid;
     gap: 12px;
   }
-  .cpd-krow{
+
+  .cpd-krow3{
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 260px 1fr 260px;
     gap: 14px;
     padding: 12px;
     border-radius: 14px;
     border: 1px solid rgba(17,24,39,.10);
     background: #fbfdff;
   }
-  .cpd-kkey{
+
+  .cpd-kcol--title{
     font-weight: 900;
     color: #111827;
   }
-  .cpd-kval{
+  .cpd-kcol--desc{
     color: #374151;
     line-height: 1.7;
   }
+  .cpd-kcol--points{
+    text-align: right;
+    font-weight: 900;
+  }
+
+  .cpd-points-chip{
+    display:inline-block;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(245,158,11,.12);
+    border: 1px solid rgba(245,158,11,.22);
+    color: #92400e;
+    font-weight: 900;
+    line-height: 1.1;
+    white-space: none;
+  }
+
+  .cpd-points-sub{
+    display:block;
+    margin-top: 6px;
+    color: #6b7280;
+    font-weight: 800;
+    line-height: 1.3;
+  }
 
   @media (max-width: 991.98px){
-    .cpd-grid{ grid-template-columns: 1fr; }
-    .cpd-split{ grid-template-columns: 1fr; }
-    .cpd-krow{ grid-template-columns: 1fr; }
+    .cpd-grid3-head{ display:none !important; }
+    .cpd-krow3{ grid-template-columns: 1fr; }
+    .cpd-kcol--points{ text-align: left; }
   }
 </style>
 

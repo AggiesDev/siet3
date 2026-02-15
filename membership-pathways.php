@@ -65,13 +65,13 @@
 
           <h2 class="slide-subtitle mt-22">Your Next Step</h2>
           <p class="slide-p">
-            Becoming <span class="u-blue">an</span> SIET member is more than advancing your career. It is about joining a legacy of
+            Becoming SIET member is more than advancing your career. It is about joining a legacy of
             integrity, recognition, and global connection. Together, we uphold standards, inspire excellence, and shape the future
             of engineering and technology.
           </p>
 
           <p class="slide-cta">
-            <strong>Join SIET today.</strong> Be <span class="u-red">recognised</span>. Be connected. Be globally respected.
+            <strong>Join SIET today.</strong> Be recognised. Be connected. Be globally respected.
           </p>
 
           <p class="slide-foot">

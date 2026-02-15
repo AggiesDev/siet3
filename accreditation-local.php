@@ -33,35 +33,36 @@
         <!-- Right logos -->
         <div class="col-lg-8">
           <div class="accred-local-logos">
-            <div class="logo-item">
-              <img src="images/ITE and Polytechnics Logo/300px-Republic_Polytechnic_Logo.jpg" alt="Singapore Polytechnic" loading="lazy">
-            </div>
 
-            <div class="logo-item">
-              <img src="images/ITE and Polytechnics Logo/FSUnsiT.png" alt="Institute of Technical Education (ITE)" loading="lazy">
-            </div>
-
-            <div class="logo-item">
-              <img src="images/ITE and Polytechnics Logo/logo-ITE.png" alt="Ngee Ann Polytechnic" loading="lazy">
-            </div>
-
-            <div class="logo-item">
-              <img src="images/ITE and Polytechnics Logo/Marketing-NYP-Logo_CMYK-1.jpg" alt="Nanyang Polytechnic" loading="lazy">
-            </div>
-
-            <div class="logo-item">
-              <img src="images/ITE and Polytechnics Logo/Ngee_Ann_Polytechnic_Logo.png" alt="Republic Polytechnic" loading="lazy">
-            </div>
-
-            <div class="logo-item">
-              <img src="images/ITE and Polytechnics Logo/rp-1024x640.jpg" alt="Temasek Polytechnic" loading="lazy">
-            </div>
             <div class="logo-item">
               <img src="images/ITE and Polytechnics Logo/SP Logo.png" alt="Temasek Polytechnic" loading="lazy">
             </div>
             <div class="logo-item">
+              <img src="images/ITE and Polytechnics Logo/Ngee_Ann_Polytechnic_Logo.png" alt="Republic Polytechnic" loading="lazy">
+            </div>
+            <div class="logo-item">
+              <img src="images/ITE and Polytechnics Logo/Marketing-NYP-Logo_CMYK-1.jpg" alt="Nanyang Polytechnic" loading="lazy">
+            </div>
+            
+
+            <div class="logo-item">
+              <img src="images/ITE and Polytechnics Logo/300px-Republic_Polytechnic_Logo.jpg" alt="Singapore Polytechnic" loading="lazy">
+            </div>
+            <div class="logo-item">
               <img src="images/ITE and Polytechnics Logo/Temasek Poly Logo.jpg" alt="Temasek Polytechnic" loading="lazy">
             </div>
+            <div class="logo-item">
+              <img src="images/ITE and Polytechnics Logo/logo-ITE.png" alt="Ngee Ann Polytechnic" loading="lazy">
+            </div>
+
+            <!-- <div class="logo-item">
+              <img src="images/ITE and Polytechnics Logo/FSUnsiT.png" alt="Institute of Technical Education (ITE)" loading="lazy">
+            </div> -->
+            <!-- <div class="logo-item">
+              <img src="images/ITE and Polytechnics Logo/rp-1024x640.jpg" alt="Temasek Polytechnic" loading="lazy">
+            </div> -->
+            
+            
           </div>
 
           

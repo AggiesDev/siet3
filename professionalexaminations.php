@@ -48,7 +48,38 @@
               This provides SIET members the path to be upgraded.
             </p>
 
-            
+             <!-- ======================
+     NEW: PATHWAY IMAGES 
+     ====================== -->
+<div class="pe-pathway-images mt-3" aria-label="Professional examinations pathway images">
+  <div class="pe-pathway-grid">
+
+    <!-- Image 1: Level 1-2-3 diagram -->
+    <figure class="pe-pathway-figure">
+      <img
+        src="images/About SIET/Professional Examinations/levelofprofessionexam.PNG"
+        alt="SIET Professional Examinations - Level 1 to Level 3 pathway"
+        class="pe-pathway-img"
+      />
+      <figcaption class="pe-pathway-cap">
+        Professional Examinations Pathway (Levels 1–3)
+      </figcaption>
+    </figure>
+
+    <!-- Image 2: Old professional examinations book covers -->
+    <figure class="pe-pathway-figure">
+      <img
+        src="images/About SIET/Professional Examinations/oldprofessionalexam.PNG"
+        alt="SIET Professional Examinations (Old) cover materials"
+        class="pe-pathway-img"
+      />
+      <figcaption class="pe-pathway-cap">
+        SIET Professional Examinations (Old) — Reference Materials
+      </figcaption>
+    </figure>
+
+  </div>
+</div>           
 <div class="pe-table-block" aria-label="Professional examinations table">
 
   <h2 class="pe-table-title">Professional Examinations – Key Records</h2>
@@ -226,6 +257,7 @@
               to adopt the revised IEM/BEM Graduate Examinations (March 2011) as its qualifying examinations on
               28 January 2011:
             </p>
+            
 
             <div class="pe-indent">
               <p class="pe-paragraph mb-2">
@@ -238,79 +270,22 @@
                 [website : <a class="pe-link" href="https://www.iem.org.my" target="_blank" rel="noopener">www.iem.org.my</a>]
               </p>
             </div>
-
-            <p class="pe-paragraph mt-4">
+<br>
+<div>
+  <h3 style="font: bold;">Present Competency Based Assessment(CBA) Scheme</h3>
+  <p class="pe-paragraph mt-4">
               With the expansion of universities and polytechnics offering accredited programs, SIET has transitioned from
               traditional examinations to Competency Based Assessment (CBA). This framework evaluates whether technologists
               and technicians can apply their knowledge and skills in practice, ensuring professional recognition is firmly
               aligned with industry needs. By validating applied competence in real-world contexts, CBA strengthens employer
               confidence and positions our members to contribute meaningfully to Singapore’s technological advancement.
             </p>
-            <!-- ======================
-     NEW: PATHWAY IMAGES 
-     ====================== -->
-<div class="pe-pathway-images mt-3" aria-label="Professional examinations pathway images">
-  <div class="pe-pathway-grid">
-
-    <!-- Image 1: Level 1-2-3 diagram -->
-    <figure class="pe-pathway-figure">
-      <img
-        src="images/About SIET/Professional Examinations/levelofprofessionexam.PNG"
-        alt="SIET Professional Examinations - Level 1 to Level 3 pathway"
-        class="pe-pathway-img"
-      />
-      <figcaption class="pe-pathway-cap">
-        Professional Examinations Pathway (Levels 1–3)
-      </figcaption>
-    </figure>
-
-    <!-- Image 2: Old professional examinations book covers -->
-    <figure class="pe-pathway-figure">
-      <img
-        src="images/About SIET/Professional Examinations/oldprofessionalexam.PNG"
-        alt="SIET Professional Examinations (Old) cover materials"
-        class="pe-pathway-img"
-      />
-      <figcaption class="pe-pathway-cap">
-        SIET Professional Examinations (Old) — Reference Materials
-      </figcaption>
-    </figure>
-
-  </div>
 </div>
+            
 
-<h2 class="pe-table-title mt-4">SIET Professional Examinations – Pathway Structure</h2>
 
-  <div class="pe-table-wrap">
-    <table class="pe-table" role="table" aria-label="SIET professional examinations levels">
-      <thead>
-        <tr>
-          <th style="width:200px;">Level</th>
-          <th>Examination</th>
-          <th>Outcome / Award</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="pe-year">Level 1</td>
-          <td>Associate Membership Exam <span class="pe-pill">3 subjects</span></td>
-          <td>SIET – Diploma in Engineering Technology</td>
-        </tr>
 
-        <tr>
-          <td class="pe-year">Level 2</td>
-          <td>Membership Exam <span class="pe-pill">3 subjects</span></td>
-          <td>SIET – Advanced Diploma in Engineering Technology</td>
-        </tr>
-
-        <tr>
-          <td class="pe-year">Level 3</td>
-          <td>Fellowship Exam <span class="pe-pill">3 subjects</span></td>
-          <td>SIET – Graduate Diploma in Engineering Technology / Engineering Management</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  
           </div>
 
         </div>

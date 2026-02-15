@@ -23,7 +23,7 @@
     ["About SIET - History and Milestones", "history.php"],
 
     // Membership
-    ["Membership - Directory of Members & Status", "membership-directory.php"],
+    // ["Membership - Directory of Members & Status", "membership-directory.php"],
     ["Membership - Why Become SIET Member", "why-member.php"],
     // ["Membership - SIET Benefits", "membership-benefits.php"],
     ["Membership - Membership Pathways", "membership-pathways.php"],
@@ -31,15 +31,15 @@
     ["Membership - Mature Candidate Scheme", "mature-candidate.php"],
     ["Membership - Students as Members", "students-members.php"],
     ["Membership - Membership Fees", "membership-fees.php"],
-    ["Membership - Renewal (Quick Renew)", "membership-renewal.php"],
+    // ["Membership - Renewal (Quick Renew)", "membership-renewal.php"],
 
     // Certifications
-    ["Certifications - Directory of Professionals", "cert-directory.php"],
+    // ["Certifications - Directory of Professionals", "cert-directory.php"],
     ["Certifications - Professionals of Examinations", "professionalexaminations.php"],
-    ["Certifications - SIET Certification vs Membership Grades", "cert-vs-membership.php"],
+    ["Certifications - Certification & Progression", "cert-vs-membership.php"],
     ["Certifications - SIET – TPC", "siet-tpc.php"],
     ["Certifications - Certification Application", "cert-application.php"],
-    ["Certifications - Assessment and Registration Fee", "cert-fees.php"],
+    ["Certifications - Certification Fees", "cert-fees.php"],
 
     // Renewal & CPD
     ["Renewal & CPD - Renewal of Professional Registration", "cpd-renewal.php"],
@@ -53,27 +53,19 @@
     ["Global Network - Global Founding Members", "global-founding.php"],
     ["Global Network - International Recognitions", "global-recognitions.php"],
     ["Global Network - Global Affiliations", "global-affiliations.php"],
-    ["Global Network - Global Network", "global-network.php"],
+    // ["Global Network - Global Network", "global-network.php"],
     ["Global Network - Links", "global-links.php"],
 
-    // News & Events
-    // ["News", "news.php"],
-    // ["Events", "events.php"],
-    ["Sponsorship", "sponsorship.php"],
-    ["Awards", "awards.php"],
-    ["Resources", "resources.php"],
-    // ["Career Opportunities", "career.php"],
-
-    // Publications
-    // ["Publications - Media Release", "publications-media.php"],
-    // ["Publications - Circulars & Notifications", "publications-circulars.php"],
-    // ["Publications - Technical Papers", "publications-technical.php"],
+    // Support & Recognition
+    ["Support & Recognition - Sponsorship", "sponsorship.php"],
+    ["Support & Recognition - Awards", "awards.php"],
+    ["Support & Recognition - Expert Services", "resources.php"],
 
     // Contact
     ["Contact Us", "contact.php"],
 
     // Profile
-    ["Profile", "profile.php"],
+    // ["Profile", "profile.php"],
   ];
 ?>
 <!DOCTYPE html>
@@ -95,41 +87,128 @@
   <?php endforeach; ?>
 
   <style>
-    /* Use banner image (Chinese + English inside) */
-    .brand-stack{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:0;
-      text-decoration:none;
-      min-width: 0;
-    }
+  /* =========================================
+     BRAND / LOGO (Banner image)
+     ========================================= */
+  .brand-stack{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    text-decoration:none;
+    min-width: 0;
+  }
 
-    /* Banner image responsiveness */
+  /* Banner image responsiveness */
+  .brand-logo{
+    height: 70px;            /* desktop default */
+    width: auto;
+    max-width: 620px;
+    object-fit: contain;
+    display:block;
+  }
+
+  @media (max-width: 1199.98px){
     .brand-logo{
-      height: 70px;            /* desktop default */
-      width: auto;
-      max-width: 620px;
-      object-fit: contain;
-      display:block;
+      height: 54px;
+      max-width: 480px;
     }
+  }
 
-    @media (max-width: 1199.98px){
-      .brand-logo{
-        height: 54px;
-        max-width: 480px;
-      }
+  @media (max-width: 575.98px){
+    .brand-logo{
+      height: 75px;
+      max-width: 370px;
     }
-    @media (max-width: 575.98px){
-      .brand-logo{
-        height: 75px;
-        max-width: 370px;
-      }
-    }
+  }
 
-    /* Old text spans not needed when banner contains the text */
-    .brand-stack span{ display:none !important; }
-  </style>
+  /* Old text spans not needed when banner contains the text */
+  .brand-stack span{ display:none !important; }
+
+
+  /* =========================================
+     DROPDOWN CATEGORY HEADER STYLE
+     (used for Recognition / Resources headings)
+     ========================================= */
+  .dropdown-header{
+    font-weight: 900;
+    color: rgba(17,24,39,.65);
+    padding: .4rem 1.5rem .25rem;
+    text-transform: uppercase;
+  }
+
+
+  /* =========================================
+     SEARCH ICON: remove on mobile/small screens
+     (you already have mobile search input inside menu)
+     ========================================= */
+  @media (max-width: 1199.98px){
+    .nav-search-desktop{ display:none !important; }
+  }
+
+
+  /* =========================================
+     DESKTOP SEARCH PREVIEW: show near input
+     base.css makes .nav-search-results absolute.
+     In desktop panel we need it static.
+     ========================================= */
+  #navSearchPanel .nav-search-panel__inner{
+    position: relative;
+  }
+
+  #navSearchPanel .nav-search-results{
+    position: static !important;   /* ✅ important fix */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+
+    display: none;                 /* JS will set to block */
+    margin-top: 8px !important;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  /* Keep mobile dropdown behaviour */
+  .nav-search-mobile{
+    position: relative;
+  }
+
+  .nav-search-mobile .nav-search-results{
+    position: absolute !important;
+    top: calc(100% + 6px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1050;
+  }
+
+
+  /* =========================================
+     SEARCH ICON: easier click target (desktop)
+     (fix “icon hard to click” issue)
+     ========================================= */
+  #navSearchToggle.nav-search-icon{
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 1060;
+  }
+
+  #navSearchToggle.nav-link{
+    padding: 0 !important;
+  }
+
+  #navSearchToggle .nav-search-glyph{
+    pointer-events: none; /* click goes to button, not emoji */
+  }
+</style>
 </head>
 
 <?php $page_id = $page_id ?? pathinfo($_SERVER["PHP_SELF"], PATHINFO_FILENAME); ?>
@@ -167,19 +246,22 @@
   </div>
 </div>
 
+<!-- ======================
+       NAVBAR
+     ====================== -->
 <nav class="navbar navbar-expand-xl navbar-light bg-white shadow-sm sticky-top">
   <div class="container-fluid px-3 px-lg-5">
 
-    <!--  banner image and logo -->
+    <!-- Brand: banner image (contains Chinese + English) -->
     <a class="navbar-brand brand-stack" href="index.php" aria-label="SIET Home">
       <img
         src="images/SIET Logo and Banner/sietlonglogo.PNG"
         alt="Singapore Institute of Engineering Technologists (SIET)"
         class="brand-logo"
       />
-      <!-- old spans kept in markup but hidden by CSS (no layout effect) -->
-      <span>SIET Website Logo Chinese Text</span>
-      <span>SIET Website Logo English Text</span>
+      <!-- old spans kept but hidden -->
+      <!-- <span>SIET Website Logo Chinese Text</span>
+      <span>SIET Website Logo English Text</span> -->
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
@@ -241,12 +323,12 @@
             Certification
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="cert-directory.php">Directory of Professionals</a></li>
+            <!-- <li><a class="dropdown-item" href="cert-directory.php">Directory of Professionals</a></li> -->
             <li><a class="dropdown-item" href="professionalexaminations.php">Professional Examinations</a></li>
-            <li><a class="dropdown-item" href="cert-vs-membership.php">Certification vs Membership Grades</a></li>
+            <li><a class="dropdown-item" href="cert-vs-membership.php">Certification &amp; Progression</a></li>
             <li><a class="dropdown-item" href="siet-tpc.php">SIET – TPC</a></li>
             <li><a class="dropdown-item" href="cert-application.php">Certification Application</a></li>
-            <li><a class="dropdown-item" href="cert-fees.php">Assessment &amp; Registration Fee</a></li>
+            <li><a class="dropdown-item" href="cert-fees.php">Certification Fees</a></li>
           </ul>
         </li>
 
@@ -280,27 +362,30 @@
             Global Network
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="global-founding.php">Global Founding Members</a></li>
+            <li><a class="dropdown-item" href="global-founding.php">Founding Members</a></li>
             <li><a class="dropdown-item" href="global-recognitions.php">International Recognitions</a></li>
             <li><a class="dropdown-item" href="global-affiliations.php">Global Affiliations</a></li>
-            <li><a class="dropdown-item" href="global-network.php">Global Network</a></li>
             <li><a class="dropdown-item" href="global-links.php">Links</a></li>
           </ul>
         </li>
 
-        <!-- NEWS & EVENTS -->
+        <!-- SUPPORT & RECOGNITION -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?php echo (str_starts_with($active,'news')) ? 'active' : ''; ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Sponsorship &amp; Awards
+            Support &amp; Recognition
           </a>
           <ul class="dropdown-menu">
+            <li><h5 class="dropdown-header">Recognition</h5></li>
             <li><a class="dropdown-item" href="sponsorship.php">Sponsorship</a></li>
             <li><a class="dropdown-item" href="awards.php">Awards</a></li>
-            <li><a class="dropdown-item" href="resources.php">Resources</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h5 class="dropdown-header">Resources</h5></li>
+            <li><a class="dropdown-item" href="resources.php">Expert Services</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Other benefits</a></li> -->
           </ul>
         </li>
 
-        <!-- Desktop Search Icon  -->
+        <!-- Desktop Search Icon -->
         <li class="nav-item nav-search-desktop align-items-center">
           <button id="navSearchToggle" class="nav-link btn btn-link nav-search-icon" type="button" aria-label="Toggle search" aria-expanded="false">
             <span class="nav-search-glyph" aria-hidden="true">🔍</span>
@@ -312,7 +397,7 @@
   </div>
 </nav>
 
-<!--  Desktop Search Panel -->
+<!-- ✅ Desktop Search Panel -->
 <div id="navSearchPanel" class="nav-search-panel" hidden>
   <div class="container-fluid px-3 px-lg-5">
     <div class="nav-search-panel__inner">
@@ -341,9 +426,29 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
     return s.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[c]));
   }
 
+  // ✅ Highlight typed keyword inside result title (preview)
+  function highlightText(text, query){
+    const t = String(text || '');
+    const q = String(query || '').trim();
+    if (!q) return escapeHtml(t);
+
+    const lowerT = t.toLowerCase();
+    const lowerQ = q.toLowerCase();
+    const idx = lowerT.indexOf(lowerQ);
+    if (idx === -1) return escapeHtml(t);
+
+    const before = t.slice(0, idx);
+    const match  = t.slice(idx, idx + q.length);
+    const after  = t.slice(idx + q.length);
+
+    return `${escapeHtml(before)}<strong>${escapeHtml(match)}</strong>${escapeHtml(after)}`;
+  }
+
   function render(resultsEl, q){
     if (!resultsEl) return;
-    const query = (q || '').trim().toLowerCase();
+    const query = (q || '').trim();
+    const queryLower = query.toLowerCase();
+
     if (!query){
       resultsEl.style.display = 'none';
       resultsEl.innerHTML = '';
@@ -353,7 +458,7 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
     const matches = [];
     for (let i=0; i<items.length; i++){
       const it = items[i];
-      if (it.t.toLowerCase().includes(query)) matches.push(it);
+      if (it.t.toLowerCase().includes(queryLower)) matches.push(it);
       if (matches.length >= 8) break;
     }
 
@@ -364,7 +469,10 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
     }
 
     resultsEl.innerHTML = matches
-      .map(it => `<a class="nav-search-result" href="${escapeHtml(it.u)}">${escapeHtml(it.t)}</a>`)
+      .map(it => {
+        const titleHtml = highlightText(it.t, query);
+        return `<a class="nav-search-result" href="${escapeHtml(it.u)}">${titleHtml}</a>`;
+      })
       .join('');
     resultsEl.style.display = 'block';
   }
@@ -399,11 +507,22 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
   }
 
   if (toggleBtn && panel){
+    // ✅ reliable click
     toggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       if (panel.hidden) openPanel();
       else closePanel();
+    });
+
+    // ✅ keyboard support
+    toggleBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (panel.hidden) openPanel();
+        else closePanel();
+      }
     });
   }
 

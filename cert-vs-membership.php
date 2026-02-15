@@ -6,16 +6,16 @@
 
 <section class="page-hero">
   <div class="container py-5">
-    <h1 class="mb-2">SIET Membership Grade vs SIET Certifications</h1>
+    <h1 class="mb-2">Certification & Progression</h1>
     <p class="text-muted mb-0">
       Quick visual reference showing how SIET membership grades align with SIET professional certification levels.
     </p>
 
     <!-- Action buttons (optional, nice UX) -->
     <div class="cvm-actions mt-3">
-      <a href="cert-directory.php" class="cvm-btn cvm-btn-primary">
+      <!-- <a href="cert-directory.php" class="cvm-btn cvm-btn-primary">
         Directory of Professionals
-      </a>
+      </a> -->
       <a href="membership-pathways.php" class="cvm-btn cvm-btn-outline">
         Membership Pathways
       </a>
@@ -28,6 +28,62 @@
 
 <section class="section-pad">
   <div class="container">
+
+    <!-- ======================
+         NEW: Certification Scheme Summary (from your uploaded slides)
+         ====================== -->
+    <div class="row g-4 mb-4">
+      <div class="col-12">
+        <div class="lead-card cert-summary">
+          <h2 class="cert-summary-title mb-2">SIET Professional Certification Scheme</h2>
+
+          <p class="cert-p">
+            Established in 2008 and officially launched in 2009, SIET’s Professional Certification Scheme upholds industry
+            standards and promotes professional excellence. Complementing this, the Examination &amp; Accreditation Board (EAB),
+            instituted in 2008, rigorously reviews and assesses institutional qualifications to safeguard the quality and integrity
+            of engineering education and training.
+          </p>
+
+          <p class="cert-p mb-2">
+            <strong>Three levels</strong> of SIET Certification Scheme for Engineering and IT Professionals are:
+          </p>
+          <ul class="cert-ul">
+            <li>Level 1 – Certified Engineering Associate (<span class="cert-code">CertEA</span>) for ‘Engineering Technician’;</li>
+            <li>Level 2 – Certified Engineering Technologist (<span class="cert-code">CertET</span>) for ‘Engineering Technologist’; and</li>
+            <li>Level 3 – Certified Technical Specialist (<span class="cert-code">CertTS</span>) for ‘Technical Engineer’.</li>
+          </ul>
+
+          <h3 class="cert-h3">Assessment Process</h3>
+          <p class="cert-p">
+            All applicants are assessed by a Committee of members and via a professional report and an interview or a written test on
+            <strong>‘Engineering Ethics’</strong> for registration as <span class="cert-code">CertTS</span> and <span class="cert-code">CertET</span>
+            respectively. For <span class="cert-code">CertTN</span>, it will be assessed based on written case studies and passing multiple choice
+            questions (MCQs) on <strong>‘Engineering Ethics’</strong>.
+          </p>
+
+          <ul class="cert-ul">
+            <li>Professional report evaluation</li>
+            <li>Part A: Written case studies and MCQs on Engineering Ethics (for <span class="cert-code">CertTN</span>)</li>
+            <li>Part B: Interview or written test on Engineering Ethics (for <span class="cert-code">CertTS</span> and <span class="cert-code">CertET</span>)</li>
+          </ul>
+
+          <h3 class="cert-h3">Continuous Professional Development (CPD)</h3>
+          <p class="cert-p mb-0">
+            All members registered under SIET Certification Scheme are required to attend <strong>at least 20 PDU units</strong> or its equivalent
+            over a period of three consecutive years to renew its registration. <strong>[1 PDU = 3 hours of CPD]</strong>
+          </p>
+
+          <!-- NEW: Download button (good design + good position) -->
+          <div class="cert-actions mt-3">
+            <a class="btn btn-primary cert-btn" href="assets/pdfs/SIET Certification _ Application Form 2025 _ R1.pdf" download>
+              <span class="cert-btn-ico">⬇</span>
+              Download Application Form (PDF)
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
 
     <!-- ======================
          IMAGE GALLERY
@@ -61,7 +117,7 @@
       <div class="col-12 col-lg-6">
         <div class="lead-card cvm-card">
           <div class="cvm-card-head">
-            <h3 class="mb-0">SIET Professional Certifications Progression</h3>
+            <h3 class="mb-0">Certifications Progression</h3>
             <span class="cvm-chip">Progression</span>
           </div>
 

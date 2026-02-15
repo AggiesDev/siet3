@@ -36,7 +36,7 @@
               Certified Professionals are required to accumulate a minimum number of CPD hours for the renewal of the
               professional registration. The CPD activities must be relevant to the enhancement and competency of
               registrants. The CPD application should cover the related Technical areas and <strong>not limited</strong>
-              to the field registered and existing <span class="cpd-underline">programmes</span> approved by SIET Executive Council.
+              to the field registered and existing programmes approved by SIET Executive Council.
             </p>
 
             <p class="cpd-p mb-0">
@@ -66,7 +66,7 @@
             <p class="cpd-p mb-0">
               SIET Professional Certification remains valid only when the Certified Professional continues to be a registered
               and current member of SIET. Membership renewal and good standing are essential to uphold the integrity,
-              recognition, and professional status conferred by the certification.
+              ethics recognition, and professional status conferred by the certification.
             </p>
           </div>
         </div>

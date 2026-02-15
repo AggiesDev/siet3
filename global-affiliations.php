@@ -6,7 +6,7 @@
 
 <section class="page-hero">
   <div class="container py-5">
-    <h1 class="mb-2">Global Recognitions / Our Affiliations</h1>
+    <h1 class="mb-2">Global Recognitions and Affiliations</h1>
     <p class="text-muted mb-0">Mutual recognitions and affiliations with international professional bodies.</p>
   </div>
 </section>
@@ -83,6 +83,18 @@
                 <div class="ga-li-main">
                   <span class="ga-dot" aria-hidden="true"></span>
                   <div class="ga-text">
+                    <div class="ga-name">Institution of Engineering Designer, UK [IED(UK)] </div>
+                    <a class="ga-link" href="https://www.ied.org.uk/" target="_blank" rel="noopener">
+                      https://www.ied.org.uk/
+                    </a>
+                  </div>
+                </div>
+              </li>
+
+              <li class="ga-li">
+                <div class="ga-li-main">
+                  <span class="ga-dot" aria-hidden="true"></span>
+                  <div class="ga-text">
                     <div class="ga-name">Institution of Engineering and Technology, United Kingdom (IET)</div>
                     <a class="ga-link" href="https://www.theiet.org/" target="_blank" rel="noopener">
                       https://www.theiet.org/
@@ -146,7 +158,7 @@
           </div>
         </div>
 
-        <!-- RIGHT: helpful panel -->
+        <!-- RIGHT: panel (benefits + global network images) -->
         <div class="col-lg-5">
           <div class="ga-card ga-card--side">
             <h2 class="ga-h2">How this helps members</h2>
@@ -177,7 +189,26 @@
               </div>
             </div>
 
-            
+            <!-- Global Network Images -->
+            <div class="ga-media mt-4">
+              <div class="ga-media-head">
+                <div class="ga-media-title">Global Network</div>
+                <div class="ga-media-sub ga-muted">Click the image to zoom.</div>
+              </div>
+
+              <button
+                type="button"
+                class="ga-one-img"
+                data-bs-toggle="modal"
+                data-bs-target="#galleryLightbox"
+                data-img="images/sietglobalnetwork.PNG"
+                data-cap="SIET Global Network"
+                aria-label="Open Global Network image"
+              >
+                <img src="images/sietglobalnetwork.PNG" alt="SIET Global Network" />
+              </button>
+            </div>
+            <!-- /Global Network Images -->
 
           </div>
         </div>
@@ -189,9 +220,7 @@
 
 <style>
   /* ===== Global Affiliations - User Friendly UI ===== */
-  .ga-shell{
-    background:#fff;
-  }
+  .ga-shell{ background:#fff; }
 
   .ga-top{
     display:flex;
@@ -286,9 +315,7 @@
     text-underline-offset: 3px;
     word-break: break-word;
   }
-  .ga-link:hover{
-    color:#0630cc;
-  }
+  .ga-link:hover{ color:#0630cc; }
 
   .ga-note{
     margin-top: 10px;
@@ -333,19 +360,97 @@
     margin-bottom: 2px;
   }
 
-  .ga-tip{
-    margin-top: 16px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    border: 1px solid rgba(245,158,11,.30);
-    background: rgba(245,158,11,.14);
-    color:#111;
-    line-height: 1.6;
+  /* Image panel */
+  .ga-media{
+    border-top: 1px solid rgba(0,0,0,.08);
+    padding-top: 14px;
   }
+  .ga-media-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom: 10px;
+  }
+  .ga-media-title{
+    font-weight: 900;
+    font-size: 1.05rem;
+    color:#111;
+  }
+
+  .ga-gallery{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .ga-gallery-item{
+    border: 1px solid rgba(0,0,0,.10);
+    background:#fff;
+    border-radius: 14px;
+    padding: 8px;
+    overflow:hidden;
+    cursor:pointer;
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    text-align:left;
+  }
+  .ga-gallery-item:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0,0,0,.12);
+    border-color: rgba(13,110,253,.22);
+  }
+  .ga-gallery-item img{
+    width:100%;
+    height: 86px;
+    object-fit: contain;
+    display:block;
+  }
+  .ga-one-img{
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.10);
+  background:#fff;
+  border-radius: 16px;
+  padding: 10px;
+  overflow:hidden;
+  cursor:pointer;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  text-align:left;
+}
+
+.ga-one-img:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0,0,0,.12);
+  border-color: rgba(13,110,253,.22);
+}
+
+.ga-one-img img{
+  width:100%;
+  height: auto;
+  object-fit: contain;
+  display:block;
+  border-radius: 12px;
+}
 
   @media (max-width: 991.98px){
     .ga-card--side{ position: static; top: auto; }
+    .ga-gallery-item img{ height: 78px; }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    const modalImg = document.getElementById("galleryLightboxImg");
+    const modalCap = document.getElementById("galleryLightboxCap");
+
+    document.querySelectorAll(".ga-one-img").forEach(btn => {
+      btn.addEventListener("click", function(){
+        const img = this.getAttribute("data-img");
+        const cap = this.getAttribute("data-cap") || "";
+        if (modalImg) modalImg.src = img || "";
+        if (modalCap) modalCap.textContent = cap;
+      });
+    });
+  });
+</script>
 
 <?php include 'footer.php'; ?>
