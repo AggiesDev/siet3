@@ -82,9 +82,9 @@
                 class="tpc-cover-img"
               />
 
-              <div class="tpc-red-note">
+              <!-- <div class="tpc-red-note">
                 Please attach the above file in SIET website for reference.
-              </div>
+              </div> -->
 
               <!-- <a
                 class="btn btn-primary tpc-download-btn"
@@ -154,7 +154,7 @@ Exemptions / Recognition Pathways
             <li class="tpc-bullet-blue">
               <span class="tpc-bullet-dot"></span>
               <span>
-                Resident Engineer (RE) <span style="font-weight: normal;">can be registered as SIET Certified Technical Specialist
+                Resident Engineer (RE) <span style="font-weight: normal; color: black;">can be registered as SIET Certified Technical Specialist
                 (<span class="tpc-underline">CertTS</span>)</span>
               </span>
             </li>
@@ -162,7 +162,7 @@ Exemptions / Recognition Pathways
             <li class="tpc-bullet-pink">
               <span class="tpc-bullet-dot"></span>
               <span>
-                Resident Technical Officer (RTO) <span style="font-weight: normal;">can be registered as SIET Certified Engineering Technologists
+                Resident Technical Officer (RTO) <span style="font-weight: normal; color: black;">can be registered as SIET Certified Engineering Technologists
                 (<span class="tpc-underline">CertET</span>)</span>
               </span>
             </li>
@@ -429,7 +429,7 @@ Exemptions / Recognition Pathways
     }
 
     .tpc-underline{
-      text-decoration: underline;
+      /*text-decoration: underline;*/
       font-weight: normal;
     }
 
