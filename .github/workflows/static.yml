@@ -17,8 +17,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /htdocs/siet4/
-          local-dir: ./siet4/
+          server-dir: /htdocs/
+          local-dir: ./
           exclude: |
             **/.git*
             **/.github/**
