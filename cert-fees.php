@@ -74,8 +74,8 @@
               <span class="fees-blue">(AMSIET)</span>
             </td>
             <td class="fees-td">
-              Certified Engineering Technician<br>
-              <span class="fees-pink">(CertTN)</span>
+              Certified Engineering Associate<br>
+              <span class="fees-pink">(CertEA)</span>
             </td>
             <td class="fees-td fees-center">S$100.00</td>
             <td class="fees-td fees-center">S$50.00</td>

@@ -77,7 +77,7 @@
           <div class="col-lg-4">
             <div class="tpc-cover-card">
               <img
-                src="images/cert/engineering-ethics-cover.png"
+                src="images/cert/tcppdf.PNG"
                 alt="Engineering Ethics in Practice cover"
                 class="tpc-cover-img"
               />
@@ -86,13 +86,13 @@
                 Please attach the above file in SIET website for reference.
               </div>
 
-              <a
+              <!-- <a
                 class="btn btn-primary tpc-download-btn"
                 href="assets/pdfs/Engineering Ethics in practice - A Guide for Engineers.pdf"
                 download
               >
                 Download PDF Reference
-              </a>
+              </a> -->
             </div>
           </div>
 
@@ -109,12 +109,19 @@
                 </p>
 
                 <p class="tpc-article-p">
-                  For existing registered engineers the document is a well-written and useful guide. Moreover, reading this document
+                  For existing registered Engineering professionals the document is a well-written and useful guide. Moreover, reading this document
                   would contribute towards Continued Professional Development (CPD).
                 </p>
 
                 <div class="tpc-article-footer">
-                  <span class="tpc-footer-text">You can download a PDF copy using the button on the left.</span>
+                  <!-- <span class="tpc-footer-text">You can download a PDF copy using the button on the left.</span> -->
+                  <a
+                class="btn btn-primary tpc-download-btn"
+                href="assets/pdfs/Engineering Ethics in practice - A Guide for Engineers.pdf"
+                download
+              >
+                Download PDF Reference
+              </a>
                 </div>
               </div>
             </div>
@@ -147,16 +154,16 @@ Exemptions / Recognition Pathways
             <li class="tpc-bullet-blue">
               <span class="tpc-bullet-dot"></span>
               <span>
-                Resident Engineer (RE) can be registered as SIET Certified Technical Specialist
-                (<span class="tpc-underline">CertTS</span>)
+                Resident Engineer (RE) <span style="font-weight: normal;">can be registered as SIET Certified Technical Specialist
+                (<span class="tpc-underline">CertTS</span>)</span>
               </span>
             </li>
 
             <li class="tpc-bullet-pink">
               <span class="tpc-bullet-dot"></span>
               <span>
-                Resident Technical Officer (RTO) can be registered as SIET Certified Engineering Technologists
-                (<span class="tpc-underline">CertET</span>)
+                Resident Technical Officer (RTO) <span style="font-weight: normal;">can be registered as SIET Certified Engineering Technologists
+                (<span class="tpc-underline">CertET</span>)</span>
               </span>
             </li>
           </ul>
@@ -174,8 +181,7 @@ Exemptions / Recognition Pathways
               <div class="tpc-lew-head">LEW (Grade 9):</div>
               <ul class="tpc-black-list">
                 <li>
-                  Can apply to become SIET Certified Technical Specialist with proven track records of complex projects
-                  and substantial practical experience
+                  Can apply to become SIET Certified Technical Specialist with proven track records of complex projects and substantial practical experience
                 </li>
               </ul>
             </div>
@@ -193,10 +199,9 @@ Exemptions / Recognition Pathways
             <div class="tpc-lew-item">
               <div class="tpc-lew-head">LEW (Grade 7):</div>
               <ul class="tpc-black-list">
-                <li>Can apply to become SIET Certified Engineering Technician</li>
+                <li>Can apply to become SIET Certified Engineering Associate</li>
                 <li>
-                  Can apply to become SIET Certified Engineering Technologists with proven track records of complex projects
-                  and substantial practical experience and leadership
+                  Can apply to become SIET Certified Engineering Technologists with proven track records of complex projects and substantial practical experience and leadership
                 </li>
               </ul>
             </div>
@@ -425,7 +430,7 @@ Exemptions / Recognition Pathways
 
     .tpc-underline{
       text-decoration: underline;
-      font-weight: 900;
+      font-weight: normal;
     }
 
     .tpc-lew-group{

@@ -272,7 +272,7 @@
             </div>
 <br>
 <div>
-  <h3 style="font: bold;">Present Competency Based Assessment(CBA) Scheme</h3>
+  <h3 style="font: bold;">Present Scheme - Competency Based Assessment (CBA)</h3>
   <p class="pe-paragraph mt-4">
               With the expansion of universities and polytechnics offering accredited programs, SIET has transitioned from
               traditional examinations to Competency Based Assessment (CBA). This framework evaluates whether technologists

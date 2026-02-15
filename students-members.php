@@ -34,7 +34,7 @@
             <li>SIET Membership Certificate</li>
             <li>Academic and career counselling</li>
             <li>Professional pathways guidance</li>
-            <li>Exclusive access to IT &amp; engineering events</li>
+            <li>Exclusive access to ICT &amp; engineering events</li>
             <li>Mentorship and support toward professional recognition</li>
           </ul>
         </div>

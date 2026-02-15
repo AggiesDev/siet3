@@ -10,7 +10,7 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-8">
           <span class="badge-soft mb-3 d-inline-block">About SIET</span>
-          <h1 class="mb-2">Honorary Advisers with Honorary Fellows</h1>
+          <h1 class="mb-2">Honorary Patron and Honorary Fellows</h1>
           <!-- <p class="lead mb-0">
             Key milestones and achievements in SIET’s journey since 1980.
           </p> -->
@@ -32,7 +32,7 @@
 
         <!-- LEFT: HONORARY PATRON -->
         <div class="col-lg-5">
-          <!-- ✅ removed title "Our Honorary Patron" -->
+          <!--  removed title "Our Honorary Patron" -->
 
           <div class="patron-wrap text-center">
             <img
@@ -51,41 +51,37 @@
 
         <!-- RIGHT: HONORARY ADVISERS -->
         <div class="col-lg-7">
-          <!-- ✅ replaced title text -->
+          <!--  replaced title text -->
           <h1 class="fellows-title text-center text-lg-start">Honorary Fellows</h1>
 
           <div class="advisers-table mt-3">
             <div class="advisers-head">
-              <div class="advisers-col advisers-col--name">Honorary Fellows
-</div>
-              <div class="advisers-col advisers-col--func">Function</div>
+              <!-- <div class="advisers-col advisers-col--name">Honorary Fellows</div> -->
+              <!-- <div class="advisers-col advisers-col--func">Function</div> -->
             </div>
 
             <!-- Row 1 -->
             <div class="advisers-row">
               <div class="advisers-col advisers-col--name">
-                <span class="num">1.</span> <span class="name fw-bold">Dr Sam Man Keong
-</span>
+                <span class="num">1.</span> <span class="name fw-bold">Dr Sam Man Keong</span>
               </div>
-              <div class="advisers-col advisers-col--func">Financial Matters</div>
+              <!-- <div class="advisers-col advisers-col--func">Financial Matters</div> -->
             </div>
 
             <!-- Row 2 -->
             <div class="advisers-row">
               <div class="advisers-col advisers-col--name">
-                <span class="num">2.</span> <span class="name fw-bold">Mr TRC Raja
- </span>
+                <span class="num">2.</span> <span class="name fw-bold">Mr TRC Raja</span>
               </div>
-              <div class="advisers-col advisers-col--func">Legal Matters</div>
+              <!-- <div class="advisers-col advisers-col--func">Legal Matters</div> -->
             </div>
 
             <!-- Row 3 -->
             <div class="advisers-row">
               <div class="advisers-col advisers-col--name">
-                <span class="num">3.</span> <span class="name fw-bold">Dr Low Sui Pheng 
-</span>
+                <span class="num">3.</span> <span class="name fw-bold">Dr Low Sui Pheng </span>
               </div>
-              <div class="advisers-col advisers-col--func">Education</div>
+              <!-- <div class="advisers-col advisers-col--func">Education</div> -->
             </div>
 
 

@@ -71,7 +71,7 @@
           </p>
 
           <p class="slide-cta">
-            <strong>Join SIET today.</strong> Be recognised. Be connected. Be globally respected.
+            <strong class="joinsiettoday">Join SIET today.</strong> Be recognised. Be connected. Be globally respected.
           </p>
 
           <p class="slide-foot">
@@ -113,7 +113,7 @@
                     <ul class="cell-ul">
                       <li>Age : ≥ 30 years</li>
                       <li>
-                        Qualification: Polytechnic Advanced Diploma in any engineering/IT discipline or
+                        Qualification: Polytechnic Advanced Diploma in any engineering/ICT discipline or
                         BEng from NTU/NUS/SUTD/SUSS/SIT or City &amp; Guilds Master Professional Diploma in Engineering
                         or its equivalent, e.g. BCA – Registered RE
                         [website:
@@ -130,7 +130,7 @@
                     <ul class="cell-ul">
                       <li>Age : ≥ 25 years</li>
                       <li>
-                        Qualification: Polytechnic Diploma in any engineering/IT related discipline or City &amp; Guild - HPDip in Engineering
+                        Qualification: Polytechnic Diploma in any engineering/ICT related discipline or City &amp; Guild - HPDip in Engineering
                         or its equivalent, e.g. BCA- Registered Technical Officer.
                         [website:
                         <a class="mp-link" href="http://www.cityandguilds.com/Engineering.html" target="_blank" rel="noopener">
@@ -148,7 +148,7 @@
                     <ul class="cell-ul">
                       <li>Age : ≥ 23 years</li>
                       <li>
-                        Qualification: ITE – Higher Nitec in any engineering/IT discipline or City &amp; Guild - Technician Diploma in Engineering
+                        Qualification: ITE – Higher Nitec in any engineering/ICT discipline or City &amp; Guild - Technician Diploma in Engineering
                         or its equivalent.
                       </li>
                       <li>Experience: ≥ 3 years in engineering.</li>
@@ -238,6 +238,12 @@
     }
 
     .slide-subtitle{
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin: 6px 0 8px 0;
+      color:#111;
+    }
+    .joinsiettoday{
       font-size: 1.15rem;
       font-weight: 900;
       margin: 6px 0 8px 0;

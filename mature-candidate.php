@@ -47,7 +47,7 @@
           </ul>
 
           <p class="mc-p">
-            By <span class="mc-u-red">recognising</span> proven expertise, lifelong contribution, and professional competence,
+            By recognising proven expertise, lifelong contribution, and professional competence,
             SIET ensures that experience stands proudly alongside education. This is your opportunity to gain formal recognition,
             elevate your professional standing, and join a respected body that values integrity, excellence, and global connection.
           </p>

@@ -17,7 +17,7 @@
         <span class="badge-soft mb-3 d-inline-block">About SIET</span>
         <h1 class="mb-2">Introduction</h1>
         <p class="lead mb-0">
-          A national professional body supporting engineering technologists and technicians in Singapore, with strong
+          A national professional body supporting engineering and ICT technologists and technicians in Singapore, with strong
         regional and global connections.
         </p>
       </div>

@@ -45,7 +45,7 @@
           </p>
 
           <p class="cert-p mb-2">
-            <strong>Three levels</strong> of SIET Certification Scheme for Engineering and IT Professionals are:
+            <strong>Three levels</strong> of SIET Certification Scheme for Engineering and ICT Professionals are:
           </p>
           <ul class="cert-ul">
             <li>Level 1 – Certified Engineering Associate (<span class="cert-code">CertEA</span>) for ‘Engineering Technician’;</li>
@@ -57,13 +57,13 @@
           <p class="cert-p">
             All applicants are assessed by a Committee of members and via a professional report and an interview or a written test on
             <strong>‘Engineering Ethics’</strong> for registration as <span class="cert-code">CertTS</span> and <span class="cert-code">CertET</span>
-            respectively. For <span class="cert-code">CertTN</span>, it will be assessed based on written case studies and passing multiple choice
+            respectively. For <span class="cert-code">CertEA</span>, it will be assessed based on written case studies and passing multiple choice
             questions (MCQs) on <strong>‘Engineering Ethics’</strong>.
           </p>
 
           <ul class="cert-ul">
             <li>Professional report evaluation</li>
-            <li>Part A: Written case studies and MCQs on Engineering Ethics (for <span class="cert-code">CertTN</span>)</li>
+            <li>Part A: Written case studies and MCQs on Engineering Ethics (for <span class="cert-code">CertEA</span>)</li>
             <li>Part B: Interview or written test on Engineering Ethics (for <span class="cert-code">CertTS</span> and <span class="cert-code">CertET</span>)</li>
           </ul>
 

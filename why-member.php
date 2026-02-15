@@ -75,15 +75,15 @@
      BUTTONS (Restored)
      ====================== -->
 <div class="why-actions">
-  <a href="professionalexaminations.php" class="why-btn why-btn-primary">
+  <!-- <a href="professionalexaminations.php" class="why-btn why-btn-primary">
     Professional Membership
-  </a>
+  </a> -->
 
   <a href="membership-benefits.php" class="why-btn why-btn-outline">
     Membership Benefits
   </a>
 
-  <a href="membership-pathways.php" class="why-btn why-btn-dark">
+  <a href="membership-pathways.php" class="why-btn why-btn-primary">
     Membership Pathways
   </a>
 </div>

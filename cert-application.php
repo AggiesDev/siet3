@@ -60,7 +60,7 @@
       <div class="col-lg-4">
         <div class="lead-card p-4">
           <h2 class="h6 fw-bold">Downloads</h2>
-          <p class="text-muted small">Add your official forms here (PDF). Sample provided below.</p>
+          <!-- <p class="text-muted small">Add your official forms here (PDF). Sample provided below.</p> -->
 
           <a class="btn btn-download w-100" href="assets/downloads/SIET_Certification_Application_Form.pdf" download>
             Download Application Form
