@@ -92,7 +92,7 @@
 
       <hr class="my-4">
 
-      <h2 class="section-title">Our subsitederer</h2>
+      <h2 class="section-title">Our Mission</h2>
       <p class="mb-4 text-muted">
         As the National Professional Body for Engineering Technologists and Technicians in Singapore to promote the Advancement of ICT Engineering and to advance the Profession of Engineering Technologists through Partnerships and Global Network.
       </p>
