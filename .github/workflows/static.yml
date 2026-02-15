@@ -2,25 +2,23 @@ name: Deploy to InfinityFree (FTP)
 
 on:
   push:
-    branches: [ "main" ]   # change if your branch is master
+    branches: [ "main" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # OPTIONAL: If your site is inside a subfolder like /public, set local-dir to that folder.
       - name: FTP Deploy to InfinityFree
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ ftpupload.net }}
-          username: ${{ if0_41085916 }}
-          password: ${{ VlFIjfg1CtL1 }}
-          server-dir: /htdocs/siet4   # InfinityFree usually uses /htdocs/
-          local-dir: ./siet4          # deploy repo root
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /htdocs/siet4/
+          local-dir: ./siet4/
           exclude: |
             **/.git*
             **/.github/**
