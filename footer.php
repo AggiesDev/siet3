@@ -18,14 +18,11 @@
 @media (max-width: 575.98px){
   .footer-brand-logo{
     max-width: 200px;   /* smaller on phone */
-    margin-left: auto;
+    /* margin-left: auto; */
     margin-right: auto; /* center on mobile */
   }
 
-  /* optional: center text in first column on mobile */
-  .site-footer .col-md-3:first-child{
-    text-align: center;
-  }
+  
 }
 
 /* Tablet */

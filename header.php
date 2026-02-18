@@ -107,18 +107,18 @@
     object-fit: contain;
     display:block;
   }
-
+/* tablet default */
   @media (max-width: 1199.98px){
     .brand-logo{
-      height: 54px;
+      height: 75px;
       max-width: 480px;
     }
   }
-
+/* mobile default */
   @media (max-width: 575.98px){
     .brand-logo{
-      height: 65px;
-      max-width: 370px;
+      height: 54px;
+      max-width: 350px;
     }
   }
 
