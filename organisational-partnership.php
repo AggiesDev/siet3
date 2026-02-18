@@ -4,6 +4,7 @@
   include "header.php";
 
   include "partners-data.php";
+  $partners = load_partners();
 
   // Sorting
   $sort = $_GET['sort'] ?? 'az';
@@ -18,6 +19,7 @@
 ?>
 
 <main>
+
   <!-- Page Hero -->
   <section class="op-hero">
     <div class="container">
@@ -44,7 +46,17 @@
   <!-- Grid -->
   <section class="op-section">
     <div class="container">
+<!-- admin button -->
+   <div class="d-flex align-items-center gap-2 flex-wrap">
 
+  <!--  Admin button -->
+  <a href="partners-admin.php" class="btn btn-admin btn-sm rounded-pill">
+    <span class="btn-admin-icon">⚙</span>
+    Edit Company List
+  </a>
+</div>
+<br>
+<!-- list of company -->
       <div class="op-grid">
         <?php foreach($sorted as $p): ?>
           <a class="op-card" href="partner-detail.php?id=<?= urlencode($p['id']); ?>">
@@ -60,5 +72,52 @@
     </div>
   </section>
 </main>
+<style>
+  /* ==========================
+   Admin Button (Partners)
+   ========================== */
+.btn-admin{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  border: 1px solid rgba(0,0,0,.10);
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
 
+.btn-admin:hover{
+  background: #0b1220;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.18);
+}
+
+.btn-admin:active{
+  transform: translateY(0);
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+}
+
+.btn-admin-icon{
+  display:inline-flex;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,.14);
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Mobile: full width nice button */
+@media (max-width: 575.98px){
+  .btn-admin{
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
 <?php include "footer.php"; ?>

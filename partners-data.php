@@ -1,34 +1,24 @@
 <?php
 // partners-data.php
+// Read partners from JSON file (no DB)
 
-$partners = [
-  [
-    "id" => "dearoying",
-    "name" => "Example 1 Pte Ltd",
-    "logo" => "images/1.jpg",
-    "about" => "lorm ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.",
-    "website" => "https://example.com"
-  ],
-  [
-    "id" => "ternatek",
-    "name" => "Example 2 Pte Ltd",
-    "logo" => "images/1.jpg",
-    "about" => "lorm ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.",
-    "website" => "https://example.com"
-  ],
-  [
-    "id" => "tls",
-    "name" => "Example 3 Pte Ltd",
-    "logo" => "images/1.jpg",
-    "about" => "lorm ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.",
-    "website" => "https://example.com"
-  ],
-  [
-    "id" => "barchip",
-    "name" => "Example 4 Pte Ltd",
-    "logo" => "images/1.jpg",
-    "about" => "lorm ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.",
-    "website" => "https://example.com"
-  ],
-  //  Add more partners here (copy the structure)
-];
+function partners_json_path(): string {
+  return __DIR__ . "/partners-data.json";
+}
+
+function load_partners(): array {
+  $path = partners_json_path();
+  if (!file_exists($path)) return [];
+
+  $raw = file_get_contents($path);
+  $data = json_decode($raw, true);
+
+  return is_array($data) ? $data : [];
+}
+
+function save_partners(array $partners): bool {
+  $path = partners_json_path();
+  $json = json_encode($partners, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  return file_put_contents($path, $json) !== false;
+}
+
