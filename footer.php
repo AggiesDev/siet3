@@ -1,12 +1,53 @@
   <!-- ======================
        FOOTER
        ====================== -->
+       <style>
+        /* ==========================
+   Footer Brand Logo Responsive
+   ========================== */
+
+.footer-brand-logo{
+  display: block;
+  width: 100%;
+  max-width: 240px;  /*default for normal screens*/
+  height: auto;
+  object-fit: contain;
+}
+
+/* Mobile (small screen) */
+@media (max-width: 575.98px){
+  .footer-brand-logo{
+    max-width: 200px;   /* smaller on phone */
+    margin-left: auto;
+    margin-right: auto; /* center on mobile */
+  }
+
+  /* optional: center text in first column on mobile */
+  .site-footer .col-md-3:first-child{
+    text-align: center;
+  }
+}
+
+/* Tablet */
+@media (min-width: 576px) and (max-width: 991.98px){
+  .footer-brand-logo{
+    max-width: 220px;
+  }
+}
+
+/* Desktop / Large */
+@media (min-width: 992px){
+  .footer-brand-logo{
+    max-width: 260px;  /* bigger on desktop */
+  }
+}
+       </style>
   <footer class="site-footer bg-dark text-white pt-5">
     <div class="container-fluid px-3 px-lg-5">
       <div class="row g-4">
 
         <div class="col-md-3">
-          <img src="images/SIET Logo and Banner/sietlonglogo.PNG" height="60" class="mb-3" alt="SIET" />
+          <img src="images/SIET Logo and Banner/sietlonglogo.PNG"  class="footer-brand-logo mb-3" alt="SIET" />
 
           <p class="small mb-2">
             Singapore Institute of Engineering Technologists

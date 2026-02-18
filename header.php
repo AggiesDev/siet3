@@ -117,7 +117,7 @@
 
   @media (max-width: 575.98px){
     .brand-logo{
-      height: 75px;
+      height: 65px;
       max-width: 370px;
     }
   }
@@ -128,7 +128,6 @@
 
   /* =========================================
      DROPDOWN CATEGORY HEADER STYLE
-     (used for Recognition / Resources headings)
      ========================================= */
   .dropdown-header{
     font-weight: 900;
@@ -140,7 +139,6 @@
 
   /* =========================================
      SEARCH ICON: remove on mobile/small screens
-     (you already have mobile search input inside menu)
      ========================================= */
   @media (max-width: 1199.98px){
     .nav-search-desktop{ display:none !important; }
@@ -148,9 +146,7 @@
 
 
   /* =========================================
-     DESKTOP SEARCH PREVIEW: show near input
-     base.css makes .nav-search-results absolute.
-     In desktop panel we need it static.
+     DESKTOP SEARCH PREVIEW
      ========================================= */
   #navSearchPanel .nav-search-panel__inner{
     position: relative;
@@ -183,8 +179,7 @@
 
 
   /* =========================================
-     SEARCH ICON: easier click target (desktop)
-     (fix “icon hard to click” issue)
+     SEARCH ICON
      ========================================= */
   #navSearchToggle.nav-search-icon{
     width: 44px !important;
