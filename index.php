@@ -59,7 +59,7 @@
         <div class="carousel-caption">
           <h1>Connected Worldwide Since 1980</h1>
           <p>Global Partnerships &amp; Recognition</p>
-          <a class="btn btn-primary btn-lg" href="global-network.php">Explore Networks</a>
+          <a class="btn btn-primary btn-lg" href="global-affiliations.php">Explore Networks</a>
         </div>
       </div>
 
