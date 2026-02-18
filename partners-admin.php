@@ -1,8 +1,12 @@
 <?php
 
-
 session_start();
-//  Logout + redirect helper
+
+define('ADMIN_PASS', '123456'); // ✅ CHANGE THIS to your 6-digit password
+
+// ==========================
+// Logout + redirect helper 
+// ==========================
 if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   $to = $_GET['logout_to'];
 
@@ -17,10 +21,11 @@ if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   exit;
 }
 
-define('ADMIN_PASS', '123456'); // ✅ CHANGE THIS to your 6-digit password
-
-// ---- LOGIN / LOGOUT HANDLER ----
+// ==========================
+// LOGIN / LOGOUT HANDLER
+// ==========================
 $errAuth = '';
+
 if (isset($_POST['auth_action']) && $_POST['auth_action'] === 'login') {
   $pass = trim($_POST['admin_pass'] ?? '');
   if ($pass === ADMIN_PASS) {
@@ -39,7 +44,9 @@ if (isset($_GET['logout']) && $_GET['logout'] === '1') {
   exit;
 }
 
-// ---- GUARD: REQUIRE LOGIN ----
+// ==========================
+// GUARD: REQUIRE LOGIN
+// ==========================
 $authed = !empty($_SESSION['partners_admin_authed']);
 
 if (!$authed):
@@ -91,8 +98,9 @@ if (!$authed):
             class="form-control pin"
             placeholder="••••••"
             required>
-
+            
           <button class="btn btn-primary w-100 mt-3">Login</button>
+          <button class="btn btn-success w-100 mt-3" onclick="window.location.href='organisational-partnership.php'">Organisational Partnership</button>
         </form>
 
         <div class="small text-muted mt-3">
@@ -107,10 +115,9 @@ if (!$authed):
   exit;
 endif;
 
-/* ==========================
-    AUTH PASSED (ADMIN PAGE)
-   ========================== */
-
+// ==========================
+//  AUTH PASSED (ADMIN PAGE)
+// ==========================
 $active = 'organisational-partnership';
 $page_css = ['organisational-partnership.css']; // optional
 include "header.php";
@@ -125,6 +132,9 @@ if (!is_dir($upload_dir)) {
   @mkdir($upload_dir, 0775, true);
 }
 
+// ==========================
+// Helpers
+// ==========================
 function clean_id($s) {
   $s = trim($s);
   $s = strtolower($s);
@@ -133,6 +143,26 @@ function clean_id($s) {
   return trim($s, "-");
 }
 
+/**
+ * Delete a logo file ONLY if it lives in images/partners/
+ */
+function delete_partner_logo_file(string $logoPath, string $uploadDir, string $uploadUrl): void {
+  $logoPath = trim($logoPath);
+  if ($logoPath === '') return;
+
+  if (strpos($logoPath, $uploadUrl) !== 0) return;
+
+  $filename = basename($logoPath);
+  $fullpath = rtrim($uploadDir, "/\\") . DIRECTORY_SEPARATOR . $filename;
+
+  if (is_file($fullpath)) {
+    @unlink($fullpath);
+  }
+}
+
+// ==========================
+// Load state
+// ==========================
 $partners = load_partners();
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 $edit_id = $_GET['edit'] ?? '';
@@ -141,14 +171,34 @@ $delete_id = $_GET['delete'] ?? '';
 $msg = '';
 $err = '';
 
-//  DELETE
+// ==========================
+//  DELETE (also remove logo file)
+// ==========================
 if ($delete_id) {
+
+  // find partner first (for its logo)
+  $toDelete = null;
+  foreach ($partners as $p) {
+    if (($p['id'] ?? '') === $delete_id) { $toDelete = $p; break; }
+  }
+
+  // remove from list
   $partners = array_values(array_filter($partners, fn($p) => ($p['id'] ?? '') !== $delete_id));
-  if (save_partners($partners)) $msg = "Partner deleted successfully.";
-  else $err = "Failed to delete partner (cannot write JSON file).";
+
+  // save then delete file (safer)
+  if (save_partners($partners)) {
+    if ($toDelete && !empty($toDelete['logo'])) {
+      delete_partner_logo_file($toDelete['logo'], $upload_dir, $upload_url);
+    }
+    $msg = "Partner deleted successfully (logo file removed).";
+  } else {
+    $err = "Failed to delete partner (cannot write JSON file).";
+  }
 }
 
+// ==========================
 //  ADD / UPDATE
+// ==========================
 if ($action === 'save') {
   $id = clean_id($_POST['id'] ?? '');
   $name = trim($_POST['name'] ?? '');
@@ -160,22 +210,28 @@ if ($action === 'save') {
     $err = "ID and Name are required.";
   } else {
 
-    // handle logo upload (optional)
     $logo_path = $existing_logo;
 
+    // handle logo upload (optional)
     if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
       $tmp = $_FILES['logo']['tmp_name'];
       $orig = $_FILES['logo']['name'];
       $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
 
       $allowed = ['png','jpg','jpeg','webp','svg'];
-      if (!in_array($ext, $allowed)) {
+      if (!in_array($ext, $allowed, true)) {
         $err = "Logo file must be PNG/JPG/JPEG/WEBP/SVG.";
       } else {
         $safe_name = $id . "-" . time() . "." . $ext;
         $dest = $upload_dir . $safe_name;
 
         if (move_uploaded_file($tmp, $dest)) {
+
+          //  delete old logo file if it was in images/partners/
+          if ($existing_logo && $existing_logo !== ($upload_url . $safe_name)) {
+            delete_partner_logo_file($existing_logo, $upload_dir, $upload_url);
+          }
+
           $logo_path = $upload_url . $safe_name;
         } else {
           $err = "Failed to upload logo.";
@@ -208,13 +264,18 @@ if ($action === 'save') {
         ];
       }
 
-      if (save_partners($partners)) $msg = $found ? "Partner updated successfully." : "Partner added successfully.";
-      else $err = "Failed to save. Check file permission for partners-data.json";
+      if (save_partners($partners)) {
+        $msg = $found ? "Partner updated successfully." : "Partner added successfully.";
+      } else {
+        $err = "Failed to save. Check file permission for partners-data.json";
+      }
     }
   }
 }
 
-//  Load edit partner
+// ==========================
+// Load edit partner
+// ==========================
 $edit_partner = null;
 if ($edit_id) {
   foreach ($partners as $p) {
@@ -232,9 +293,16 @@ if ($edit_id) {
         <p class="text-muted mb-0">Add / edit / delete organisational partners (no database).</p>
       </div>
 
-      <div class="d-flex gap-2">
-        <a href="partners-admin.php?logout_to=organisational-partnership.php" class="btn btn-outline-secondary btn-sm rounded-pill">View Partners Page</a>
-        <a href="partners-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">Logout</a>
+      <div class="d-flex gap-2 flex-wrap">
+        <!--  Auto logout then go partners page -->
+        <a href="partners-admin.php?logout_to=organisational-partnership.php"
+           class="btn btn-outline-secondary btn-sm rounded-pill">
+          View Partners Page
+        </a>
+
+        <a href="partners-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">
+          Logout
+        </a>
       </div>
     </div>
 
@@ -349,9 +417,10 @@ if ($edit_id) {
                         <td class="d-flex gap-2 flex-wrap">
                           <a class="btn btn-sm btn-outline-primary" href="partners-admin.php?edit=<?= urlencode($p['id']) ?>">Edit</a>
                           <a class="btn btn-sm btn-outline-secondary" href="partner-detail.php?id=<?= urlencode($p['id']) ?>" target="_blank">Preview</a>
+
                           <a class="btn btn-sm btn-outline-danger"
                              href="partners-admin.php?delete=<?= urlencode($p['id']) ?>"
-                             onclick="return confirm('Delete this partner?');">
+                             onclick="return confirm('Delete this partner? This will also delete its logo file.');">
                              Delete
                           </a>
                         </td>
