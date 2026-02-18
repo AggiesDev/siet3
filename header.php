@@ -117,8 +117,8 @@
 /* mobile default */
   @media (max-width: 575.98px){
     .brand-logo{
-      height: 54px;
-      max-width: 350px;
+      height: 60px;
+      max-width: 370px;
     }
   }
 

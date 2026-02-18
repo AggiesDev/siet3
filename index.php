@@ -144,7 +144,7 @@
       </div>
 
       <!-- ======================
-           NEW: CHINESE MOTTO / VALUES BANNER (Uploaded Image Design)
+           CHINESE MOTTO / VALUES BANNER
            ====================== -->
       <div class="values-motto-section mt-5">
         <div class="values-motto-oval" role="group" aria-label="Values motto banner">
@@ -182,7 +182,6 @@
         </p>
       </div>
 
-      <!-- Optional small button (remove if not needed) -->
       <a href="global-network.php" class="btn btn-outline-primary btn-sm rounded-pill">
         View Global Network
       </a>
@@ -259,7 +258,6 @@
 
     </div>
 
-    <!-- Mobile hint -->
     <div class="text-muted small mt-3 d-md-none">
       Tip: swipe to explore more partners.
     </div>
@@ -277,7 +275,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  /* Each card is fully clickable */
   .gp-card{
     display:flex;
     gap: 12px;
@@ -314,6 +311,7 @@
     object-fit: contain;
     padding: 8px;
     background:#fff;
+    max-height: 100%;
   }
 
   .gp-meta{ min-width: 0; }
@@ -338,20 +336,68 @@
     .gp-logo{ width: 78px; height: 56px; }
   }
 
-  @media (max-width: 575.98px){
-    /* On small mobile: horizontal swipe list */
-    .gp-grid{
-      grid-auto-flow: column;
-      grid-auto-columns: 84%;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .gp-card{
-      scroll-snap-align: start;
-    }
+  
+  /* Mobile FIX for "OUR GLOBAL PARTNERS & AFFILIATIONS"  */
+@media (max-width: 575.98px){
+
+  /* Horizontal swipe list */
+  .gp-grid{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 92%;        /* wider card so text doesn't get cut */
+    grid-template-columns: none;
+    overflow-x: auto;
+
+    padding: 4px 12px 10px;        /* safe padding so edges not cut */
+    gap: 12px;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
+
+  /* Keep horizontal card layout */
+  .gp-card{
+    flex-direction: row;           /* keep logo left */
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px;
+    min-height: 92px;              /* enough height for 2-3 lines */
+    scroll-snap-align: start;
+  }
+
+  /*  small logo (like previous version) */
+  .gp-logo{
+    width: 60px;
+    height: 46px;
+    border-radius: 12px;
+    flex: 0 0 auto;
+  }
+
+  .gp-logo img{
+    padding: 6px;
+  }
+
+  /*  make text show fully */
+  .gp-meta{
+    min-width: 0;                  /* important for flex text wrap */
+    flex: 1 1 auto;
+  }
+
+  .gp-name{
+    font-size: 0.98rem;
+    line-height: 1.15;
+  }
+
+  /* remove clamp so it won't hide text */
+  .gp-desc{
+    font-size: .9rem;
+    line-height: 1.25;
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
+}
 </style>
 
 

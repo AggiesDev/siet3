@@ -38,6 +38,15 @@
     max-width: 260px;  /* bigger on desktop */
   }
 }
+.footer-brand-logo{
+  max-height: 64px;
+}
+@media (max-width: 575.98px){
+  .footer-brand-logo{ max-height: 56px; }
+}
+@media (min-width: 992px){
+  .footer-brand-logo{ max-height: 70px; }
+}
        </style>
   <footer class="site-footer bg-dark text-white pt-5">
     <div class="container-fluid px-3 px-lg-5">
