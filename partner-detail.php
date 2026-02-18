@@ -1,9 +1,4 @@
 <?php
-  // partner-detail.php (UPDATED)
-  // - Reads partner data from partners-data.json via partners-data.php (no DB)
-  // - Clean, modern layout + responsive
-  // - Shows Logo, Name, About (Detail Information), Website button
-  // - Optional "Other Partners" section at bottom
 
   $active = 'organisational-partnership';
   $page_css = ['organisational-partnership.css']; // reuse your existing CSS
@@ -73,7 +68,7 @@
                 <div class="op-detail-badges">
                   <span class="op-badge">Organisational Partner</span>
                   <?php if (!empty($partner['id'])): ?>
-                    <span class="op-badge op-badge-soft">ID: <?= htmlspecialchars($partner['id']); ?></span>
+                    <!-- <span class="op-badge op-badge-soft">ID: <?= htmlspecialchars($partner['id']); ?></span> -->
                   <?php endif; ?>
                 </div>
 

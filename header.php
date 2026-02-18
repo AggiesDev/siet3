@@ -1,6 +1,6 @@
 <?php require_once 'auth.php'; ?>
 <?php
-  // Sessions are used for lightweight profile storage (no database)
+  // Sessions are used for lightweight profile storage 
   if (session_status() === PHP_SESSION_NONE) {
     session_start();
   }
@@ -57,7 +57,7 @@
     ["Global Network - Links", "global-links.php"],
 
     // Partnerships & Recognition
-    ["Partnerships & Recognition - organisational partnership", "organisational-partnership.php.php"],
+    ["Partnerships & Recognition - Organisational Partnership", "organisational-partnership.php.php"],
     ["Partnerships & Recognition - Sponsorship", "sponsorship.php"],
     ["Partnerships & Recognition - Awards", "awards.php"],
     ["Partnerships & Recognition - Expert Services", "resources.php"],
@@ -371,7 +371,7 @@
             Partnerships &amp; Recognition
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="organisational-partnership.php">organisational partnership</a></li>
+            <li><a class="dropdown-item" href="organisational-partnership.php">Organisational Partnership</a></li>
             <li><h5 class="dropdown-header">Recognition</h5></li>
             <li><a class="dropdown-item" href="sponsorship.php">Sponsorship</a></li>
             <li><a class="dropdown-item" href="awards.php">Awards</a></li>

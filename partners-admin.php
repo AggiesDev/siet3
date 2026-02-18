@@ -2,15 +2,12 @@
 
 session_start();
 
-define('ADMIN_PASS', '123456'); // ✅ CHANGE THIS to your 6-digit password
+define('ADMIN_PASS', '123456'); // Change this to your 6-digit password
 
-// ==========================
-// Logout + redirect helper 
-// ==========================
+// Logout + redirect helper
 if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   $to = $_GET['logout_to'];
 
-  // allow only safe local redirects
   $allow = ['organisational-partnership.php', 'partner-detail.php', 'index.php'];
   if (!in_array($to, $allow, true)) $to = 'organisational-partnership.php';
 
@@ -21,11 +18,8 @@ if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   exit;
 }
 
-// ==========================
-// LOGIN / LOGOUT HANDLER
-// ==========================
+// Login / logout handler
 $errAuth = '';
-
 if (isset($_POST['auth_action']) && $_POST['auth_action'] === 'login') {
   $pass = trim($_POST['admin_pass'] ?? '');
   if ($pass === ADMIN_PASS) {
@@ -44,9 +38,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === '1') {
   exit;
 }
 
-// ==========================
-// GUARD: REQUIRE LOGIN
-// ==========================
+// Guard: require login
 $authed = !empty($_SESSION['partners_admin_authed']);
 
 if (!$authed):
@@ -98,7 +90,7 @@ if (!$authed):
             class="form-control pin"
             placeholder="••••••"
             required>
-            
+
           <button class="btn btn-primary w-100 mt-3">Login</button>
           <button class="btn btn-success w-100 mt-3" onclick="window.location.href='organisational-partnership.php'">Organisational Partnership</button>
         </form>
@@ -115,16 +107,13 @@ if (!$authed):
   exit;
 endif;
 
-// ==========================
-//  AUTH PASSED (ADMIN PAGE)
-// ==========================
 $active = 'organisational-partnership';
-$page_css = ['organisational-partnership.css']; // optional
+$page_css = ['organisational-partnership.css'];
 include "header.php";
 
 include "partners-data.php";
 
-//  folder to store uploaded logos
+// folder to store uploaded logos
 $upload_dir = __DIR__ . "/images/partners/";
 $upload_url = "images/partners/";
 
@@ -132,9 +121,7 @@ if (!is_dir($upload_dir)) {
   @mkdir($upload_dir, 0775, true);
 }
 
-// ==========================
 // Helpers
-// ==========================
 function clean_id($s) {
   $s = trim($s);
   $s = strtolower($s);
@@ -143,9 +130,6 @@ function clean_id($s) {
   return trim($s, "-");
 }
 
-/**
- * Delete a logo file ONLY if it lives in images/partners/
- */
 function delete_partner_logo_file(string $logoPath, string $uploadDir, string $uploadUrl): void {
   $logoPath = trim($logoPath);
   if ($logoPath === '') return;
@@ -160,9 +144,7 @@ function delete_partner_logo_file(string $logoPath, string $uploadDir, string $u
   }
 }
 
-// ==========================
 // Load state
-// ==========================
 $partners = load_partners();
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 $edit_id = $_GET['edit'] ?? '';
@@ -170,118 +152,126 @@ $delete_id = $_GET['delete'] ?? '';
 
 $msg = '';
 $err = '';
+$id_error = '';
 
-// ==========================
-//  DELETE (also remove logo file)
-// ==========================
+// Delete
 if ($delete_id) {
 
-  // find partner first (for its logo)
   $toDelete = null;
   foreach ($partners as $p) {
     if (($p['id'] ?? '') === $delete_id) { $toDelete = $p; break; }
   }
 
-  // remove from list
   $partners = array_values(array_filter($partners, fn($p) => ($p['id'] ?? '') !== $delete_id));
 
-  // save then delete file (safer)
   if (save_partners($partners)) {
     if ($toDelete && !empty($toDelete['logo'])) {
       delete_partner_logo_file($toDelete['logo'], $upload_dir, $upload_url);
     }
-    $msg = "Partner deleted successfully (logo file removed).";
+    $msg = "Partner deleted successfully.";
   } else {
     $err = "Failed to delete partner (cannot write JSON file).";
   }
 }
 
-// ==========================
-//  ADD / UPDATE
-// ==========================
+// Add / Update
 if ($action === 'save') {
   $id = clean_id($_POST['id'] ?? '');
   $name = trim($_POST['name'] ?? '');
   $website = trim($_POST['website'] ?? '');
   $about = trim($_POST['about'] ?? '');
   $existing_logo = trim($_POST['existing_logo'] ?? '');
+  $editing_id = trim($_POST['editing_id'] ?? '');
 
   if ($id === '' || $name === '') {
     $err = "ID and Name are required.";
   } else {
 
-    $logo_path = $existing_logo;
-
-    // handle logo upload (optional)
-    if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-      $tmp = $_FILES['logo']['tmp_name'];
-      $orig = $_FILES['logo']['name'];
-      $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
-
-      $allowed = ['png','jpg','jpeg','webp','svg'];
-      if (!in_array($ext, $allowed, true)) {
-        $err = "Logo file must be PNG/JPG/JPEG/WEBP/SVG.";
-      } else {
-        $safe_name = $id . "-" . time() . "." . $ext;
-        $dest = $upload_dir . $safe_name;
-
-        if (move_uploaded_file($tmp, $dest)) {
-
-          //  delete old logo file if it was in images/partners/
-          if ($existing_logo && $existing_logo !== ($upload_url . $safe_name)) {
-            delete_partner_logo_file($existing_logo, $upload_dir, $upload_url);
-          }
-
-          $logo_path = $upload_url . $safe_name;
-        } else {
-          $err = "Failed to upload logo.";
-        }
-      }
+    $is_duplicate = false;
+    foreach ($partners as $pp) {
+      if (($pp['id'] ?? '') === $id) { $is_duplicate = true; break; }
     }
 
-    if ($err === '') {
-      // update if exists, else add new
-      $found = false;
-      foreach ($partners as &$p) {
-        if (($p['id'] ?? '') === $id) {
-          $p['name'] = $name;
-          $p['website'] = $website;
-          $p['about'] = $about;
-          $p['logo'] = $logo_path;
-          $found = true;
-          break;
+    if ($is_duplicate && $editing_id !== $id) {
+      $id_error = "This ID is already used. Please choose another ID.";
+      $err = "Duplicate ID.";
+    } else {
+
+      $logo_path = $existing_logo;
+
+      if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+        $tmp = $_FILES['logo']['tmp_name'];
+        $orig = $_FILES['logo']['name'];
+        $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
+
+        $allowed = ['png','jpg','jpeg','webp','svg'];
+        if (!in_array($ext, $allowed, true)) {
+          $err = "Logo file must be PNG/JPG/JPEG/WEBP/SVG.";
+        } else {
+          $safe_name = $id . "-" . time() . "." . $ext;
+          $dest = $upload_dir . $safe_name;
+
+          if (move_uploaded_file($tmp, $dest)) {
+
+            if ($existing_logo && $existing_logo !== ($upload_url . $safe_name)) {
+              delete_partner_logo_file($existing_logo, $upload_dir, $upload_url);
+            }
+
+            $logo_path = $upload_url . $safe_name;
+          } else {
+            $err = "Failed to upload logo.";
+          }
         }
       }
-      unset($p);
 
-      if (!$found) {
-        $partners[] = [
-          "id" => $id,
-          "name" => $name,
-          "logo" => $logo_path,
-          "about" => $about,
-          "website" => $website
-        ];
-      }
+      if ($err === '') {
+        $found = false;
+        foreach ($partners as &$p) {
+          if (($p['id'] ?? '') === $id) {
+            $p['name'] = $name;
+            $p['website'] = $website;
+            $p['about'] = $about;
+            $p['logo'] = $logo_path;
+            $found = true;
+            break;
+          }
+        }
+        unset($p);
 
-      if (save_partners($partners)) {
-        $msg = $found ? "Partner updated successfully." : "Partner added successfully.";
-      } else {
-        $err = "Failed to save. Check file permission for partners-data.json";
+        if (!$found) {
+          $partners[] = [
+            "id" => $id,
+            "name" => $name,
+            "logo" => $logo_path,
+            "about" => $about,
+            "website" => $website
+          ];
+        }
+
+        if (save_partners($partners)) {
+          $msg = $found ? "Partner updated successfully." : "Partner added successfully.";
+        } else {
+          $err = "Failed to save. Check file permission for partners-data.json";
+        }
       }
     }
   }
 }
 
-// ==========================
 // Load edit partner
-// ==========================
 $edit_partner = null;
 if ($edit_id) {
   foreach ($partners as $p) {
     if (($p['id'] ?? '') === $edit_id) { $edit_partner = $p; break; }
   }
 }
+
+// For sticky form values on validation errors
+$sticky_id = $edit_partner['id'] ?? ($_POST['id'] ?? '');
+$sticky_name = $edit_partner['name'] ?? ($_POST['name'] ?? '');
+$sticky_website = $edit_partner['website'] ?? ($_POST['website'] ?? '');
+$sticky_about = $edit_partner['about'] ?? ($_POST['about'] ?? '');
+$sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
 ?>
 
 <main class="py-4">
@@ -294,7 +284,6 @@ if ($edit_id) {
       </div>
 
       <div class="d-flex gap-2 flex-wrap">
-        <!--  Auto logout then go partners page -->
         <a href="partners-admin.php?logout_to=organisational-partnership.php"
            class="btn btn-outline-secondary btn-sm rounded-pill">
           View Partners Page
@@ -309,12 +298,11 @@ if ($edit_id) {
     <?php if ($msg): ?>
       <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
     <?php endif; ?>
-    <?php if ($err): ?>
+    <?php if ($err && $err !== "Duplicate ID."): ?>
       <div class="alert alert-danger"><?= htmlspecialchars($err) ?></div>
     <?php endif; ?>
 
     <div class="row g-4">
-      <!-- FORM -->
       <div class="col-lg-5">
         <div class="card shadow-sm" style="border-radius:16px;">
           <div class="card-body">
@@ -322,39 +310,48 @@ if ($edit_id) {
 
             <form method="POST" action="partners-admin.php" enctype="multipart/form-data">
               <input type="hidden" name="action" value="save">
-              <input type="hidden" name="existing_logo" value="<?= htmlspecialchars($edit_partner['logo'] ?? '') ?>">
+              <input type="hidden" name="existing_logo" value="<?= htmlspecialchars($sticky_logo) ?>">
+              <input type="hidden" name="editing_id" value="<?= htmlspecialchars($edit_partner['id'] ?? '') ?>">
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">ID (unique)</label>
+
                 <input
                   type="text"
                   name="id"
-                  class="form-control"
-                  value="<?= htmlspecialchars($edit_partner['id'] ?? '') ?>"
+                  class="form-control <?= !empty($id_error) ? 'is-invalid' : '' ?>"
+                  value="<?= htmlspecialchars($sticky_id) ?>"
                   placeholder="example: engineers-australia"
                   <?= $edit_partner ? "readonly" : "" ?>
                   required>
-                <div class="form-text">Use lowercase letters/numbers/hyphen only.</div>
+
+                <?php if(!empty($id_error)): ?>
+                  <div class="invalid-feedback d-block">
+                    <?= htmlspecialchars($id_error) ?>
+                  </div>
+                <?php else: ?>
+                  <div class="form-text">Use lowercase letters/numbers/hyphen only.</div>
+                <?php endif; ?>
               </div>
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">Name</label>
                 <input type="text" name="name" class="form-control"
-                  value="<?= htmlspecialchars($edit_partner['name'] ?? '') ?>"
+                  value="<?= htmlspecialchars($sticky_name) ?>"
                   placeholder="Company / Organisation name" required>
               </div>
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">Website (optional)</label>
                 <input type="url" name="website" class="form-control"
-                  value="<?= htmlspecialchars($edit_partner['website'] ?? '') ?>"
+                  value="<?= htmlspecialchars($sticky_website) ?>"
                   placeholder="https://example.com">
               </div>
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">About (Detail Information)</label>
                 <textarea name="about" rows="5" class="form-control"
-                  placeholder="Write partner description..."><?= htmlspecialchars($edit_partner['about'] ?? '') ?></textarea>
+                  placeholder="Write partner description..."><?= htmlspecialchars($sticky_about) ?></textarea>
               </div>
 
               <div class="mb-3">
@@ -363,10 +360,10 @@ if ($edit_id) {
                 <div class="form-text">If you don’t upload, it will keep current logo.</div>
               </div>
 
-              <?php if (!empty($edit_partner['logo'])): ?>
+              <?php if (!empty($sticky_logo)): ?>
                 <div class="mb-3">
                   <div class="small text-muted mb-1">Current Logo:</div>
-                  <img src="<?= htmlspecialchars($edit_partner['logo']) ?>" alt="logo"
+                  <img src="<?= htmlspecialchars($sticky_logo) ?>" alt="logo"
                        style="max-width:180px; max-height:70px; object-fit:contain;">
                 </div>
               <?php endif; ?>
@@ -381,7 +378,6 @@ if ($edit_id) {
         </div>
       </div>
 
-      <!-- LIST -->
       <div class="col-lg-7">
         <div class="card shadow-sm" style="border-radius:16px;">
           <div class="card-body">
@@ -417,7 +413,6 @@ if ($edit_id) {
                         <td class="d-flex gap-2 flex-wrap">
                           <a class="btn btn-sm btn-outline-primary" href="partners-admin.php?edit=<?= urlencode($p['id']) ?>">Edit</a>
                           <a class="btn btn-sm btn-outline-secondary" href="partner-detail.php?id=<?= urlencode($p['id']) ?>" target="_blank">Preview</a>
-
                           <a class="btn btn-sm btn-outline-danger"
                              href="partners-admin.php?delete=<?= urlencode($p['id']) ?>"
                              onclick="return confirm('Delete this partner? This will also delete its logo file.');">

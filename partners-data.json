@@ -12,5 +12,12 @@
         "logo": "images/partners/example1-1771442491.png",
         "about": "afdafdafd",
         "website": "https:example1.com"
+    },
+    {
+        "id": "example3",
+        "name": "Example Company 3",
+        "logo": "images/partners/example3-1771443263.jpg",
+        "about": "adfafdf",
+        "website": "https:example2.com"
     }
 ]

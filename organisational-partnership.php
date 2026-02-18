@@ -122,33 +122,37 @@
   max-width: none !important;
 }
 
-/* Make partner logo area bigger */
+/* The image container (same height for every card) */
 .op-logo-wrap{
-  height: auto;          /* was 72px -> bigger */
+  height: 170px;                 /* adjust if you want a bit taller/shorter */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  padding: 10px;                 /* gives the same spacing like company 2 */
 }
 
-/* Make the logo itself appear bigger */
+/* The logo image itself */
 .op-logo-wrap img{
-  padding: 6px;          /* was 10px -> smaller padding = bigger logo */
-  transform: scale(1.03);/* slight boost (optional) */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;           /* keeps full image visible */
+  display: block;
 }
 
-/* Mobile: full width nice button */
-/* @media (max-width: 575.98px){
-  .btn-admin{
-    width: 100%;
-    justify-content: center;
-  }
-} */
+/* Tablet */
+@media (max-width: 991.98px){
+  .op-logo-wrap{ height: 160px; }
+}
 
+/* Mobile */
 @media (max-width: 575.98px){
-  .op-logo-wrap{
-    height: 100px;       /* slightly bigger on phone too */
-  }
-  .op-logo-wrap img{
-    padding: 6px;
-    transform: none;     /* optional */
-  }
+  .op-logo-wrap{ height: 150px; }
 }
 </style>
 <?php include "footer.php"; ?>
