@@ -3,7 +3,6 @@
   $page_css = ['sections.css'];
   include 'header.php';
 
-
   $links = [
     "soc" => [
       [
@@ -13,13 +12,13 @@
         "tag"  => "Society"
       ],
       [
-        "name" => "World Federation of Technology Organizations ",
+        "name" => "World Federation of Technology Organizations",
         "url"  => "https://wfto.com/",
         "img"  => "images/Affiliated Organisations Logo/SIET Affiliations Logo/logoWFTO.jpg",
         "tag"  => "Society"
       ],
       [
-        "name" => "Global Technological Alliance ",
+        "name" => "Global Technological Alliance",
         "url"  => "https://mbot.org.my/",
         "img"  => "images/global/gta.png",
         "tag"  => "Alliance"
@@ -27,7 +26,7 @@
     ],
     "ins" => [
       [
-        "name" => "Engineering Council ",
+        "name" => "Engineering Council",
         "url"  => "https://www.engc.org.uk/",
         "img"  => "images/Affiliated Organisations Logo/SIET Affiliations Logo/Engineering Council UK Logo.jpg",
         "tag"  => "Institute"
@@ -47,13 +46,13 @@
     ],
     "oth" => [
       [
-        "name" => "Singapore Professional Centre ",
+        "name" => "Singapore Professional Centre",
         "url"  => "https://singaporeprofessionalcentre.com/",
         "img"  => "images/global/spc.png",
         "tag"  => "Partner"
       ],
       [
-        "name" => "Malaysia Board of Technologists ",
+        "name" => "Malaysia Board of Technologists",
         "url"  => "https://www.mbot.org.my/",
         "img"  => "images/global/mbot.png",
         "tag"  => "Board"
@@ -68,187 +67,191 @@
     <p class="text-muted mb-0">Official websites and affiliations connected to SIET’s global network.</p>
   </div>
 </section>
-
+<br>
 <section class="section-pad">
   <div class="container">
 
-    <ul class="nav nav-pills mb-3 global-tabs" id="linksTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="soc-tab" data-bs-toggle="pill" data-bs-target="#soc" type="button" role="tab">
-          Societies
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="ins-tab" data-bs-toggle="pill" data-bs-target="#ins" type="button" role="tab">
-          Institutes
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="oth-tab" data-bs-toggle="pill" data-bs-target="#oth" type="button" role="tab">
-          Others
-        </button>
-      </li>
-    </ul>
+    <!--  TABS  -->
+    <div class="gl-tabs-wrap">
+      <ul class="nav gl-tabs" id="linksTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="gl-tab active" id="soc-tab" data-bs-toggle="tab" data-bs-target="#soc" type="button" role="tab">
+            Societies
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="gl-tab" id="ins-tab" data-bs-toggle="tab" data-bs-target="#ins" type="button" role="tab">
+            Institutes
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="gl-tab" id="jrn-tab" data-bs-toggle="tab" data-bs-target="#jrn" type="button" role="tab">
+            Journals And Publishers
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="gl-tab" id="oth-tab" data-bs-toggle="tab" data-bs-target="#oth" type="button" role="tab">
+            Others
+          </button>
+        </li>
+      </ul>
+    </div>
 
-    <div class="tab-content">
+    <!--  CONTENT  -->
+    <div class="tab-content gl-content">
 
       <!-- Societies -->
       <div class="tab-pane fade show active" id="soc" role="tabpanel" aria-labelledby="soc-tab">
-        <div class="row g-3">
+        <ul class="gl-list">
           <?php foreach($links["soc"] as $item): ?>
-            <div class="col-md-6 col-lg-4">
-              <a class="global-link-card" href="<?php echo htmlspecialchars($item["url"]); ?>" target="_blank" rel="noopener">
-                <div class="glc-logo">
-                  <img src="<?php echo htmlspecialchars($item["img"]); ?>" alt="<?php echo htmlspecialchars($item["name"]); ?>"
-                       onerror="this.src='images/global/placeholder.png';" />
-                </div>
-                <div class="glc-body">
-                  <div class="glc-title"><?php echo htmlspecialchars($item["name"]); ?></div>
-                  <div class="glc-url"><?php echo htmlspecialchars($item["url"]); ?></div>
-                </div>
-                <span class="glc-tag"><?php echo htmlspecialchars($item["tag"]); ?></span>
+            <li>
+              <a href="<?php echo htmlspecialchars($item["url"]); ?>" target="_blank" rel="noopener">
+                <?php echo htmlspecialchars($item["name"]); ?>
               </a>
-            </div>
+            </li>
           <?php endforeach; ?>
-        </div>
+        </ul>
       </div>
 
       <!-- Institutes -->
       <div class="tab-pane fade" id="ins" role="tabpanel" aria-labelledby="ins-tab">
-        <div class="row g-3">
+        <ul class="gl-list">
           <?php foreach($links["ins"] as $item): ?>
-            <div class="col-md-6 col-lg-4">
-              <a class="global-link-card" href="<?php echo htmlspecialchars($item["url"]); ?>" target="_blank" rel="noopener">
-                <div class="glc-logo">
-                  <img src="<?php echo htmlspecialchars($item["img"]); ?>" alt="<?php echo htmlspecialchars($item["name"]); ?>"
-                       onerror="this.src='images/global/placeholder.png';" />
-                </div>
-                <div class="glc-body">
-                  <div class="glc-title"><?php echo htmlspecialchars($item["name"]); ?></div>
-                  <div class="glc-url"><?php echo htmlspecialchars($item["url"]); ?></div>
-                </div>
-                <span class="glc-tag"><?php echo htmlspecialchars($item["tag"]); ?></span>
+            <li>
+              <a href="<?php echo htmlspecialchars($item["url"]); ?>" target="_blank" rel="noopener">
+                <?php echo htmlspecialchars($item["name"]); ?>
               </a>
-            </div>
+            </li>
           <?php endforeach; ?>
+        </ul>
+      </div>
+
+      <!-- Journals And Publishers  -->
+      <div class="tab-pane fade" id="jrn" role="tabpanel" aria-labelledby="jrn-tab">
+        <div class="gl-empty">
+          <div class="gl-empty-title">No links added yet</div>
+          <div class="text-muted">Add journal & publisher links in your PHP array when ready.</div>
         </div>
       </div>
 
       <!-- Others -->
       <div class="tab-pane fade" id="oth" role="tabpanel" aria-labelledby="oth-tab">
-        <div class="row g-3">
+        <ul class="gl-list">
           <?php foreach($links["oth"] as $item): ?>
-            <div class="col-md-6 col-lg-4">
-              <a class="global-link-card" href="<?php echo htmlspecialchars($item["url"]); ?>" target="_blank" rel="noopener">
-                <div class="glc-logo">
-                  <img src="<?php echo htmlspecialchars($item["img"]); ?>" alt="<?php echo htmlspecialchars($item["name"]); ?>"
-                       onerror="this.src='images/global/placeholder.png';" />
-                </div>
-                <div class="glc-body">
-                  <div class="glc-title"><?php echo htmlspecialchars($item["name"]); ?></div>
-                  <div class="glc-url"><?php echo htmlspecialchars($item["url"]); ?></div>
-                </div>
-                <span class="glc-tag"><?php echo htmlspecialchars($item["tag"]); ?></span>
+            <li>
+              <a href="<?php echo htmlspecialchars($item["url"]); ?>" target="_blank" rel="noopener">
+                <?php echo htmlspecialchars($item["name"]); ?>
               </a>
-            </div>
+            </li>
           <?php endforeach; ?>
-        </div>
+        </ul>
       </div>
 
     </div>
+
   </div>
 </section>
-
+<br>
 <style>
-  /* ===== Global Links Cards ===== */
+/* ==========================
+   Global Links - Match image
+   ========================== */
 
-  .global-tabs .nav-link{
-    border-radius: 999px;
-    padding: .55rem 1rem;
-    font-weight: 700;
-  }
+.gl-tabs-wrap{
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 4px;
+  background: #f2f2f2;
+  overflow: hidden;
+}
 
-  .global-link-card{
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    position: relative;
-    padding: 14px 14px;
-    border: 1px solid rgba(0,0,0,.10);
-    border-radius: 14px;
-    background: #fff;
-    text-decoration: none;
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-    min-height: 92px;
-  }
-  .global-link-card:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(0,0,0,.10);
-    border-color: rgba(13,110,253,.35);
-  }
+.gl-tabs{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  padding: 0;
+}
 
-  .glc-logo{
-    width: 62px;
-    height: 62px;
-    border-radius: 14px;
-    border: 1px solid rgba(0,0,0,.10);
-    background: #f8fafc;
-    display: grid;
-    place-items: center;
-    flex: 0 0 auto;
-    overflow: hidden;
-  }
-  .glc-logo img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 8px;
-    display: block;
-  }
+.gl-tab{
+  width: 100%;
+  border: 0;
+  background: #eeeeee;
+  color: #555;
+  font-weight: 700;
+  padding: 10px 12px;
+  font-size: .92rem;
+  border-right: 1px solid rgba(0,0,0,.10);
+}
 
-  .glc-body{
-    min-width: 0;
-  }
-  .glc-title{
-    font-weight: 800;
-    color: #111827;
-    line-height: 1.2;
-    margin-bottom: 4px;
-    font-size: 1rem;
-  }
-  .glc-url{
-    color: #2563eb;
-    font-size: .85rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
+.gl-tabs .nav-item:last-child .gl-tab{
+  border-right: 0;
+}
 
-  .glc-tag{
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    font-size: .75rem;
-    font-weight: 800;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(13,110,253,.10);
-    border: 1px solid rgba(13,110,253,.18);
-    color: #0b5ed7;
-  }
+/* Active orange tab like image */
+.gl-tab.active{
+  background: #f59e0b; /* orange */
+  color: #fff;
+}
 
-  @media (max-width: 575.98px){
-    .global-link-card{
-      padding: 12px;
-      min-height: 86px;
-    }
-    .glc-logo{
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-    }
+/* Content area spacing */
+.gl-content{
+  padding: 12px 0 0;
+}
+
+/*  Bullet list style like image */
+.gl-list{
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0 0;
+}
+
+.gl-list li{
+  position: relative;
+  padding-left: 18px;
+  margin: 6px 0;
+}
+
+.gl-list li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  background: #f59e0b; /* orange bullet */
+  border-radius: 2px;
+}
+
+.gl-list a{
+  color: #1f2937;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.gl-list a:hover{
+  color: #0d6efd;
+}
+
+/* Empty message style */
+.gl-empty{
+  border: 1px dashed rgba(0,0,0,.18);
+  border-radius: 8px;
+  padding: 18px;
+  background: #fff;
+}
+.gl-empty-title{
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+/* Responsive: keep tabs readable on small screens */
+@media (max-width: 575.98px){
+  .gl-tabs{
+    grid-template-columns: repeat(2, 1fr);
   }
+  .gl-tab{
+    border-bottom: 1px solid rgba(0,0,0,.10);
+  }
+}
 </style>
 
 <?php include 'footer.php'; ?>
