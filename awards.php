@@ -5,8 +5,8 @@
 
   $awards = [
     ['title'=>'SIET Scholarship','desc'=>'Support for students and emerging technologists to pursue learning and professional growth.','img'=>'images/1.jpg'],
-    ['title'=>'Osman Foundation','desc'=>'A legacy-inspired foundation supporting recognition and community impact.','img'=>'images/1.jpg'],
-    ['title'=>'Allan Ang Foundation','desc'=>'Encouraging advancement in engineering and technology through opportunities and support.','img'=>'images/1.jpg'],
+    // ['title'=>'Osman Foundation','desc'=>'A legacy-inspired foundation supporting recognition and community impact.','img'=>'images/1.jpg'],
+    // ['title'=>'Allan Ang Foundation','desc'=>'Encouraging advancement in engineering and technology through opportunities and support.','img'=>'images/1.jpg'],
   ];
 ?>
 
@@ -45,5 +45,5 @@
     </div>
   </div>
 </section>
-
+<br><br>
 <?php include 'footer.php'; ?>

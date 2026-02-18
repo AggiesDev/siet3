@@ -56,10 +56,11 @@
     // ["Global Network - Global Network", "global-network.php"],
     ["Global Network - Links", "global-links.php"],
 
-    // Support & Recognition
-    ["Support & Recognition - Sponsorship", "sponsorship.php"],
-    ["Support & Recognition - Awards", "awards.php"],
-    ["Support & Recognition - Expert Services", "resources.php"],
+    // Partnerships & Recognition
+    ["Partnerships & Recognition - organisational partnership", "organisational-partnership.php.php"],
+    ["Partnerships & Recognition - Sponsorship", "sponsorship.php"],
+    ["Partnerships & Recognition - Awards", "awards.php"],
+    ["Partnerships & Recognition - Expert Services", "resources.php"],
 
     // Contact
     ["Contact Us", "contact.php"],
@@ -101,7 +102,7 @@
 
   /* Banner image responsiveness */
   .brand-logo{
-    height: 70px;            /* desktop default */
+    height: 62px;            /* desktop default */
     width: auto;
     max-width: 620px;
     object-fit: contain;
@@ -117,7 +118,7 @@
 /* mobile default */
   @media (max-width: 575.98px){
     .brand-logo{
-      height: 60px;
+      height: 50px;
       max-width: 370px;
     }
   }
@@ -364,12 +365,13 @@
           </ul>
         </li>
 
-        <!-- SUPPORT & RECOGNITION -->
+        <!-- Partnerships & Recognition -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?php echo (str_starts_with($active,'news')) ? 'active' : ''; ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Support &amp; Recognition
+            Partnerships &amp; Recognition
           </a>
           <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="organisational-partnership.php">organisational partnership</a></li>
             <li><h5 class="dropdown-header">Recognition</h5></li>
             <li><a class="dropdown-item" href="sponsorship.php">Sponsorship</a></li>
             <li><a class="dropdown-item" href="awards.php">Awards</a></li>
@@ -392,7 +394,7 @@
   </div>
 </nav>
 
-<!-- ✅ Desktop Search Panel -->
+<!--  Desktop Search Panel -->
 <div id="navSearchPanel" class="nav-search-panel" hidden>
   <div class="container-fluid px-3 px-lg-5">
     <div class="nav-search-panel__inner">
@@ -421,7 +423,7 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
     return s.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[c]));
   }
 
-  // ✅ Highlight typed keyword inside result title (preview)
+  //  Highlight typed keyword inside result title (preview)
   function highlightText(text, query){
     const t = String(text || '');
     const q = String(query || '').trim();
@@ -502,7 +504,7 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
   }
 
   if (toggleBtn && panel){
-    // ✅ reliable click
+    //  reliable click
     toggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -510,7 +512,7 @@ window.__NAV_SEARCH_ITEMS__ = <?php echo json_encode($nav_search_items, JSON_UNE
       else closePanel();
     });
 
-    // ✅ keyboard support
+    //  keyboard support
     toggleBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
