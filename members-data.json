@@ -1,0 +1,22 @@
+[
+    {
+        "id": "example1",
+        "name": "Example Company 1",
+        "membership_no": "1233343",
+        "membership_grade": "versdfadfafd",
+        "membership_title": "adfadfaf",
+        "branch": "adfadfaf",
+        "areas": "adfadfaf",
+        "certified_grade": "adfadfafda"
+    },
+    {
+        "id": "example2",
+        "name": "Example Company 2",
+        "membership_no": "dfad1212",
+        "membership_grade": "cadada",
+        "membership_title": "adadf",
+        "branch": "zdagrty",
+        "areas": "tyrtr",
+        "certified_grade": "fgfg"
+    }
+]

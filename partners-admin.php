@@ -285,13 +285,13 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
 
       <div class="d-flex gap-2 flex-wrap">
         <a href="partners-admin.php?logout_to=organisational-partnership.php"
-           class="btn btn-outline-secondary btn-sm rounded-pill">
+           class="btn btn-outline-primary btn-sm rounded-pill">
           View Partners Page
         </a>
 
-        <a href="partners-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">
+        <!-- <a href="partners-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">
           Logout
-        </a>
+        </a> -->
       </div>
     </div>
 
