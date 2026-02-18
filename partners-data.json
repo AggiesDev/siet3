@@ -5,5 +5,12 @@
         "logo": "images/partners/example2-1771440348.png",
         "about": "adfafda",
         "website": "https:example2.com"
+    },
+    {
+        "id": "example1",
+        "name": "Example Company 1",
+        "logo": "images/partners/example1-1771442491.png",
+        "about": "afdafdafd",
+        "website": "https:example1.com"
     }
 ]

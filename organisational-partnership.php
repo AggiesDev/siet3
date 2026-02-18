@@ -112,11 +112,42 @@
   line-height: 1;
 }
 
+/* Partner detail card full width */
+.op-detail-card{
+  width: 100%;
+}
+
+/* If you have any wrapper limiting width, remove it */
+.op-detail-shell{
+  max-width: none !important;
+}
+
+/* Make partner logo area bigger */
+.op-logo-wrap{
+  height: auto;          /* was 72px -> bigger */
+}
+
+/* Make the logo itself appear bigger */
+.op-logo-wrap img{
+  padding: 6px;          /* was 10px -> smaller padding = bigger logo */
+  transform: scale(1.03);/* slight boost (optional) */
+}
+
 /* Mobile: full width nice button */
-@media (max-width: 575.98px){
+/* @media (max-width: 575.98px){
   .btn-admin{
     width: 100%;
     justify-content: center;
+  }
+} */
+
+@media (max-width: 575.98px){
+  .op-logo-wrap{
+    height: 100px;       /* slightly bigger on phone too */
+  }
+  .op-logo-wrap img{
+    padding: 6px;
+    transform: none;     /* optional */
   }
 }
 </style>
