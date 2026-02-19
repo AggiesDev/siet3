@@ -25,10 +25,10 @@
     <div class="container">
       <div class="op-hero-inner">
         <div>
-          <div class="op-kicker">CORPORATE MEMBERS</div>
-          <h1 class="op-title">Organisational Partnership</h1>
+          <!-- <div class="op-kicker">CORPORATE MEMBERS</div> -->
+          <h1 class="op-title">Our Esteemed Organisational Partners</h1>
           <p class="op-subtitle">
-            Our corporate members and partner organisations supporting professional recognition, collaboration, and industry growth.
+            Uniting in Purpose, Championing Recognition, Collaboration, Innovation, and Industry Growth. Together, we shape the future of engineering excellence. 
           </p>
         </div>
 

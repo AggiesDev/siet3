@@ -31,6 +31,7 @@
     ["Membership - Mature Candidate Scheme", "mature-candidate.php"],
     ["Membership - Students as Members", "students-members.php"],
     ["Membership - Membership Fees", "membership-fees.php"],
+    ["Membership - Search SIET Members", "view-memberlist.php"],
     // ["Membership - Renewal (Quick Renew)", "membership-renewal.php"],
 
     // Certifications
@@ -133,8 +134,15 @@
   .dropdown-header{
     font-weight: 900;
     color: rgba(17,24,39,.65);
-    padding: .4rem 1.5rem .25rem;
+    /* padding: .4rem 1.5rem .25rem; */
     text-transform: uppercase;
+  }
+
+  .organisationl{
+    font-weight: 500;
+    color: rgba(17,24,39,.65);
+    /* padding: .4rem 1.5rem .25rem; */
+    /* text-transform: lowercase; */
   }
 
 
@@ -309,6 +317,7 @@
             <!-- <li><a class="dropdown-item" href="membership-grades.php">Membership Grades vs Requirements</a></li> -->
             <li><a class="dropdown-item" href="mature-candidate.php">Mature Candidate Scheme</a></li>
             <li><a class="dropdown-item" href="students-members.php">Students as Members</a></li>
+             <li><a class="dropdown-item" href="view-memberlist.php">Search SIET Members</a></li>
             <li><a class="dropdown-item" href="membership-fees.php">Membership Fees</a></li>
           </ul>
         </li>
@@ -371,7 +380,11 @@
             Partnerships &amp; Recognition
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="organisational-partnership.php">Organisational Partnership</a></li>
+            <li><h5 class="dropdown-header">Organisational Pratnership</h5></li>
+            <!-- <li><a class="dropdown-item organisationl" href="organisational-partnership.php">Organisational Partnership</a></li> -->
+            <li><a class="dropdown-item organisationl" href="#">Why Become Organisation Partner</a></li>
+            <li><a class="dropdown-item organisationl" href="organisational-partnership.php">Our Organisation Partners</a></li>
+            <li><hr class="dropdown-divider"></li>
             <li><h5 class="dropdown-header">Recognition</h5></li>
             <li><a class="dropdown-item" href="sponsorship.php">Sponsorship</a></li>
             <li><a class="dropdown-item" href="awards.php">Awards</a></li>

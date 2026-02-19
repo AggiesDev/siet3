@@ -26,6 +26,10 @@
               aria-label="Slide 2"></button>
       <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"
               aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"
+              aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4"
+              aria-label="Slide 3"></button>
     </div>
 
     <div class="carousel-inner">
@@ -34,35 +38,56 @@
         <img
           src="images/SIET Logo and Banner/1.png"
           class="d-block w-100 hero-img" alt="Hero Slide 1" />
-        <div class="carousel-caption">
+        <!-- <div class="carousel-caption">
           <h1>Building Global Recognition</h1>
           <p>Engineering Technologists &amp; Technicians</p>
           <a class="btn btn-primary btn-lg" href="why-member.php">Join SIET</a>
-        </div>
+        </div> -->
       </div>
 
       <div class="carousel-item">
         <img
           src="images/SIET Logo and Banner/2.png"
           class="d-block w-100 hero-img" alt="Hero Slide 2" />
-        <div class="carousel-caption">
+        <!-- <div class="carousel-caption">
           <h1>Professional Excellence</h1>
           <p>Integrity • Trust • Global Network</p>
           <a class="btn btn-primary btn-lg" href="professionalexaminations.php">Join SIET</a>
-        </div>
+        </div> -->
       </div>
 
       <div class="carousel-item">
         <img
           src="images/SIET Logo and Banner/3.png"
           class="d-block w-100 hero-img" alt="Hero Slide 3" />
-        <div class="carousel-caption">
+        <!-- <div class="carousel-caption">
           <h1>Connected Worldwide Since 1980</h1>
           <p>Global Partnerships &amp; Recognition</p>
           <a class="btn btn-primary btn-lg" href="global-affiliations.php">Explore Networks</a>
-        </div>
+        </div> -->
       </div>
 
+      <div class="carousel-item">
+        <img
+          src="images/SIET Logo and Banner/1.png"
+          class="d-block w-100 hero-img" alt="Hero Slide 3" />
+        <!-- <div class="carousel-caption">
+          <h1>Connected Worldwide Since 1980</h1>
+          <p>Global Partnerships &amp; Recognition</p>
+          <a class="btn btn-primary btn-lg" href="global-affiliations.php">Explore Networks</a>
+        </div> -->
+      </div>
+
+      <div class="carousel-item">
+        <img
+          src="images/SIET Logo and Banner/2.png"
+          class="d-block w-100 hero-img" alt="Hero Slide 3" />
+        <!-- <div class="carousel-caption">
+          <h1>Connected Worldwide Since 1980</h1>
+          <p>Global Partnerships &amp; Recognition</p>
+          <a class="btn btn-primary btn-lg" href="global-affiliations.php">Explore Networks</a>
+        </div> -->
+      </div>
     </div>
 
     <!-- PREV / NEXT buttons -->
@@ -266,6 +291,9 @@
 </section>
 
 <style>
+  .motto-cn{
+    font-size: 45px;
+  }
   /* ======================
      Global Partners section
      ====================== */

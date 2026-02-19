@@ -14,10 +14,24 @@
         "website": "https:example1.com"
     },
     {
-        "id": "example3",
-        "name": "Example Company 3",
-        "logo": "images/partners/example3-1771443263.jpg",
-        "about": "adfafdf",
+        "id": "example4",
+        "name": "Example Company 4",
+        "logo": "images/partners/example4-1771506848.png",
+        "about": "adfadfasdfa",
         "website": "https:example2.com"
+    },
+    {
+        "id": "test1",
+        "name": "TUCSS",
+        "logo": "images/partners/test1-1771509775.png",
+        "about": "Unified Memory\r\nAdd memory to run more apps simultaneously for faster, more fluid multitasking.\r\nCurrent\r\n16GB",
+        "website": "https://www.tucss.org.sg/"
+    },
+    {
+        "id": "test2",
+        "name": "Example Company 4",
+        "logo": "images/partners/test2-1771510038.jpg",
+        "about": "afdadfadfaf",
+        "website": "https://www.tucss.org.sg/"
     }
 ]

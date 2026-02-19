@@ -97,7 +97,7 @@
 
             <!-- ABOUT -->
             <div class="op-detail-body2">
-              <h2 class="op-detail-h2">About</h2>
+              <h2 class="op-detail-h2">About Us</h2>
 
               <?php if (!empty($partner['about'])): ?>
                 <p class="op-detail-about2">
@@ -256,6 +256,7 @@
 .op-detail-h2{
   font-weight: 900;
   margin: 0 0 8px;
+  font-size: medium;
 }
 
 .op-detail-about2{

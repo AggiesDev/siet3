@@ -1,7 +1,7 @@
 [
     {
         "id": "example1",
-        "name": "Example Company 1",
+        "name": "Example Company 5",
         "membership_no": "1233343",
         "membership_grade": "versdfadfafd",
         "membership_title": "adfadfaf",
@@ -18,5 +18,15 @@
         "branch": "zdagrty",
         "areas": "tyrtr",
         "certified_grade": "fgfg"
+    },
+    {
+        "id": "example-2026",
+        "name": "Example Company 3",
+        "membership_no": "example",
+        "membership_grade": "adfafadfadf",
+        "membership_title": "afdafda",
+        "branch": "adfadfaf",
+        "areas": "gjgjghj",
+        "certified_grade": "rrtererer"
     }
 ]
