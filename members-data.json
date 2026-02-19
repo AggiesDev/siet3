@@ -7,7 +7,8 @@
         "membership_title": "adfadfaf",
         "branch": "adfadfaf",
         "areas": "adfadfaf",
-        "certified_grade": "adfadfafda"
+        "certified_grade": "adfadfafda",
+        "membership_status": "Paid"
     },
     {
         "id": "example2",
@@ -17,7 +18,8 @@
         "membership_title": "adadf",
         "branch": "zdagrty",
         "areas": "tyrtr",
-        "certified_grade": "fgfg"
+        "certified_grade": "fgfg",
+        "membership_status": "Overdue"
     },
     {
         "id": "example-2026",
@@ -27,6 +29,7 @@
         "membership_title": "afdafda",
         "branch": "adfadfaf",
         "areas": "gjgjghj",
-        "certified_grade": "rrtererer"
+        "certified_grade": "rrtererer",
+        "membership_status": "Overdue"
     }
 ]

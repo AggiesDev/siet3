@@ -19,11 +19,13 @@ $opt_title  = unique_sorted(array_map(fn($m) => $m['membership_title'] ?? '', $m
 $opt_branch = unique_sorted(array_map(fn($m) => $m['branch'] ?? '', $members));
 $opt_areas  = unique_sorted(array_map(fn($m) => $m['areas'] ?? '', $members));
 $opt_cert   = unique_sorted(array_map(fn($m) => $m['certified_grade'] ?? '', $members));
+$opt_status = unique_sorted(array_map(fn($m) => $m['membership_status'] ?? '', $members)); // NEW
 
 /* Search filters */
 $q = [
   'name'             => trim($_GET['name'] ?? ''),
   'membership_no'    => trim($_GET['membership_no'] ?? ''),
+  'membership_status'=> trim($_GET['membership_status'] ?? ''), // NEW
   'membership_grade' => trim($_GET['membership_grade'] ?? ''),
   'membership_title' => trim($_GET['membership_title'] ?? ''),
   'branch'           => trim($_GET['branch'] ?? ''),
@@ -34,18 +36,19 @@ $q = [
 $sort = $_GET['sort'] ?? 'name_az';
 
 /* A–Z filter */
-$az = strtoupper(trim($_GET['az'] ?? '')); // A-Z filter by Name first letter
+$az = strtoupper(trim($_GET['az'] ?? ''));
 if (!preg_match('/^[A-Z]$/', $az)) $az = '';
 
-/* Filter function (name/no contains, dropdown exact match, plus A-Z) */
+/* Filter function */
 $filtered = array_values(array_filter($members, function($m) use ($q, $az){
 
   if ($q['name'] !== '' && stripos((string)($m['name'] ?? ''), $q['name']) === false) return false;
   if ($q['membership_no'] !== '' && stripos((string)($m['membership_no'] ?? ''), $q['membership_no']) === false) return false;
 
-  $exactFields = ['membership_grade','membership_title','branch','areas','certified_grade'];
+  // exact match (dropdowns)
+  $exactFields = ['membership_status','membership_grade','membership_title','branch','areas','certified_grade'];
   foreach ($exactFields as $f) {
-    if ($q[$f] === '') continue;
+    if (($q[$f] ?? '') === '') continue;
     if (trim((string)($m[$f] ?? '')) !== $q[$f]) return false;
   }
 
@@ -69,26 +72,25 @@ usort($filtered, function($a, $b) use ($sort, $sortKey){
   switch ($sort) {
     case 'name_za':
       return $sortKey($b,'name') <=> $sortKey($a,'name');
-
+    case 'status_az':
+      return $sortKey($a,'membership_status') <=> $sortKey($b,'membership_status')
+          ?: $sortKey($a,'name') <=> $sortKey($b,'name');
     case 'grade_az':
       return $sortKey($a,'membership_grade') <=> $sortKey($b,'membership_grade')
           ?: $sortKey($a,'name') <=> $sortKey($b,'name');
-
     case 'title_az':
       return $sortKey($a,'membership_title') <=> $sortKey($b,'membership_title')
           ?: $sortKey($a,'name') <=> $sortKey($b,'name');
-
     case 'cert_az':
       return $sortKey($a,'certified_grade') <=> $sortKey($b,'certified_grade')
           ?: $sortKey($a,'name') <=> $sortKey($b,'name');
-
     case 'name_az':
     default:
       return $sortKey($a,'name') <=> $sortKey($b,'name');
   }
 });
 
-/* Selected result card */
+/* Selected result */
 $selected = null;
 $selected_id = $_GET['view'] ?? '';
 if ($selected_id) {
@@ -97,6 +99,13 @@ if ($selected_id) {
   }
 } elseif (count($filtered) === 1) {
   $selected = $filtered[0];
+}
+
+function status_badge($status){
+  $s = trim((string)$status);
+  if ($s === 'Paid') return '<span class="ms-badge ms-paid">Paid</span>';
+  if ($s === 'Overdue') return '<span class="ms-badge ms-overdue">Overdue</span>';
+  return '<span class="ms-badge ms-unknown">N/A</span>';
 }
 ?>
 
@@ -119,14 +128,13 @@ if ($selected_id) {
 <section class="section-pad">
   <div class="container">
 
-    <!-- TOP: 2 columns (Search + Search Results) -->
     <div class="row g-4 mb-4">
 
       <!-- Search column -->
       <div class="col-lg-6">
         <div class="card vm-card">
           <div class="card-body">
-            <div class="vm-title">Search</div>
+            <div class="vm-title">Search SIET Membership</div>
             <div class="text-muted small mb-2">Use keywords and filters below.</div>
 
             <!-- A–Z Bar -->
@@ -157,6 +165,17 @@ if ($selected_id) {
                 <div class="col-12">
                   <label class="form-label fw-semibold">Membership No</label>
                   <input class="form-control" name="membership_no" value="<?= h($q['membership_no']) ?>" placeholder="Search by membership number">
+                </div>
+
+                <!-- NEW: Membership Status -->
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Membership Status</label>
+                  <select class="form-select" name="membership_status">
+                    <option value="">Select Membership Status</option>
+                    <?php foreach($opt_status as $v): ?>
+                      <option value="<?= h($v) ?>" <?= $q['membership_status']===$v ? 'selected' : '' ?>><?= h($v) ?></option>
+                    <?php endforeach; ?>
+                  </select>
                 </div>
 
                 <div class="col-md-6">
@@ -210,8 +229,8 @@ if ($selected_id) {
                 </div>
 
                 <div class="col-12 d-flex gap-2 mt-2">
-                  <button class="btn btn-primary btn-lg rounded-pill px-4">Search</button>
-                  <a class="btn btn-outline-secondary btn-lg rounded-pill px-4" href="view-memberlist.php">Clear</a>
+                  <button class="btn btn-primary rounded-pill px-4">Search</button>
+                  <a class="btn btn-outline-secondary rounded-pill px-4" href="view-memberlist.php">Clear</a>
                 </div>
               </div>
             </form>
@@ -238,7 +257,10 @@ if ($selected_id) {
                     <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                        href="view-memberlist.php?<?= http_build_query(array_merge($q, ['az'=>$az, 'sort'=>$sort, 'view' => $m['id']])) ?>">
                       <div class="me-2">
-                        <div class="fw-semibold"><?= h($m['name']) ?></div>
+                        <div class="fw-semibold">
+                          <?= h($m['name']) ?>
+                          <span class="ms-2"><?= status_badge($m['membership_status'] ?? '') ?></span>
+                        </div>
                         <div class="small text-muted">Membership No: <?= h($m['membership_no']) ?></div>
                       </div>
                       <span class="badge text-bg-light border">View</span>
@@ -252,10 +274,17 @@ if ($selected_id) {
               <div class="vm-selected mt-4">
                 <div class="vm-title-sm">Member Information</div>
                 <div class="table-responsive">
-                  <table class="table table-bordered table-dark mb-0 vm-info-table">
+                  <table class="table table-bordered table-light mb-0 vm-info-table">
                     <tbody>
                       <tr><th>Name:</th><td><?= h($selected['name']) ?></td></tr>
                       <tr><th>Membership No.:</th><td><?= h($selected['membership_no']) ?></td></tr>
+
+                      <!-- NEW: Status row -->
+                      <tr>
+                        <th>Membership Status:</th>
+                        <td><?= status_badge($selected['membership_status'] ?? '') ?></td>
+                      </tr>
+
                       <tr><th>Membership Grade:</th><td><?= h($selected['membership_grade']) ?></td></tr>
                       <tr><th>Membership Title:</th><td><?= h($selected['membership_title']) ?></td></tr>
                       <tr><th>Branch of Engineering:</th><td><?= h($selected['branch']) ?></td></tr>
@@ -273,7 +302,7 @@ if ($selected_id) {
 
     </div>
 
-    <!-- UNDER: Table list (sorted + filtered) -->
+    <!-- UNDER: Table list -->
     <div class="card vm-card">
       <div class="card-body">
 
@@ -293,11 +322,12 @@ if ($selected_id) {
               <?php endif; ?>
 
               <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="name_az"  <?= $sort==='name_az' ? 'selected' : '' ?>>Name (A–Z)</option>
-                <option value="name_za"  <?= $sort==='name_za' ? 'selected' : '' ?>>Name (Z–A)</option>
-                <option value="grade_az" <?= $sort==='grade_az' ? 'selected' : '' ?>>Membership Grade</option>
-                <option value="title_az" <?= $sort==='title_az' ? 'selected' : '' ?>>Membership Title</option>
-                <option value="cert_az"  <?= $sort==='cert_az' ? 'selected' : '' ?>>Certified Grade</option>
+                <option value="name_az"   <?= $sort==='name_az' ? 'selected' : '' ?>>Name (A–Z)</option>
+                <option value="name_za"   <?= $sort==='name_za' ? 'selected' : '' ?>>Name (Z–A)</option>
+                <option value="status_az" <?= $sort==='status_az' ? 'selected' : '' ?>>Membership Status</option>
+                <option value="grade_az"  <?= $sort==='grade_az' ? 'selected' : '' ?>>Membership Grade</option>
+                <option value="title_az"  <?= $sort==='title_az' ? 'selected' : '' ?>>Membership Title</option>
+                <option value="cert_az"   <?= $sort==='cert_az' ? 'selected' : '' ?>>Certified Grade</option>
               </select>
             </form>
           </div>
@@ -310,6 +340,7 @@ if ($selected_id) {
                 <th style="width:60px;">No</th>
                 <th>Name</th>
                 <th>Membership No</th>
+                <th>Membership Status</th>
                 <th>Membership Grade</th>
                 <th>Membership Title</th>
                 <th>Branch of Engineering</th>
@@ -319,13 +350,14 @@ if ($selected_id) {
             </thead>
             <tbody>
               <?php if (count($filtered) === 0): ?>
-                <tr><td colspan="8" class="text-muted">No members found.</td></tr>
+                <tr><td colspan="9" class="text-muted">No members found.</td></tr>
               <?php else: ?>
                 <?php foreach($filtered as $i => $m): ?>
                   <tr>
                     <td><?= $i + 1 ?></td>
                     <td class="fw-semibold"><?= h($m['name'] ?? '') ?></td>
                     <td><?= h($m['membership_no'] ?? '') ?></td>
+                    <td><?= status_badge($m['membership_status'] ?? '') ?></td>
                     <td><?= h($m['membership_grade'] ?? '') ?></td>
                     <td><?= h($m['membership_title'] ?? '') ?></td>
                     <td><?= h($m['branch'] ?? '') ?></td>
@@ -360,6 +392,9 @@ if ($selected_id) {
     font-weight: 900;
     margin-bottom: 10px;
   }
+  .vm-info-table{
+    hover: table-secondary;
+  }
   .vm-info-table th{
     width: 260px;
     white-space: nowrap;
@@ -372,26 +407,6 @@ if ($selected_id) {
     font-size: .9rem;
     vertical-align: middle;
   }
-  .vm-info-table{
-  border-color: #B2BEB5;
-}
-.vm-info-table th,
-.vm-info-table td{
-  background: #5b67b0;              /* main background */
-  color: #ffffff;                   /* text color */
-  border-color: rgba(255,255,255,.15);
-}
-/* Optional: hover effect */
-.vm-info-table tbody tr:hover th,
-.vm-info-table tbody tr:hover td{
-  background: #16213a;
-}
-
-/* Optional: round corners nicer */
-.vm-info-table{
-  overflow: hidden;
-  border-radius: 12px;
-}
   .vm-results .list-group{
     max-height: 260px;
     overflow: auto;
@@ -403,14 +418,13 @@ if ($selected_id) {
     .vm-info-table th{ width: 180px; }
   }
 
-  /* A–Z bar (like screenshot) */
+  /* A–Z bar */
   .vm-azbar{
     display:flex;
     flex-wrap: wrap;
     gap: 6px;
     margin: 10px 0 14px;
   }
-
   .vm-az{
     width: 30px;
     height: 30px;
@@ -426,14 +440,11 @@ if ($selected_id) {
     border: 1px solid rgba(255,255,255,.14);
     transition: transform .12s ease, opacity .12s ease;
   }
-
   .vm-az:hover{ transform: translateY(-1px); opacity: .92; }
-
   .vm-az.is-active{
     background: #0d6efd;
     border-color: rgba(13,110,253,.55);
   }
-
   .vm-az-clear{
     width: auto;
     padding: 0 10px;
@@ -446,9 +457,35 @@ if ($selected_id) {
     color:#fff;
     border-color: rgba(13,110,253,.55);
   }
-
   @media (max-width: 575.98px){
     .vm-az{ width: 28px; height: 28px; }
+  }
+
+  /* Membership Status badge colors */
+  .ms-badge{
+    display:inline-flex;
+    align-items:center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: .78rem;
+    border: 1px solid rgba(255,255,255,.18);
+    line-height: 1;
+  }
+  .ms-paid{
+    background: rgba(13,110,253,.16);
+    border-color: rgba(13,110,253,.35);
+    color: #0d6efd;
+  }
+  .ms-overdue{
+    background: rgba(220,53,69,.16);
+    border-color: rgba(220,53,69,.35);
+    color: #dc3545;
+  }
+  .ms-unknown{
+    background: rgba(108,117,125,.16);
+    border-color: rgba(108,117,125,.35);
+    color: #6c757d;
   }
 </style>
 

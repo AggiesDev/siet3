@@ -92,7 +92,7 @@ if (!$authed):
             required>
 
           <button class="btn btn-primary w-100 mt-3">Login</button>
-          <button class="btn btn-success w-100 mt-3" onclick="window.location.href='view-memberlist.php'">View Member List</button>
+          <button class="btn btn-success w-100 mt-3">View Membership List</button>
         </form>
       </div>
     </div>
@@ -133,6 +133,9 @@ if ($action === 'save') {
   $id = clean_member_id($_POST['id'] ?? '');
   $editing_id = trim($_POST['editing_id'] ?? '');
 
+  $status = trim($_POST['membership_status'] ?? '');
+  if (!in_array($status, ['Paid', 'Overdue', ''], true)) $status = '';
+
   $data = [
     'id' => $id,
     'name' => trim($_POST['name'] ?? ''),
@@ -142,6 +145,7 @@ if ($action === 'save') {
     'branch' => trim($_POST['branch'] ?? ''),
     'areas' => trim($_POST['areas'] ?? ''),
     'certified_grade' => trim($_POST['certified_grade'] ?? ''),
+    'membership_status' => $status, // NEW
   ];
 
   if ($id === '') {
@@ -197,6 +201,7 @@ $sticky_title = $edit_member['membership_title'] ?? ($_POST['membership_title'] 
 $sticky_branch = $edit_member['branch'] ?? ($_POST['branch'] ?? '');
 $sticky_areas = $edit_member['areas'] ?? ($_POST['areas'] ?? '');
 $sticky_cert = $edit_member['certified_grade'] ?? ($_POST['certified_grade'] ?? '');
+$sticky_status = $edit_member['membership_status'] ?? ($_POST['membership_status'] ?? '');
 ?>
 
 <main>
@@ -207,7 +212,7 @@ $sticky_cert = $edit_member['certified_grade'] ?? ($_POST['certified_grade'] ?? 
     <p class="text-muted mb-0">Add, edit, and delete SIET member records.</p>
   </div>
 </section>
-<br
+<br>
 <section class="section-pad">
   <div class="container">
 
@@ -218,7 +223,7 @@ $sticky_cert = $edit_member['certified_grade'] ?? ($_POST['certified_grade'] ?? 
       </div>
 
       <div class="d-flex gap-2 flex-wrap">
-        <a href="memberlist-admin.php?logout_to=view-memberlist.php" class="btn btn-outline-primary btn-sm rounded-pill">
+        <a href="memberlist-admin.php?logout_to=view-memberlist.php" class="btn btn-outline-secondary btn-sm rounded-pill">
           View Members Page
         </a>
         <!-- <a href="memberlist-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">
@@ -256,7 +261,7 @@ $sticky_cert = $edit_member['certified_grade'] ?? ($_POST['certified_grade'] ?? 
                 <?php if ($id_error): ?>
                   <div class="invalid-feedback d-block"><?= h($id_error) ?></div>
                 <?php else: ?>
-                  <div class="form-text">Use lowercase letters/numbers/hyphen only.<span style="color: red;">(Recommand: Membership No)</span></div>
+                  <div class="form-text">Use lowercase letters/numbers/hyphen only.<span style="color: red;">(Recommond: Use Membership No)</span></div>
                 <?php endif; ?>
               </div>
 
@@ -268,6 +273,16 @@ $sticky_cert = $edit_member['certified_grade'] ?? ($_POST['certified_grade'] ?? 
               <div class="mb-3">
                 <label class="form-label fw-semibold">Membership No</label>
                 <input type="text" name="membership_no" class="form-control" value="<?= h($sticky_no) ?>" required>
+              </div>
+
+              <!-- NEW: Membership Status -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Membership Status</label>
+                <select name="membership_status" class="form-select">
+                  <option value="" <?= $sticky_status==='' ? 'selected' : '' ?>>Select Membership Status</option>
+                  <option value="Paid" <?= $sticky_status==='Paid' ? 'selected' : '' ?>>Paid</option>
+                  <option value="Overdue" <?= $sticky_status==='Overdue' ? 'selected' : '' ?>>Overdue</option>
+                </select>
               </div>
 
               <div class="mb-3">
@@ -320,18 +335,20 @@ $sticky_cert = $edit_member['certified_grade'] ?? ($_POST['certified_grade'] ?? 
                     <th style="width:60px;">No</th>
                     <th>Name</th>
                     <th>Membership No</th>
+                    <th>Status</th>
                     <th style="width:190px;">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php if (count($members) === 0): ?>
-                  <tr><td colspan="4" class="text-muted">No members yet.</td></tr>
+                  <tr><td colspan="5" class="text-muted">No members yet.</td></tr>
                 <?php else: ?>
                   <?php foreach($members as $i => $m): ?>
                     <tr>
                       <td><?= $i + 1 ?></td>
                       <td class="fw-semibold"><?= h($m['name'] ?? '') ?></td>
                       <td><?= h($m['membership_no'] ?? '') ?></td>
+                      <td><?= h($m['membership_status'] ?? '') ?></td>
                       <td class="d-flex gap-2 flex-wrap">
                         <a class="btn btn-sm btn-outline-primary" href="memberlist-admin.php?edit=<?= urlencode($m['id']) ?>">Edit</a>
                         <a class="btn btn-sm btn-outline-secondary" href="view-memberlist.php?view=<?= urlencode($m['id']) ?>" target="_blank">View</a>
