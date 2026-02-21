@@ -10,7 +10,7 @@
     <p class="text-muted mb-0">Apply for SIET certification by submitting your application form and professional review report.</p>
   </div>
 </section>
-
+<br>
 <section class="section-pad">
   <div class="container">
     <div class="row g-4">
@@ -70,7 +70,7 @@
     </div>
   </div>
 </section>
-
+<br>
 <!-- ======================
      VISUAL REFERENCE SECTION 
      ====================== -->

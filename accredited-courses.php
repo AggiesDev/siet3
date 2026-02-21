@@ -12,7 +12,7 @@
     </p>
   </div>
 </section>
-
+<br>
 <section class="section-pad">
   <div class="container">
 
@@ -341,7 +341,7 @@
 
   </div>
 </section>
-
+<br>
 <style>
   /* Lightweight local styles (safe add-on; doesn't break your existing sections.css) */
   .course-grid{ width:100%; }

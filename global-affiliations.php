@@ -10,7 +10,7 @@
     <p class="text-muted mb-0">Mutual recognitions and affiliations with international professional bodies.</p>
   </div>
 </section>
-
+<br>
 <section class="section-pad">
   <div class="container">
 
@@ -217,7 +217,7 @@
 
   </div>
 </section>
-
+<br>
 <style>
   /* ===== Global Affiliations - User Friendly UI ===== */
   .ga-shell{ background:#fff; }

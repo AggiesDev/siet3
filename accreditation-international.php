@@ -12,7 +12,7 @@
     <h1 class="mb-2">Accreditation – International Certification</h1>
   </div>
 </section>
-
+<br>
 <section class="section-pad pt-0">
   <div class="container">
     <div class="intl-card">
@@ -36,7 +36,7 @@
     </div>
   </div>
 </section>
-
+<br>
 <!-- ======================
      OVERSEAS TABLE SECTION
      ====================== -->
@@ -143,7 +143,7 @@
 
   </div>
 </section>
-
+<br>
 <style>
   /* ===== New Intro Card (International Certification) ===== */
   .intl-card{

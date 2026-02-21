@@ -12,7 +12,7 @@
     </h1>
   </div>
 </section>
-
+<br>
 <section class="section-pad pt-0">
   <div class="container">
     <div class="lead-card p-4 p-md-5 accred-local-card">
@@ -71,7 +71,7 @@
     </div>
   </div>
 </section>
-
+<br>
 <style>
   /* Title (match your slide: big title + red Tab text) */
   .accred-local-title{

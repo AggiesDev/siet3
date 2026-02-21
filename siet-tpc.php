@@ -17,7 +17,7 @@
       </p>
     </div>
   </section>
-
+<br>
 
   <!-- ======================
        Assessment Options 
@@ -58,7 +58,7 @@
 
     </div>
   </section>
-
+<br>
 
   <!-- ======================
        Preparation Reference 
@@ -133,7 +133,7 @@
     </div>
   </section>
 
-
+<br>
   <!-- ======================
 Exemptions / Recognition Pathways
        ====================== -->
@@ -213,7 +213,7 @@ Exemptions / Recognition Pathways
 
     </div>
   </section>
-
+<br>
 
   <!-- ======================
        PAGE CSS 

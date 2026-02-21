@@ -4,7 +4,7 @@
   include 'header.php';
   $spc_certificate_img = "images/Singapore Professional Centre (SPC).jpg";
 ?>
-
+<br>
 <section class="section-pad global-founding-wrap">
   <div class="container">
     <div class="row g-4 align-items-start">
@@ -99,7 +99,7 @@
     </div>
   </div>
 </section>
-
+<br>
 <style>
   /* === Page look (matches your slide style) === */
   .global-founding-wrap{ background:#fff; }

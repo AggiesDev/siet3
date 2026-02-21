@@ -12,7 +12,7 @@
     </p>
   </div>
 </section>
-
+<br>
 <section class="section-pad">
   <div class="container">
 
@@ -231,7 +231,7 @@
 
   </div>
 </section>
-
+<br>
 <style>
   /* ===== resources2.php styling (matches the DOCX "clean blocks" look) ===== */
   .res-hero-card{

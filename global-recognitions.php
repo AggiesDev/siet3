@@ -18,7 +18,7 @@
     </div>
   </div>
 </section>
-
+<br>
 <section class="section-pad">
   <div class="container">
 
@@ -119,7 +119,7 @@
 
   </div>
 </section>
-
+<br>
 <style>
   /* =========================================================
      International Recognitions (User-friendly layout)

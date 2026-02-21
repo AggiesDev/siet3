@@ -3,7 +3,7 @@
   $page_css = ['sections.css'];
   include 'header.php';
 ?>
-
+<br>
 <!-- ======================
      CERT FEES (TABLE ONLY)
      ====================== -->
@@ -108,7 +108,7 @@ For accuracy, applicants are strongly advised to double-check the payee details 
 
   </div>
 </section>
-
+<br>
 <style>
   /* =========================
      CERT FEES - SLIDE STYLE
