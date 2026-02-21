@@ -4,7 +4,7 @@ session_start();
 
 define('ADMIN_PASS', '123456'); // Change this to your 6-digit password
 
-// Logout + redirect helper
+/* Logout + redirect helper */
 if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   $to = $_GET['logout_to'];
 
@@ -18,8 +18,9 @@ if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   exit;
 }
 
-// Login / logout handler
+/* Login / logout handler */
 $errAuth = '';
+
 if (isset($_POST['auth_action']) && $_POST['auth_action'] === 'login') {
   $pass = trim($_POST['admin_pass'] ?? '');
   if ($pass === ADMIN_PASS) {
@@ -38,9 +39,8 @@ if (isset($_GET['logout']) && $_GET['logout'] === '1') {
   exit;
 }
 
-// Guard: require login
+/* Guard */
 $authed = !empty($_SESSION['partners_admin_authed']);
-
 if (!$authed):
 ?>
 <!doctype html>
@@ -79,7 +79,6 @@ if (!$authed):
 
         <form method="POST" action="partners-admin.php" autocomplete="off">
           <input type="hidden" name="auth_action" value="login">
-
           <label class="form-label fw-semibold">6-digit Password</label>
           <input
             type="password"
@@ -90,12 +89,12 @@ if (!$authed):
             class="form-control pin"
             placeholder="••••••"
             required>
-
           <button class="btn btn-primary w-100 mt-3">Login</button>
-          <button class="btn btn-success w-100 mt-3" onclick="window.location.href='organisational-partnership.php'">Organisational Partnership</button>
+          <a href="organisational-partnership.php" class="btn btn-success w-100 mt-3">View Our Partners List</a>
         </form>
 
         <div class="small text-muted mt-3">
+          
           <!-- Tip: change the password in <code>ADMIN_PASS</code> inside <code>partners-admin.php</code>. -->
         </div>
       </div>
@@ -107,21 +106,24 @@ if (!$authed):
   exit;
 endif;
 
+/* After auth */
 $active = 'organisational-partnership';
 $page_css = ['organisational-partnership.css'];
 include "header.php";
 
 include "partners-data.php";
 
-// folder to store uploaded logos
+/* Paths */
 $upload_dir = __DIR__ . "/images/partners/";
 $upload_url = "images/partners/";
 
-if (!is_dir($upload_dir)) {
-  @mkdir($upload_dir, 0775, true);
-}
+$gallery_root_dir = __DIR__ . "/images/partners/";
+$gallery_root_url = "images/partners/";
 
-// Helpers
+if (!is_dir($upload_dir)) @mkdir($upload_dir, 0775, true);
+if (!is_dir($gallery_root_dir)) @mkdir($gallery_root_dir, 0775, true);
+
+/* Helpers */
 function clean_id($s) {
   $s = trim($s);
   $s = strtolower($s);
@@ -139,13 +141,31 @@ function delete_partner_logo_file(string $logoPath, string $uploadDir, string $u
   $filename = basename($logoPath);
   $fullpath = rtrim($uploadDir, "/\\") . DIRECTORY_SEPARATOR . $filename;
 
-  if (is_file($fullpath)) {
-    @unlink($fullpath);
-  }
+  if (is_file($fullpath)) @unlink($fullpath);
 }
 
-// Load state
+function rrmdir($dir): void {
+  if (!is_dir($dir)) return;
+  $items = scandir($dir);
+  foreach ($items as $item) {
+    if ($item === '.' || $item === '..') continue;
+    $path = $dir . DIRECTORY_SEPARATOR . $item;
+    if (is_dir($path)) rrmdir($path);
+    else @unlink($path);
+  }
+  @rmdir($dir);
+}
+
+function safe_gallery_dir(string $galleryRootDir, string $id): string {
+  return rtrim($galleryRootDir, "/\\") . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR;
+}
+function safe_gallery_url(string $galleryRootUrl, string $id): string {
+  return rtrim($galleryRootUrl, "/\\") . "/" . $id . "/";
+}
+
+/* Load state */
 $partners = load_partners();
+
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 $edit_id = $_GET['edit'] ?? '';
 $delete_id = $_GET['delete'] ?? '';
@@ -154,9 +174,8 @@ $msg = '';
 $err = '';
 $id_error = '';
 
-// Delete
+/* Delete partner (logo + gallery folder) */
 if ($delete_id) {
-
   $toDelete = null;
   foreach ($partners as $p) {
     if (($p['id'] ?? '') === $delete_id) { $toDelete = $p; break; }
@@ -168,13 +187,17 @@ if ($delete_id) {
     if ($toDelete && !empty($toDelete['logo'])) {
       delete_partner_logo_file($toDelete['logo'], $upload_dir, $upload_url);
     }
+
+    $folder = safe_gallery_dir($gallery_root_dir, $delete_id);
+    rrmdir($folder);
+
     $msg = "Partner deleted successfully.";
   } else {
     $err = "Failed to delete partner (cannot write JSON file).";
   }
 }
 
-// Add / Update
+/* Save partner */
 if ($action === 'save') {
   $id = clean_id($_POST['id'] ?? '');
   $name = trim($_POST['name'] ?? '');
@@ -182,6 +205,14 @@ if ($action === 'save') {
   $about = trim($_POST['about'] ?? '');
   $existing_logo = trim($_POST['existing_logo'] ?? '');
   $editing_id = trim($_POST['editing_id'] ?? '');
+
+  $enable_gallery = !empty($_POST['enable_gallery']);
+
+  $existing_gallery = $_POST['existing_gallery'] ?? [];
+  if (!is_array($existing_gallery)) $existing_gallery = [];
+
+  $remove_gallery = $_POST['remove_gallery'] ?? [];
+  if (!is_array($remove_gallery)) $remove_gallery = [];
 
   if ($id === '' || $name === '') {
     $err = "ID and Name are required.";
@@ -197,6 +228,7 @@ if ($action === 'save') {
       $err = "Duplicate ID.";
     } else {
 
+      /* Logo upload */
       $logo_path = $existing_logo;
 
       if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
@@ -212,11 +244,9 @@ if ($action === 'save') {
           $dest = $upload_dir . $safe_name;
 
           if (move_uploaded_file($tmp, $dest)) {
-
             if ($existing_logo && $existing_logo !== ($upload_url . $safe_name)) {
               delete_partner_logo_file($existing_logo, $upload_dir, $upload_url);
             }
-
             $logo_path = $upload_url . $safe_name;
           } else {
             $err = "Failed to upload logo.";
@@ -224,14 +254,88 @@ if ($action === 'save') {
         }
       }
 
+      /* Gallery: keep existing except removed */
+      $gallery_keep = [];
+      foreach ($existing_gallery as $g) {
+        $g = trim((string)$g);
+        if ($g === '') continue;
+        if (in_array($g, $remove_gallery, true)) continue;
+        $gallery_keep[] = $g;
+      }
+
+      /* Physically delete removed gallery files */
+      if (!empty($remove_gallery)) {
+        $gdir = safe_gallery_dir($gallery_root_dir, $id);
+        $gurl = safe_gallery_url($gallery_root_url, $id);
+
+        foreach ($remove_gallery as $rg) {
+          $rg = trim((string)$rg);
+          if ($rg === '') continue;
+          if (strpos($rg, $gurl) !== 0) continue;
+
+          $file = basename($rg);
+          $full = $gdir . $file;
+          if (is_file($full)) @unlink($full);
+        }
+      }
+
+      /* Gallery upload */
+      $gallery_new = [];
+      if ($err === '' && $enable_gallery && !empty($_FILES['gallery']) && is_array($_FILES['gallery']['name'])) {
+
+        $selectedCount = 0;
+        foreach ($_FILES['gallery']['name'] as $n) {
+          if (trim((string)$n) !== '') $selectedCount++;
+        }
+
+        $count_existing = count($gallery_keep);
+        $slots_left = max(0, 10 - $count_existing);
+
+        if ($selectedCount > $slots_left) {
+          $err = "Unsuccessful: You tried to upload {$selectedCount} image(s), but only {$slots_left} slot(s) are available. Maximum gallery images is 10. Please remove some existing images or upload fewer files.";
+        } else {
+
+          $gdir = safe_gallery_dir($gallery_root_dir, $id);
+          $gurl = safe_gallery_url($gallery_root_url, $id);
+          if (!is_dir($gdir)) @mkdir($gdir, 0775, true);
+
+          $allowed_img = ['png','jpg','jpeg','webp'];
+
+          $totalUploads = count($_FILES['gallery']['name']);
+          for ($i = 0; $i < $totalUploads; $i++) {
+
+            $n = trim((string)($_FILES['gallery']['name'][$i] ?? ''));
+            if ($n === '') continue;
+
+            if (($_FILES['gallery']['error'][$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) continue;
+
+            $tmp = $_FILES['gallery']['tmp_name'][$i];
+            $ext = strtolower(pathinfo($n, PATHINFO_EXTENSION));
+            if (!in_array($ext, $allowed_img, true)) continue;
+
+            $safe_name = $id . "-g-" . time() . "-" . $i . "." . $ext;
+            $dest = $gdir . $safe_name;
+
+            if (move_uploaded_file($tmp, $dest)) {
+              $gallery_new[] = $gurl . $safe_name;
+            }
+          }
+        }
+      }
+
+      $final_gallery = array_slice(array_merge($gallery_keep, $gallery_new), 0, 10);
+
+      /* Save partner object */
       if ($err === '') {
         $found = false;
+
         foreach ($partners as &$p) {
           if (($p['id'] ?? '') === $id) {
             $p['name'] = $name;
             $p['website'] = $website;
             $p['about'] = $about;
             $p['logo'] = $logo_path;
+            $p['gallery'] = $final_gallery;
             $found = true;
             break;
           }
@@ -244,7 +348,8 @@ if ($action === 'save') {
             "name" => $name,
             "logo" => $logo_path,
             "about" => $about,
-            "website" => $website
+            "website" => $website,
+            "gallery" => $final_gallery
           ];
         }
 
@@ -258,7 +363,7 @@ if ($action === 'save') {
   }
 }
 
-// Load edit partner
+/* Load edit partner */
 $edit_partner = null;
 if ($edit_id) {
   foreach ($partners as $p) {
@@ -266,12 +371,20 @@ if ($edit_id) {
   }
 }
 
-// For sticky form values on validation errors
+/* Sticky values */
 $sticky_id = $edit_partner['id'] ?? ($_POST['id'] ?? '');
 $sticky_name = $edit_partner['name'] ?? ($_POST['name'] ?? '');
 $sticky_website = $edit_partner['website'] ?? ($_POST['website'] ?? '');
 $sticky_about = $edit_partner['about'] ?? ($_POST['about'] ?? '');
 $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
+
+$sticky_gallery = [];
+if ($edit_partner && !empty($edit_partner['gallery']) && is_array($edit_partner['gallery'])) {
+  $sticky_gallery = array_values(array_filter($edit_partner['gallery'], fn($x) => is_string($x) && trim($x) !== ''));
+}
+
+/* Default gallery toggle: if POST exists use it; else ON by default */
+$toggle_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_gallery']) : true;
 ?>
 
 <main class="py-4">
@@ -280,15 +393,14 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
       <div>
         <h1 class="fw-bold mb-1">Partners Admin</h1>
-        <p class="text-muted mb-0">Add / edit / delete organisational partners (no database).</p>
+        <p class="text-muted mb-0">Add / edit / delete organisational partners.</p>
       </div>
 
       <div class="d-flex gap-2 flex-wrap">
         <a href="partners-admin.php?logout_to=organisational-partnership.php"
-           class="btn btn-outline-primary btn-sm rounded-pill">
+           class="btn btn-outline-secondary btn-sm rounded-pill">
           View Partners Page
         </a>
-
         <!-- <a href="partners-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">
           Logout
         </a> -->
@@ -313,6 +425,12 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
               <input type="hidden" name="existing_logo" value="<?= htmlspecialchars($sticky_logo) ?>">
               <input type="hidden" name="editing_id" value="<?= htmlspecialchars($edit_partner['id'] ?? '') ?>">
 
+              <?php if (!empty($sticky_gallery)): ?>
+                <?php foreach ($sticky_gallery as $g): ?>
+                  <input type="hidden" name="existing_gallery[]" value="<?= htmlspecialchars($g) ?>">
+                <?php endforeach; ?>
+              <?php endif; ?>
+
               <div class="mb-3">
                 <label class="form-label fw-semibold">ID (unique)</label>
 
@@ -330,7 +448,9 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
                     <?= htmlspecialchars($id_error) ?>
                   </div>
                 <?php else: ?>
-                  <div class="form-text">Use lowercase letters/numbers/hyphen only.</div>
+                  <div class="form-text">Use lowercase letters/numbers/hyphen only.<br>
+                    <span style="color: red;">(Recommand: Use Membership No)</span>
+                  </div>
                 <?php endif; ?>
               </div>
 
@@ -368,6 +488,41 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
                 </div>
               <?php endif; ?>
 
+              <div class="mb-3">
+                <label class="form-label fw-semibold d-block">Gallery Upload</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch"
+                         id="enableGalleryUpload" name="enable_gallery" value="1"
+                         <?= $toggle_checked ? 'unchecked' : '' ?>>
+                  <label class="form-check-label" for="enableGalleryUpload">Enable gallery image upload</label>
+                </div>
+              </div>
+
+              <div class="mb-3" id="galleryUploadBlock">
+                <label class="form-label fw-semibold">Gallery Images (max 10)</label>
+                <input type="file" name="gallery[]" class="form-control" accept=".png,.jpg,.jpeg,.webp" multiple>
+                <div class="form-text">You can upload multiple images. Total gallery images allowed: 10.</div>
+              </div>
+
+              <?php if (!empty($sticky_gallery)): ?>
+                <div class="mb-3">
+                  <div class="small text-muted mb-2">Existing Gallery (tick to remove):</div>
+                  <div class="d-flex flex-wrap gap-2">
+                    <?php foreach($sticky_gallery as $g): ?>
+                      <label class="border rounded p-2" style="width:120px;">
+                        <img src="<?= htmlspecialchars($g) ?>" alt="gallery"
+                             style="width:100%; height:70px; object-fit:cover; border-radius:8px;"
+                             onerror="this.style.display='none';">
+                        <div class="form-check mt-2">
+                          <input class="form-check-input" type="checkbox" name="remove_gallery[]" value="<?= htmlspecialchars($g) ?>" id="rm_<?= md5($g) ?>">
+                          <label class="form-check-label small" for="rm_<?= md5($g) ?>">Remove</label>
+                        </div>
+                      </label>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
+              <?php endif; ?>
+
               <div class="d-flex gap-2">
                 <button class="btn btn-primary">Save</button>
                 <a class="btn btn-outline-secondary" href="partners-admin.php">Clear</a>
@@ -386,13 +541,13 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
             <?php if (count($partners) === 0): ?>
               <div class="text-muted">No partners yet. Add your first partner using the form.</div>
             <?php else: ?>
-              <div class="table-responsive">
-                <table class="table align-middle">
+              <div class="table-responsive pa-table-scroll">
+                <table class="table align-middle mb-0">
                   <thead>
                     <tr>
-                      <th style="width:90px;">Logo</th>
+                      <th style="width:110px;">Logo</th>
                       <th>Name</th>
-                      <th style="width:220px;">Actions</th>
+                      <th style="width:340px; text-align: center">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -410,14 +565,16 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
                           <div class="fw-semibold"><?= htmlspecialchars($p['name'] ?? '') ?></div>
                           <div class="small text-muted"><?= htmlspecialchars($p['id'] ?? '') ?></div>
                         </td>
-                        <td class="d-flex gap-2 flex-wrap">
-                          <a class="btn btn-sm btn-outline-primary" href="partners-admin.php?edit=<?= urlencode($p['id']) ?>">Edit</a>
-                          <a class="btn btn-sm btn-outline-secondary" href="partner-detail.php?id=<?= urlencode($p['id']) ?>" target="_blank">Preview</a>
-                          <a class="btn btn-sm btn-outline-danger"
-                             href="partners-admin.php?delete=<?= urlencode($p['id']) ?>"
-                             onclick="return confirm('Delete this partner? This will also delete its logo file.');">
-                             Delete
-                          </a>
+                        <td>
+                          <div class="pa-actions">
+                            <a class="btn btn-sm btn-outline-primary pa-btn" href="partners-admin.php?edit=<?= urlencode($p['id']) ?>">Edit</a>
+                            <a class="btn btn-sm btn-outline-secondary pa-btn" href="partner-detail.php?id=<?= urlencode($p['id']) ?>" target="_blank">Preview</a>
+                            <a class="btn btn-sm btn-outline-danger pa-btn"
+                               href="partners-admin.php?delete=<?= urlencode($p['id']) ?>"
+                               onclick="return confirm('Delete this partner? This will delete logo and gallery folder.');">
+                              Delete
+                            </a>
+                          </div>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -434,5 +591,62 @@ $sticky_logo = $edit_partner['logo'] ?? ($_POST['existing_logo'] ?? '');
 
   </div>
 </main>
+
+<style>
+/* Current Partners table scroll + equal buttons */
+.pa-table-scroll{
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.pa-table-scroll thead th{
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 2;
+}
+.pa-actions{
+  display: grid;
+  grid-template-columns: repeat(3, 92px);
+  gap: 10px;
+  justify-content: end;
+}
+.pa-btn{
+  width: 92px;
+  text-align: center;
+  font-weight: 700;
+}
+@media (max-width: 575.98px){
+  .pa-actions{
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+  .pa-btn{ width: 100%; }
+}
+
+/* form-text css */
+.form-text{
+  color: green;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("enableGalleryUpload");
+  const block = document.getElementById("galleryUploadBlock");
+  if (!toggle || !block) return;
+
+  function sync() {
+    const enabled = toggle.checked;
+    block.style.opacity = enabled ? "1" : ".55";
+    block.querySelectorAll("input,select,textarea,button").forEach(el => {
+      el.disabled = !enabled;
+    });
+  }
+
+  toggle.addEventListener("change", sync);
+  sync();
+});
+</script>
 
 <?php include "footer.php"; ?>

@@ -1,37 +1,41 @@
 [
     {
-        "id": "example2",
-        "name": "Example Company 2",
-        "logo": "images/partners/example2-1771440348.png",
-        "about": "adfafda",
-        "website": "https:example2.com"
-    },
-    {
         "id": "example1",
         "name": "Example Company 1",
         "logo": "images/partners/example1-1771442491.png",
-        "about": "afdafdafd",
-        "website": "https:example1.com"
+        "about": "What is Lorem Ipsum?\r\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "website": "https:example1.com",
+        "gallery": []
     },
     {
         "id": "example4",
         "name": "Example Company 4",
         "logo": "images/partners/example4-1771506848.png",
         "about": "adfadfasdfa",
-        "website": "https:example2.com"
+        "website": "https:example2.com",
+        "gallery": []
     },
     {
         "id": "test1",
         "name": "TUCSS",
         "logo": "images/partners/test1-1771509775.png",
         "about": "Unified Memory\r\nAdd memory to run more apps simultaneously for faster, more fluid multitasking.\r\nCurrent\r\n16GB",
-        "website": "https://www.tucss.org.sg/"
+        "website": "https://www.tucss.org.sg/",
+        "gallery": []
     },
     {
         "id": "test2",
         "name": "Example Company 4",
         "logo": "images/partners/test2-1771510038.jpg",
-        "about": "afdadfadfaf",
-        "website": "https://www.tucss.org.sg/"
+        "about": "What is Lorem Ipsum?\r\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "website": "https://www.tucss.org.sg/",
+        "gallery": [
+            "images/partners/test2/test2-g-1771673919-0.png",
+            "images/partners/test2/test2-g-1771673919-1.png",
+            "images/partners/test2/test2-g-1771673919-2.png",
+            "images/partners/test2/test2-g-1771673919-3.png",
+            "images/partners/test2/test2-g-1771673919-4.png",
+            "images/partners/test2/test2-g-1771673919-5.jpg"
+        ]
     }
 ]

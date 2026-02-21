@@ -1,6 +1,5 @@
 <?php
-// partners-data.php
-// Read partners from JSON file (no DB)
+// partners-data.php (no database, JSON storage)
 
 function partners_json_path(): string {
   return __DIR__ . "/partners-data.json";
@@ -13,12 +12,32 @@ function load_partners(): array {
   $raw = file_get_contents($path);
   $data = json_decode($raw, true);
 
-  return is_array($data) ? $data : [];
+  if (!is_array($data)) return [];
+
+  // Normalize: ensure each partner has expected keys (optional safety)
+  foreach ($data as &$p) {
+    if (!isset($p['id'])) $p['id'] = '';
+    if (!isset($p['name'])) $p['name'] = '';
+    if (!isset($p['logo'])) $p['logo'] = '';
+    if (!isset($p['about'])) $p['about'] = '';
+    if (!isset($p['website'])) $p['website'] = '';
+
+    // NEW: gallery field (array of image paths)
+    if (!isset($p['gallery']) || !is_array($p['gallery'])) {
+      $p['gallery'] = [];
+    }
+  }
+  unset($p);
+
+  return $data;
 }
 
 function save_partners(array $partners): bool {
+  // Keep clean array indexes
+  $partners = array_values($partners);
+
   $path = partners_json_path();
-  $json = json_encode($partners, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $json = json_encode($partners, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
   return file_put_contents($path, $json) !== false;
 }
-
