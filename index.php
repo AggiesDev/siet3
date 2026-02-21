@@ -207,8 +207,8 @@
         </p>
       </div>
 
-      <a href="global-network.php" class="btn btn-outline-primary btn-sm rounded-pill">
-        View Global Network
+      <a href="global-affiliations.php" class="btn btn-outline-primary btn-sm rounded-pill">
+        Global Affiliations
       </a>
     </div>
 
