@@ -58,7 +58,8 @@
     ["Global Network - Links", "global-links.php"],
 
     // Partnerships & Recognition
-    ["Partnerships & Recognition - Organisational Partnership", "organisational-partnership.php.php"],
+    ["Partnerships & Recognition - Why & How to become SIET Partner", "organisational-partner.php"],
+    ["Partnerships & Recognition - Organisational Partnership", "organisational-partnership.php"],
     ["Partnerships & Recognition - Sponsorship", "sponsorship.php"],
     ["Partnerships & Recognition - Awards", "awards.php"],
     ["Partnerships & Recognition - Expert Services", "resources.php"],
@@ -367,7 +368,7 @@
             Global Network
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="global-founding.php">Founding Members</a></li>
+            <li><a class="dropdown-item" href="global-founding.php">Founding Member & Member</a></li>
             <li><a class="dropdown-item" href="global-recognitions.php">International Recognitions</a></li>
             <li><a class="dropdown-item" href="global-affiliations.php">Global Affiliations</a></li>
             <li><a class="dropdown-item" href="global-links.php">Links</a></li>
@@ -382,7 +383,7 @@
           <ul class="dropdown-menu">
             <li><h5 class="dropdown-header">Organisational Pratnership</h5></li>
             <!-- <li><a class="dropdown-item organisationl" href="organisational-partnership.php">Organisational Partnership</a></li> -->
-            <li><a class="dropdown-item organisationl" href="#">Why Become Organisation Partner</a></li>
+            <li><a class="dropdown-item organisationl" href="organisational-partner.php">Why & How to become SIET Partner</a></li>
             <li><a class="dropdown-item organisationl" href="organisational-partnership.php">Our Organisation Partners</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><h5 class="dropdown-header">Recognition</h5></li>
