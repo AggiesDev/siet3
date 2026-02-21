@@ -8,7 +8,10 @@
         "branch": "adfadfaf",
         "areas": "adfadfaf",
         "certified_grade": "adfadfafda",
-        "membership_status": "Paid"
+        "membership_status": "Paid",
+        "post_nominal": "MSIE",
+        "certification_no": "CRET-00005",
+        "certification_status": "Expired"
     },
     {
         "id": "example2",
@@ -30,6 +33,9 @@
         "branch": "adfadfaf",
         "areas": "gjgjghj",
         "certified_grade": "rrtererer",
-        "membership_status": "Overdue"
+        "membership_status": "Overdue",
+        "post_nominal": "adadf",
+        "certification_no": "CRET-00006",
+        "certification_status": "Renewal Due"
     }
 ]

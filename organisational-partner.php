@@ -24,7 +24,7 @@
           </div>
 
           <div class="op-subtext mt-3">
-            Your support strengthens the profession and inspires future generations of engineers.
+            Your support strengthens the profession and inspires future generations of engineering professionals.
           </div>
         </div>
 

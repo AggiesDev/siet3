@@ -92,11 +92,6 @@ if (!$authed):
           <button class="btn btn-primary w-100 mt-3">Login</button>
           <a href="organisational-partnership.php" class="btn btn-success w-100 mt-3">View Our Partners List</a>
         </form>
-
-        <div class="small text-muted mt-3">
-          
-          <!-- Tip: change the password in <code>ADMIN_PASS</code> inside <code>partners-admin.php</code>. -->
-        </div>
       </div>
     </div>
   </main>
@@ -161,6 +156,17 @@ function safe_gallery_dir(string $galleryRootDir, string $id): string {
 }
 function safe_gallery_url(string $galleryRootUrl, string $id): string {
   return rtrim($galleryRootUrl, "/\\") . "/" . $id . "/";
+}
+
+/* NEW: gallery count badge for table */
+function gallery_count_badge($partner){
+  $g = $partner['gallery'] ?? [];
+  $count = (is_array($g)) ? count(array_filter($g, fn($x)=>is_string($x) && trim($x)!=='')) : 0;
+
+  if ($count <= 0){
+    return '<span class="pa-gallery-none">0</span>';
+  }
+  return '<span class="pa-gallery-count">'.$count.'</span>';
 }
 
 /* Load state */
@@ -387,25 +393,32 @@ if ($edit_partner && !empty($edit_partner['gallery']) && is_array($edit_partner[
 $toggle_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_gallery']) : true;
 ?>
 
-<main class="py-4">
-  <div class="container">
+<main>
 
-    <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
+<section class="page-hero">
+  <div class="container py-5">
+    <div class="d-flex align-items-end justify-content-between flex-wrap gap-2">
       <div>
-        <h1 class="fw-bold mb-1">Partners Admin</h1>
-        <p class="text-muted mb-0">Add / edit / delete organisational partners.</p>
+        <h1 class="mb-2 fw-bold">Partners Admin</h1>
+        <p class="text-muted mb-0">Add, edit, and delete organisational partners.</p>
       </div>
 
       <div class="d-flex gap-2 flex-wrap">
-        <a href="partners-admin.php?logout_to=organisational-partnership.php"
-           class="btn btn-outline-secondary btn-sm rounded-pill">
+        <a href="partners-admin.php?logout_to=organisational-partnership.php" class="btn btn-outline-secondary rounded-pill">
           View Partners Page
         </a>
-        <!-- <a href="partners-admin.php?logout=1" class="btn btn-outline-danger btn-sm rounded-pill">
-          Logout
-        </a> -->
+
+        <button type="button" class="btn btn-primary rounded-pill"
+                data-bs-toggle="modal" data-bs-target="#partnerModal">
+          <?= $edit_partner ? "Edit Partner" : "Add Partner" ?>
+        </button>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section-pad pt-0">
+  <div class="container">
 
     <?php if ($msg): ?>
       <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
@@ -414,98 +427,174 @@ $toggle_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_galler
       <div class="alert alert-danger"><?= htmlspecialchars($err) ?></div>
     <?php endif; ?>
 
-    <div class="row g-4">
-      <div class="col-lg-5">
-        <div class="card shadow-sm" style="border-radius:16px;">
-          <div class="card-body">
-            <h5 class="fw-bold mb-3"><?= $edit_partner ? "Edit Partner" : "Add New Partner" ?></h5>
+    <div class="card pa-card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+          <h3 class="h6 fw-bold mb-0">Current Partners (<?= count($partners) ?>)</h3>
+          <div class="text-muted small">Scroll appears only when needed.</div>
+        </div>
 
-            <form method="POST" action="partners-admin.php" enctype="multipart/form-data">
-              <input type="hidden" name="action" value="save">
-              <input type="hidden" name="existing_logo" value="<?= htmlspecialchars($sticky_logo) ?>">
-              <input type="hidden" name="editing_id" value="<?= htmlspecialchars($edit_partner['id'] ?? '') ?>">
-
-              <?php if (!empty($sticky_gallery)): ?>
-                <?php foreach ($sticky_gallery as $g): ?>
-                  <input type="hidden" name="existing_gallery[]" value="<?= htmlspecialchars($g) ?>">
+        <?php if (count($partners) === 0): ?>
+          <div class="text-muted">No partners yet. Add your first partner using the “Add Partner” button.</div>
+        <?php else: ?>
+          <div class="pa-scrollwrap">
+            <table class="table table-hover align-middle mb-0 pa-table">
+              <thead>
+                <tr>
+                  <th style="width:70px;">No</th>
+                  <th style="width:120px;">Logo</th>
+                  <th>Name</th>
+                  <th>ID</th>
+                  <th>Website Link</th>
+                  <th style="width:130px; text-align:center;">Gallery</th>
+                  <th style="width:420px; text-align:center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($partners as $i => $p): ?>
+                  <tr>
+                    <td><?= $i + 1 ?></td>
+                    <td>
+                      <?php if (!empty($p['logo'])): ?>
+                        <img src="<?= htmlspecialchars($p['logo']) ?>" alt=""
+                             style="width:78px; height:48px; object-fit:contain; background:#fff;">
+                      <?php else: ?>
+                        <span class="text-muted small">No logo</span>
+                      <?php endif; ?>
+                    </td>
+                    <td>
+                      <div class="fw-semibold"><?= htmlspecialchars($p['name'] ?? '') ?></div>
+                      <div class="small text-muted"><?= htmlspecialchars($p['id'] ?? '') ?></div>
+                    </td>
+                    <td><?= htmlspecialchars($p['id'] ?? '') ?></td>
+                    <td>
+                      <?php if (!empty($p['website'])): ?>
+                        <a href="<?= htmlspecialchars($p['website']) ?>" target="_blank" class="text-decoration-none">
+                          <?= htmlspecialchars($p['website']) ?>
+                        </a>
+                      <?php else: ?>
+                        <span class="text-muted small">No website</span>
+                      <?php endif; ?>
+                    </td>
+                    <td class="text-center">
+                      <?= gallery_count_badge($p); ?>
+                    </td>
+                    <td>
+                      <div class="pa-actions">
+                        <a class="btn btn-sm btn-outline-primary pa-btn" href="partners-admin.php?edit=<?= urlencode($p['id']) ?>">Edit</a>
+                        <a class="btn btn-sm btn-outline-secondary pa-btn" href="partner-detail.php?id=<?= urlencode($p['id']) ?>" target="_blank">Preview</a>
+                        <a class="btn btn-sm btn-outline-danger pa-btn"
+                           href="partners-admin.php?delete=<?= urlencode($p['id']) ?>"
+                           onclick="return confirm('Delete this partner? This will delete logo and gallery folder.');">
+                          Delete
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
                 <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        <?php endif; ?>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<br>
+<!-- MODAL: Add / Edit Partner (DESIGN ONLY – same form logic) -->
+<div class="modal fade" id="partnerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content pa-modal">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold"><?= $edit_partner ? "Edit Partner" : "Add New Partner" ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form method="POST" action="partners-admin.php" enctype="multipart/form-data">
+          <input type="hidden" name="action" value="save">
+          <input type="hidden" name="existing_logo" value="<?= htmlspecialchars($sticky_logo) ?>">
+          <input type="hidden" name="editing_id" value="<?= htmlspecialchars($edit_partner['id'] ?? '') ?>">
+
+          <?php if (!empty($sticky_gallery)): ?>
+            <?php foreach ($sticky_gallery as $g): ?>
+              <input type="hidden" name="existing_gallery[]" value="<?= htmlspecialchars($g) ?>">
+            <?php endforeach; ?>
+          <?php endif; ?>
+
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">ID (unique)</label>
+              <input
+                type="text"
+                name="id"
+                class="form-control <?= !empty($id_error) ? 'is-invalid' : '' ?>"
+                value="<?= htmlspecialchars($sticky_id) ?>"
+                placeholder="example: engineers-australia"
+                <?= $edit_partner ? "readonly" : "" ?>
+                required>
+              <?php if(!empty($id_error)): ?>
+                <div class="invalid-feedback d-block"><?= htmlspecialchars($id_error) ?></div>
+              <?php else: ?>
+                <div class="form-text">
+                  Use lowercase letters/numbers/hyphen only.
+                </div>
               <?php endif; ?>
+            </div>
 
-              <div class="mb-3">
-                <label class="form-label fw-semibold">ID (unique)</label>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Name</label>
+              <input type="text" name="name" class="form-control"
+                     value="<?= htmlspecialchars($sticky_name) ?>"
+                     placeholder="Company / Organisation name" required>
+            </div>
 
-                <input
-                  type="text"
-                  name="id"
-                  class="form-control <?= !empty($id_error) ? 'is-invalid' : '' ?>"
-                  value="<?= htmlspecialchars($sticky_id) ?>"
-                  placeholder="example: engineers-australia"
-                  <?= $edit_partner ? "readonly" : "" ?>
-                  required>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Website (optional)</label>
+              <input type="url" name="website" class="form-control"
+                     value="<?= htmlspecialchars($sticky_website) ?>"
+                     placeholder="https://example.com">
+            </div>
 
-                <?php if(!empty($id_error)): ?>
-                  <div class="invalid-feedback d-block">
-                    <?= htmlspecialchars($id_error) ?>
-                  </div>
-                <?php else: ?>
-                  <div class="form-text">Use lowercase letters/numbers/hyphen only.<br>
-                    <span style="color: red;">(Recommand: Use Membership No)</span>
-                  </div>
-                <?php endif; ?>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold">Name</label>
-                <input type="text" name="name" class="form-control"
-                  value="<?= htmlspecialchars($sticky_name) ?>"
-                  placeholder="Company / Organisation name" required>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold">Website (optional)</label>
-                <input type="url" name="website" class="form-control"
-                  value="<?= htmlspecialchars($sticky_website) ?>"
-                  placeholder="https://example.com">
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold">About (Detail Information)</label>
-                <textarea name="about" rows="5" class="form-control"
-                  placeholder="Write partner description..."><?= htmlspecialchars($sticky_about) ?></textarea>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold">Logo (upload)</label>
-                <input type="file" name="logo" class="form-control" accept=".png,.jpg,.jpeg,.webp,.svg">
-                <div class="form-text">If you don’t upload, it will keep current logo.</div>
-              </div>
-
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Logo (upload)</label>
+              <input type="file" name="logo" class="form-control" accept=".png,.jpg,.jpeg,.webp,.svg">
+              <div class="form-text">If you don’t upload, it will keep current logo.</div>
               <?php if (!empty($sticky_logo)): ?>
-                <div class="mb-3">
+                <div class="mt-2">
                   <div class="small text-muted mb-1">Current Logo:</div>
                   <img src="<?= htmlspecialchars($sticky_logo) ?>" alt="logo"
                        style="max-width:180px; max-height:70px; object-fit:contain;">
                 </div>
               <?php endif; ?>
+            </div>
 
-              <div class="mb-3">
-                <label class="form-label fw-semibold d-block">Gallery Upload</label>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch"
-                         id="enableGalleryUpload" name="enable_gallery" value="1"
-                         <?= $toggle_checked ? 'unchecked' : '' ?>>
-                  <label class="form-check-label" for="enableGalleryUpload">Enable gallery image upload</label>
-                </div>
-              </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">About (Detail Information)</label>
+              <textarea name="about" rows="5" class="form-control"
+                        placeholder="Write partner description..."><?= htmlspecialchars($sticky_about) ?></textarea>
+            </div>
 
-              <div class="mb-3" id="galleryUploadBlock">
-                <label class="form-label fw-semibold">Gallery Images (max 10)</label>
-                <input type="file" name="gallery[]" class="form-control" accept=".png,.jpg,.jpeg,.webp" multiple>
-                <div class="form-text">You can upload multiple images. Total gallery images allowed: 10.</div>
+            <div class="col-12">
+              <label class="form-label fw-semibold d-block">Gallery Upload</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="enableGalleryUpload" name="enable_gallery" value="1"
+                       <?= $toggle_checked ? 'checked' : '' ?>>
+                <label class="form-check-label" for="enableGalleryUpload">Enable gallery image upload</label>
               </div>
+            </div>
+
+            <div class="col-12" id="galleryUploadBlock">
+              <label class="form-label fw-semibold">Gallery Images (max 10)</label>
+              <input type="file" name="gallery[]" class="form-control" accept=".png,.jpg,.jpeg,.webp" multiple>
+              <div class="form-text">You can upload multiple images. Total gallery images allowed: 10.</div>
 
               <?php if (!empty($sticky_gallery)): ?>
-                <div class="mb-3">
+                <div class="mt-3">
                   <div class="small text-muted mb-2">Existing Gallery (tick to remove):</div>
                   <div class="d-flex flex-wrap gap-2">
                     <?php foreach($sticky_gallery as $g): ?>
@@ -522,121 +611,146 @@ $toggle_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_galler
                   </div>
                 </div>
               <?php endif; ?>
-
-              <div class="d-flex gap-2">
-                <button class="btn btn-primary">Save</button>
-                <a class="btn btn-outline-secondary" href="partners-admin.php">Clear</a>
-              </div>
-            </form>
+            </div>
 
           </div>
-        </div>
-      </div>
 
-      <div class="col-lg-7">
-        <div class="card shadow-sm" style="border-radius:16px;">
-          <div class="card-body">
-            <h5 class="fw-bold mb-3">Current Partners (<?= count($partners) ?>)</h5>
-
-            <?php if (count($partners) === 0): ?>
-              <div class="text-muted">No partners yet. Add your first partner using the form.</div>
-            <?php else: ?>
-              <div class="table-responsive pa-table-scroll">
-                <table class="table align-middle mb-0">
-                  <thead>
-                    <tr>
-                      <th style="width:110px;">Logo</th>
-                      <th>Name</th>
-                      <th style="width:340px; text-align: center">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach($partners as $p): ?>
-                      <tr>
-                        <td>
-                          <?php if (!empty($p['logo'])): ?>
-                            <img src="<?= htmlspecialchars($p['logo']) ?>" alt=""
-                                 style="width:78px; height:48px; object-fit:contain; background:#fff;">
-                          <?php else: ?>
-                            <span class="text-muted small">No logo</span>
-                          <?php endif; ?>
-                        </td>
-                        <td>
-                          <div class="fw-semibold"><?= htmlspecialchars($p['name'] ?? '') ?></div>
-                          <div class="small text-muted"><?= htmlspecialchars($p['id'] ?? '') ?></div>
-                        </td>
-                        <td>
-                          <div class="pa-actions">
-                            <a class="btn btn-sm btn-outline-primary pa-btn" href="partners-admin.php?edit=<?= urlencode($p['id']) ?>">Edit</a>
-                            <a class="btn btn-sm btn-outline-secondary pa-btn" href="partner-detail.php?id=<?= urlencode($p['id']) ?>" target="_blank">Preview</a>
-                            <a class="btn btn-sm btn-outline-danger pa-btn"
-                               href="partners-admin.php?delete=<?= urlencode($p['id']) ?>"
-                               onclick="return confirm('Delete this partner? This will delete logo and gallery folder.');">
-                              Delete
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  </tbody>
-                </table>
-              </div>
-            <?php endif; ?>
-
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary rounded-pill px-4">Save</button>
           </div>
-        </div>
+        </form>
       </div>
-
     </div>
-
   </div>
-</main>
+</div>
 
 <style>
-/* Current Partners table scroll + equal buttons */
-.pa-table-scroll{
-  max-height: 520px;
-  overflow-y: auto;
-  overflow-x: hidden;
+/* Card */
+.pa-card{
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,.06);
 }
-.pa-table-scroll thead th{
+
+/* Scroll wrapper: show scrollbars only when needed */
+.pa-scrollwrap{
+  max-height: 560px;
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.06);
+  position: relative;
+}
+
+/* Table width to enable horizontal scroll */
+.pa-table{
+  min-width: 1150px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Sticky header */
+.pa-table thead th{
   position: sticky;
   top: 0;
   background: #fff;
-  z-index: 2;
+  z-index: 6;
+  border-bottom: 1px solid rgba(0,0,0,.10);
+  white-space: nowrap;
 }
+
+/* Sticky "No" column ONLY */
+.pa-table thead th:nth-child(1),
+.pa-table tbody td:nth-child(1){
+  position: sticky;
+  left: 0;
+  z-index: 7;
+  background: #fff;
+  box-shadow: 1px 0 0 rgba(0,0,0,.08);
+}
+.pa-table thead th:nth-child(1){ z-index: 8; }
+
+/* Gallery count badges */
+.pa-gallery-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: .9rem;
+  background: rgba(13,110,253,.12);
+  border: 1px solid rgba(13,110,253,.22);
+  color: #0d6efd;
+}
+.pa-gallery-none{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: .9rem;
+  background: rgba(220,53,69,.12);
+  border: 1px solid rgba(220,53,69,.22);
+  color: #dc3545;
+}
+
+/* Actions equal + bigger */
 .pa-actions{
   display: grid;
-  grid-template-columns: repeat(3, 92px);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   justify-content: end;
+  max-width: 420px;
+  margin-left: auto;
 }
 .pa-btn{
-  width: 92px;
+  width: 100%;
   text-align: center;
-  font-weight: 700;
+  font-weight: 800;
+  padding: .45rem .9rem;
+  font-size: .95rem;
+  border-radius: 999px;
+  white-space: nowrap;
 }
+
+/* Nicer scrollbars */
+.pa-scrollwrap::-webkit-scrollbar{ height: 10px; width: 10px; }
+.pa-scrollwrap::-webkit-scrollbar-track{ background: rgba(0,0,0,.06); border-radius: 999px; }
+.pa-scrollwrap::-webkit-scrollbar-thumb{ background: rgba(13,110,253,.28); border-radius: 999px; }
+.pa-scrollwrap::-webkit-scrollbar-thumb:hover{ background: rgba(13,110,253,.40); }
+
+/* Modal styling */
+.pa-modal{
+  border-radius: 18px;
+  overflow: hidden;
+}
+.modal-header{
+  background: linear-gradient(180deg, rgba(13,110,253,.10), rgba(255,255,255,0));
+}
+
+/* Mobile: stack action buttons */
 @media (max-width: 575.98px){
   .pa-actions{
     grid-template-columns: 1fr;
-    justify-content: stretch;
+    max-width: none;
   }
-  .pa-btn{ width: 100%; }
 }
 
 /* form-text css */
-.form-text{
-  color: green;
-}
+.form-text{ color: green; }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById("enableGalleryUpload");
   const block = document.getElementById("galleryUploadBlock");
-  if (!toggle || !block) return;
 
   function sync() {
+    if (!toggle || !block) return;
     const enabled = toggle.checked;
     block.style.opacity = enabled ? "1" : ".55";
     block.querySelectorAll("input,select,textarea,button").forEach(el => {
@@ -644,9 +758,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  toggle.addEventListener("change", sync);
+  if (toggle) toggle.addEventListener("change", sync);
   sync();
+
+  // Auto open modal when editing OR when there is validation error
+  const shouldOpen = <?= json_encode((bool)$edit_partner || (bool)$err || (bool)$id_error) ?>;
+  if (shouldOpen) {
+    const modalEl = document.getElementById("partnerModal");
+    if (modalEl) {
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+    }
+  }
 });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php include "footer.php"; ?>
