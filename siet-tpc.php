@@ -189,7 +189,7 @@ Exemptions / Recognition Pathways
             <div class="tpc-lew-item">
               <div class="tpc-lew-head">LEW (Grade 8):</div>
               <ul class="tpc-black-list">
-                <li>Can apply to become SIET Certified Engineering Technologist</li>
+                <!-- <li>Can apply to become SIET Certified Engineering Technologist</li>  -->
                 <li>
                   Can apply to become SIET Certified Engineering Technologist with proven track records of complex projects and substantial practical experience
                 </li>

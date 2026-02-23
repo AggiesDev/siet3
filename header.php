@@ -1,5 +1,6 @@
 <?php require_once 'auth.php'; ?>
 <?php
+
   // Sessions are used for lightweight profile storage 
   if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -31,7 +32,7 @@
     ["Membership - Mature Candidate Scheme", "mature-candidate.php"],
     ["Membership - Students as Members", "students-members.php"],
     ["Membership - Membership Fees", "membership-fees.php"],
-    ["Membership - Search SIET Members", "view-memberlist.php"],
+    ["Membership - Membership & Certification Search", "view-memberlist.php"],
     // ["Membership - Renewal (Quick Renew)", "membership-renewal.php"],
 
     // Certifications
@@ -53,9 +54,9 @@
     // Global Network
     ["Global Network - Global Founding Members", "global-founding.php"],
     ["Global Network - International Recognitions", "global-recognitions.php"],
-    ["Global Network - Global Affiliations", "global-affiliations.php"],
+    ["Global Network - Global Recognitions & Affiliations", "global-affiliations.php"],
     // ["Global Network - Global Network", "global-network.php"],
-    ["Global Network - Links", "global-links.php"],
+    // ["Global Network - Collaborative Partners", "global-links.php"],
 
     // Partnerships & Recognition
     ["Partnerships & Recognition - Why & How to become SIET Partner", "organisational-partner.php"],
@@ -69,6 +70,44 @@
 
     // Profile
     // ["Profile", "profile.php"],
+  ];
+
+  /* =========================================================
+     Footer Quick Links (AUTO SOURCE)
+     ========================================================= */
+  $SIET_FOOTER_QUICKLINKS = [
+    "Membership" => [
+      ["title" => "Why Become a Member", "href" => "why-member.php"],
+      ["title" => "Membership Pathways", "href" => "membership-pathways.php"],
+      ["title" => "Mature Candidate Scheme (MCS)", "href" => "mature-candidate.php"],
+      ["title" => "Membership & Certification Search", "href" => "view-memberlist.php"],
+    ],
+
+    "Certifications" => [
+      ["title" => "Professionals of Examinations", "href" => "professionalexaminations.php"],
+      ["title" => "Certification & Progression", "href" => "cert-vs-membership.php"],
+      ["title" => "SIET – TPC", "href" => "siet-tpc.php"],
+      ["title" => "Certification Application", "href" => "cert-application.php"],
+      ["title" => "Certification Fees", "href" => "cert-fees.php"],
+    ],
+
+    "Global Networks" => [
+      ["title" => "Founding Members and Members", "href" => "global-founding.php"],
+      ["title" => "International Recognitions", "href" => "global-recognitions.php"],
+      ["title" => "Global Recongnitions & Affiliations", "href" => "global-affiliations.php"],
+      // ["title" => "Collaborative Partners", "href" => "global-links.php"],
+    ],
+
+    "CPD" => [
+      ["title" => "Renewal of Professional Registration", "href" => "cpd-renewal.php"],
+      ["title" => "Types of CPD", "href" => "cpd-types.php"],
+    ],
+
+    "Accreditation" => [
+      ["title" => "International Accreditation", "href" => "accreditation-international.php"],
+      ["title" => "Local Accreditation", "href" => "accreditation-local.php"],
+    ],
+
   ];
 ?>
 <!DOCTYPE html>
@@ -217,6 +256,7 @@
 </head>
 
 <?php $page_id = $page_id ?? pathinfo($_SERVER["PHP_SELF"], PATHINFO_FILENAME); ?>
+<body data-page="<?php echo htmlspecialchars($page_id); ?>">
 <body class="smooth-scroll" data-pageid="<?php echo htmlspecialchars($page_id); ?>">
 
 <?php if (is_logged_in()): ?>
@@ -318,7 +358,7 @@
             <!-- <li><a class="dropdown-item" href="membership-grades.php">Membership Grades vs Requirements</a></li> -->
             <li><a class="dropdown-item" href="mature-candidate.php">Mature Candidate Scheme</a></li>
             <li><a class="dropdown-item" href="students-members.php">Students as Members</a></li>
-             <li><a class="dropdown-item" href="view-memberlist.php">Search SIET Members</a></li>
+             <li><a class="dropdown-item" href="view-memberlist.php">Membership & Certification Search</a></li>
             <li><a class="dropdown-item" href="membership-fees.php">Membership Fees</a></li>
           </ul>
         </li>
@@ -370,8 +410,8 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="global-founding.php">Founding Member & Member</a></li>
             <li><a class="dropdown-item" href="global-recognitions.php">International Recognitions</a></li>
-            <li><a class="dropdown-item" href="global-affiliations.php">Global Affiliations</a></li>
-            <li><a class="dropdown-item" href="global-links.php">Links</a></li>
+            <li><a class="dropdown-item" href="global-affiliations.php">Global Recognitions & Affiliations</a></li>
+            <!-- <li><a class="dropdown-item" href="global-links.php">Collaborative Partners</a></li> -->
           </ul>
         </li>
 

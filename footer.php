@@ -1,10 +1,45 @@
   <!-- ======================
-       FOOTER
-       ====================== -->
-       <style>
-        /* ==========================
-   Footer Brand Logo Responsive
-   ========================== */
+  FOOTER
+  ====================== -->
+  
+  <?php
+    // Footer uses quick links from header.php (auto updates).
+    $ql = $SIET_FOOTER_QUICKLINKS ?? [];
+    //form for the quick link arrays (if header.php doesn't define them, we use these defaults):
+    $membership = $ql['Membership'] ?? [
+      ['title'=>'Why Become a Member','href'=>'why-member.php'],
+      ['title'=>'Membership Pathways','href'=>'membership-pathways.php'],
+      ['title'=>'Mature Candidate Scheme (MCS)','href'=>'mature-candidate.php'],
+      ['title'=>'Membership Application Form','href'=>'member-application.php'],
+    ];
+
+    $certifications = $ql['Certifications'] ?? [
+      ['title'=>'Certification Application','href'=>'cert-application.php'],
+      ['title'=>'Membership vs Certifications','href'=>'cert-vs-membership.php'],
+      ['title'=>'Directory of Professionals','href'=>'cert-directory.php'],
+      ['title'=>'SIET – TPC','href'=>'siet-tpc.php'],
+      ['title'=>'Assessment & Registration Fee','href'=>'cert-fees.php'],
+    ];
+
+    $global = $ql['Global Networks'] ?? [
+      ['title'=>'Founding Members and Members','href'=>'global-founding.php'],
+      ['title'=>'International Recognitions','href'=>'global-recognitions.php'],
+      ['title'=>'Global Recongnitions & Affiliations','href'=>'global-affiliations.php'],
+      ['title'=>'Collaborative Partners','href'=>'global-links.php'],
+    ];
+
+    $cpd = $ql['CPD'] ?? [
+      ['title'=>'CPD Renewal','href'=>'cpd-renewal.php'],
+      ['title'=>'Types of CPD Activities','href'=>'cpd-types.php'],
+    ];
+
+    $accreditation = $ql['Accreditation'] ?? [
+      ['title'=>'Local Polytechnics & ITE','href'=>'accreditation-local.php'],
+      ['title'=>'International Certification','href'=>'accreditation-international.php'],
+    ];
+  ?>
+
+  <style>
 
 .footer-brand-logo{
   display: block;
@@ -48,6 +83,7 @@
   .footer-brand-logo{ max-height: 70px; }
 }
        </style>
+
   <footer class="site-footer bg-dark text-white pt-5">
     <div class="container-fluid px-3 px-lg-5">
       <div class="row g-4">
@@ -67,42 +103,54 @@
         <div class="col-md-3">
   <h6 class="fw-bold">Membership</h6>
   <ul class="list-unstyled small">
-    <li><a href="why-member.php" class="footer-link">Why Become a Member</a></li>
-    <li><a href="membership-pathways.php" class="footer-link">Membership Pathways</a></li>
-    <li><a href="mature-candidate.php" class="footer-link">Mature Candidate Scheme (MCS)</a></li>
+
+    <?php
+      // Keep your exact layout: first 3 items, then "More"
+      $first = array_slice($membership, 0, 3);
+      $more  = array_slice($membership, 3);
+    ?>
+
+    <?php foreach($first as $item): ?>
+      <li><a href="<?= htmlspecialchars($item['href']) ?>" class="footer-link"><?= htmlspecialchars($item['title']) ?></a></li>
+    <?php endforeach; ?>
 
     <li class="mt-2 text-secondary fw-semibold">More</li>
-    <li><a href="member-benefits.php" class="footer-link">Membership Benefits</a></li>
-    <li><a href="member-application.php" class="footer-link">Membership Application Form</a></li>
+    <?php foreach($more as $item): ?>
+      <li><a href="<?= htmlspecialchars($item['href']) ?>" class="footer-link"><?= htmlspecialchars($item['title']) ?></a></li>
+    <?php endforeach; ?>
+
   </ul>
 </div>
 
 <div class="col-md-3">
   <h6 class="fw-bold">Certifications</h6>
   <ul class="list-unstyled small">
-    <li><a href="cert-application.php" class="footer-link">Certification Application</a></li>
-    <li><a href="cert-vs-membership.php" class="footer-link">Membership vs Certifications</a></li>
-    <li><a href="cert-directory.php" class="footer-link">Directory of Professionals</a></li>
-    <li><a href="siet-tpc.php" class="footer-link">SIET – TPC</a></li>
-    <li><a href="cert-fees.php" class="footer-link">Assessment &amp; Registration Fee</a></li>
+
+    <?php foreach($certifications as $item): ?>
+      <li><a href="<?= htmlspecialchars($item['href']) ?>" class="footer-link"><?= htmlspecialchars($item['title']) ?></a></li>
+    <?php endforeach; ?>
 
     <li class="mt-2 text-secondary fw-semibold">CPD</li>
-    <li><a href="cpd-renewal.php" class="footer-link">CPD Renewal</a></li>
-    <li><a href="cpd-types.php" class="footer-link">Types of CPD Activities</a></li>
+    <?php foreach($cpd as $item): ?>
+      <li><a href="<?= htmlspecialchars($item['href']) ?>" class="footer-link"><?= htmlspecialchars($item['title']) ?></a></li>
+    <?php endforeach; ?>
+
   </ul>
 </div>
 
 <div class="col-md-3">
   <h6 class="fw-bold">Global Networks</h6>
   <ul class="list-unstyled small">
-    <li><a href="global-founding.php" class="footer-link">WFTO &amp; GTA</a></li>
-    <li><a href="global-recognitions.php" class="footer-link">International Recognitions</a></li>
-    <li><a href="global-affiliations.php" class="footer-link">Global Affiliations</a></li>
-    <li><a href="global-links.php" class="footer-link">Global Links</a></li>
+
+    <?php foreach($global as $item): ?>
+      <li><a href="<?= htmlspecialchars($item['href']) ?>" class="footer-link"><?= htmlspecialchars($item['title']) ?></a></li>
+    <?php endforeach; ?>
 
     <li class="mt-2 text-secondary fw-semibold">Accreditation</li>
-    <li><a href="accreditation-local.php" class="footer-link">Local Polytechnics &amp; ITE</a></li>
-    <li><a href="accreditation-international.php" class="footer-link">International Certification</a></li>
+    <?php foreach($accreditation as $item): ?>
+      <li><a href="<?= htmlspecialchars($item['href']) ?>" class="footer-link"><?= htmlspecialchars($item['title']) ?></a></li>
+    <?php endforeach; ?>
+
   </ul>
 </div>
 

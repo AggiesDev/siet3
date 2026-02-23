@@ -180,12 +180,12 @@ function cert_status_badge($status){
                 </div>
 
                 <div class="col-12">
-                  <label class="form-label fw-semibold">Member No</label>
+                  <label class="form-label fw-semibold">Membership No</label>
                   <input class="form-control" name="membership_no" value="<?= h($q['membership_no']) ?>" placeholder="Search by member no">
                 </div>
 
                 <div class="col-12">
-                  <label class="form-label fw-semibold">Certification No</label>
+                  <label class="form-label fw-semibold">Certification No.</label>
                   <input class="form-control" name="certification_no" value="<?= h($q['certification_no']) ?>" placeholder="Search by certification no">
                 </div>
 
@@ -343,7 +343,7 @@ function cert_status_badge($status){
     </div>
 
     <!-- Table list + Name sort filter -->
-    <div class="card vm-card">
+    <!-- <div class="card vm-card">
       <div class="card-body">
 
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
@@ -413,7 +413,7 @@ function cert_status_badge($status){
         </div>
 
       </div>
-    </div>
+    </div> -->
 
   </div>
 </section>
@@ -453,6 +453,7 @@ function cert_status_badge($status){
   .cs-due{ background: rgba(111,66,193,.14); border-color: rgba(111,66,193,.25); color: #6f42c1; }
   .cs-stop{ background: rgba(33,37,41,.10); border-color: rgba(33,37,41,.20); color: #212529; }
   .cs-unknown{ background: rgba(108,117,125,.14); border-color: rgba(108,117,125,.20); color: #6c757d; }
+  .text-muted small{overflow: auto;}
 </style>
 
 <?php include "footer.php"; ?>

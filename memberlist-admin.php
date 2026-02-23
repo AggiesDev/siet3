@@ -354,12 +354,12 @@ $sticky_areas = $edit_member['areas'] ?? ($_POST['areas'] ?? '');
             </div>
 
             <div class="col-md-6">
-              <label class="form-label fw-semibold">Member No</label>
+              <label class="form-label fw-semibold">Membership No</label>
               <input type="text" name="membership_no" class="form-control" value="<?= h($sticky_no) ?>" required>
             </div>
 
             <div class="col-md-6">
-              <label class="form-label fw-semibold">Certification No</label>
+              <label class="form-label fw-semibold">Certification No.</label>
               <input type="text" name="certification_no" class="form-control" value="<?= h($sticky_certno) ?>">
             </div>
 

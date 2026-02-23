@@ -13,6 +13,7 @@
   </div>
 </section>
 <br>
+
 <section class="section-pad">
   <div class="container">
 
@@ -54,23 +55,23 @@
       <div class="col-lg-4">
         <div class="res-card h-100">
           <div class="res-card-head">
-            <div class="res-card-icon">🏢</div>
-            <div>
+            <div class="res-card-icon" aria-hidden="true">🏢</div>
+            <div class="res-card-head-text">
               <div class="res-card-title">Built Environment &amp; Safety</div>
               <div class="res-card-sub">Compliance • Inspections • Maintenance</div>
             </div>
           </div>
 
           <ul class="res-list">
-            <li>❄️ Air-condition Services</li>
-            <li>🏢 Building Maintenance Services</li>
-            <li>🏠 Home Renovation Services</li>
-            <li>🛗 Lift &amp; Escalator Inspection</li>
-            <li>🎨 Painting Services</li>
-            <li>🏢 Periodic Facade Inspection</li>
-            <li>📝 Pre- &amp; Post-Construction Condition Survey</li>
-            <li>👷 Qualified Persons Supervision Services</li>
-            <li>🌱 Safety &amp; Environmental Services</li>
+            <li><span class="res-li-ico">❄️</span><span class="res-li-text">Air-condition Services</span></li>
+            <li><span class="res-li-ico">🏢</span><span class="res-li-text">Building Maintenance Services</span></li>
+            <li><span class="res-li-ico">🏠</span><span class="res-li-text">Home Renovation Services</span></li>
+            <li><span class="res-li-ico">🛗</span><span class="res-li-text">Lift &amp; Escalator Inspection</span></li>
+            <li><span class="res-li-ico">🎨</span><span class="res-li-text">Painting Services</span></li>
+            <li><span class="res-li-ico">🏢</span><span class="res-li-text">Periodic Facade Inspection</span></li>
+            <li><span class="res-li-ico">📝</span><span class="res-li-text">Pre- &amp; Post-Construction Condition Survey</span></li>
+            <li><span class="res-li-ico">👷</span><span class="res-li-text">Qualified Persons Supervision Services</span></li>
+            <li><span class="res-li-ico">🌱</span><span class="res-li-text">Safety &amp; Environmental Services</span></li>
           </ul>
         </div>
       </div>
@@ -79,21 +80,21 @@
       <div class="col-lg-4">
         <div class="res-card h-100">
           <div class="res-card-head">
-            <div class="res-card-icon">⚡</div>
-            <div>
+            <div class="res-card-icon" aria-hidden="true">⚡</div>
+            <div class="res-card-head-text">
               <div class="res-card-title">Utilities &amp; Infrastructure</div>
               <div class="res-card-sub">Licensed works • Detection • Systems</div>
             </div>
           </div>
 
           <ul class="res-list">
-            <li>📹 CCTV pipeline &amp; manholes inspection service</li>
-            <li>⚙️ Distribution Box Maker Services</li>
-            <li>🔌 Licensed Electrical Worker</li>
-            <li>🚰 Licensed Sanitary &amp; Plumbing</li>
-            <li>⚡ Licensed Electric Cable Jointing</li>
-            <li>⚡ Licensed Cable Detection</li>
-            <li>📡 Licensed Telecommunication Cable Detection Worker</li>
+            <li><span class="res-li-ico">📹</span><span class="res-li-text">CCTV pipeline &amp; manholes inspection service</span></li>
+            <li><span class="res-li-ico">⚙️</span><span class="res-li-text">Distribution Box Maker Services</span></li>
+            <li><span class="res-li-ico">🔌</span><span class="res-li-text">Licensed Electrical Worker</span></li>
+            <li><span class="res-li-ico">🚰</span><span class="res-li-text">Licensed Sanitary &amp; Plumbing</span></li>
+            <li><span class="res-li-ico">⚡</span><span class="res-li-text">Licensed Electric Cable Jointing</span></li>
+            <li><span class="res-li-ico">⚡</span><span class="res-li-text">Licensed Cable Detection</span></li>
+            <li><span class="res-li-ico">📡</span><span class="res-li-text">Licensed Telecommunication Cable Detection Worker</span></li>
           </ul>
         </div>
       </div>
@@ -102,21 +103,21 @@
       <div class="col-lg-4">
         <div class="res-card h-100">
           <div class="res-card-head">
-            <div class="res-card-icon">🧠</div>
-            <div>
+            <div class="res-card-icon" aria-hidden="true">🧠</div>
+            <div class="res-card-head-text">
               <div class="res-card-title">Specialist Expertise</div>
               <div class="res-card-sub">Digital • Audits • Modelling</div>
             </div>
           </div>
 
           <ul class="res-list">
-            <li>🖥️ AI Analytics services</li>
-            <li>🌳 Arborist, Tree Felling &amp; Landscaping Services</li>
-            <li>🏗️ BIM Modelling</li>
-            <li>🌿 Landscape Architecture</li>
-            <li>🏢 Data Centre Auditing</li>
-            <li>♻️ Energy Auditing &amp; GMP/LEED</li>
-            <li>🌐 Website Design &amp; Development</li>
+            <li><span class="res-li-ico">🖥️</span><span class="res-li-text">AI Analytics services</span></li>
+            <li><span class="res-li-ico">🌳</span><span class="res-li-text">Arborist, Tree Felling &amp; Landscaping Services</span></li>
+            <li><span class="res-li-ico">🏗️</span><span class="res-li-text">BIM Modelling</span></li>
+            <li><span class="res-li-ico">🌿</span><span class="res-li-text">Landscape Architecture</span></li>
+            <li><span class="res-li-ico">🏢</span><span class="res-li-text">Data Centre Auditing</span></li>
+            <li><span class="res-li-ico">♻️</span><span class="res-li-text">Energy Auditing &amp; GMP/LEED</span></li>
+            <li><span class="res-li-ico">🌐</span><span class="res-li-text">Website Design &amp; Development</span></li>
           </ul>
         </div>
       </div>
@@ -232,8 +233,9 @@
   </div>
 </section>
 <br>
+
 <style>
-  /* ===== resources2.php styling (matches the DOCX "clean blocks" look) ===== */
+  /* ===== resources2.php styling ===== */
   .res-hero-card{
     background:#fff;
     border:1px solid rgba(0,0,0,.10);
@@ -334,23 +336,26 @@
     box-shadow: 0 22px 44px rgba(0,0,0,.10);
     border-color: rgba(13,110,253,.20);
   }
+
+  /* Header alignment (icon + title) */
   .res-card-head{
-    display:flex;
-    gap: 12px;
+    display:grid;
+    grid-template-columns: 56px 1fr;
     align-items:center;
+    column-gap: 12px;
     margin-bottom: 12px;
+    min-height: 64px;
   }
   .res-card-icon{
-    width: 44px;
-    height: 44px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    width: 56px;
+    height: 56px;
+    display:grid;
+    place-items:center;
     border-radius: 14px;
     background: rgba(13,110,253,.10);
     border: 1px solid rgba(13,110,253,.18);
-    font-size: 22px;
-    flex: 0 0 auto;
+    font-size: 26px;
+    line-height: 1;
   }
   .res-card-title{
     font-weight: 900;
@@ -363,17 +368,36 @@
     font-weight: 700;
     font-size: .92rem;
     margin-top: 2px;
+    line-height: 1.3;
   }
 
+  /* ✅ FIX LIST: no mixed icon/text on wrap */
   .res-list{
+    list-style: none;     /* remove default bullets */
+    padding: 0;
     margin: 0;
-    padding-left: 18px;
-    display:grid;
-    gap: 8px;
-    color:#111827;
+    display: grid;
+    gap: 10px;
   }
   .res-list li{
-    line-height: 1.55;
+    display: grid;
+    grid-template-columns: 22px 1fr; /* icon column + text column */
+    align-items: start;
+    gap: 10px;
+  }
+  .res-li-ico{
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    line-height: 1;
+    font-size: 18px;
+    margin-top: 1px; /* optical alignment */
+  }
+  .res-li-text{
+    line-height: 1.6;
+    color:#111827;
+    min-width: 0;
   }
 
   .res-join{
@@ -437,9 +461,18 @@
     .res-join-actions{ width:100%; min-width: 0; }
     .res-callouts{ grid-template-columns: 1fr; }
   }
+
+  @media (max-width: 575.98px){
+    .res-card-head{
+      grid-template-columns: 52px 1fr;
+      min-height: 60px;
+    }
+    .res-card-icon{
+      width: 52px;
+      height: 52px;
+      font-size: 24px;
+    }
+  }
 </style>
 
 <?php include 'footer.php'; ?>
-
-<!-- Source: Expert Services _ 20250208.docx -->
-<!-- :contentReference[oaicite:0]{index=0} -->

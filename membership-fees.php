@@ -26,7 +26,7 @@
           <tr><td>Honorary Fellows (HonFSIET)</td><td>NIL</td><td>NIL</td></tr>
           <tr><td>Fellow (FSIET)</td><td>S$80.00</td><td>S$100.00</td></tr>
           <tr><td>Member (MSIET)</td><td>S$60.00</td><td>S$80.00</td></tr>
-          <tr><td>Associate Member (AMSIET)</td><td>S$40.00</td><td>S$80.00</td></tr>
+          <tr><td>Associate Member (AMSIET)</td><td>S$40.00</td><td>S$60.00</td></tr>
           <tr><td>Associate (Assoc. SIET)</td><td>S$30.00</td><td>S$50.00</td></tr>
         </tbody>
       </table>
@@ -35,7 +35,7 @@
     <div class="callout mt-4">
       <h5 class="mb-1">Download</h5>
       <p class="text-muted mb-3">Membership application form and extracts of membership requirements (Bye-Laws) can be provided as a downloadable PDF.</p>
-      <a class="btn btn-download" href="assets.pdfs/SIET Membership Form _ 2025.pdf" onclick="return false;">Download Membership Application Form</a>
+      <a class="btn btn-download" href="assets/pdfs/SIETMembershipForm2025.pdf">Download Membership Application Form</a>
     </div>
   </div>
 </section>
