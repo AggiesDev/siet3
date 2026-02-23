@@ -180,7 +180,7 @@ function cert_status_badge($status){
                 </div>
 
                 <div class="col-12">
-                  <label class="form-label fw-semibold">Membership No</label>
+                  <label class="form-label fw-semibold">Membership No.</label>
                   <input class="form-control" name="membership_no" value="<?= h($q['membership_no']) ?>" placeholder="Search by member no">
                 </div>
 
