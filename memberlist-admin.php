@@ -1,14 +1,16 @@
 <?php
+require_once __DIR__ . '/admin-auth.php';
+require_once __DIR__ . '/events-data.php';
 
-session_start();
-define('ADMIN_PASS', '123456'); // change to your 6-digit password
+$AREA = "memberlist";
 
+// logout_to support
 if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   $to = $_GET['logout_to'];
-  $allow = ['view-memberlist.php', 'index.php'];
+  $allow = ['view-memberlist.php','index.php'];
   if (!in_array($to, $allow, true)) $to = 'view-memberlist.php';
 
-  unset($_SESSION['memberlist_admin_authed']);
+  admin_logout($AREA);
   session_destroy();
   header("Location: " . $to);
   exit;
@@ -16,45 +18,45 @@ if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
 
 $errAuth = '';
 if (isset($_POST['auth_action']) && $_POST['auth_action'] === 'login') {
-  $pass = trim($_POST['admin_pass'] ?? '');
-  if ($pass === ADMIN_PASS) {
-    $_SESSION['memberlist_admin_authed'] = true;
+  $email = strtolower(trim($_POST['admin_email'] ?? ''));
+  $pass  = (string)($_POST['admin_pass'] ?? '');
+
+  if (admin_check_credentials($email, $pass)) {
+    admin_login($AREA, $email);
     header("Location: memberlist-admin.php");
     exit;
   } else {
-    $errAuth = "Wrong password. Please try again.";
+    $errAuth = "Wrong email or password. Please try again.";
   }
 }
 
 if (isset($_GET['logout']) && $_GET['logout'] === '1') {
-  unset($_SESSION['memberlist_admin_authed']);
+  admin_logout($AREA);
   session_destroy();
   header("Location: memberlist-admin.php");
   exit;
 }
 
-$authed = !empty($_SESSION['memberlist_admin_authed']);
-if (!$authed):
+if (!admin_is_authed($AREA)):
 ?>
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Member List Admin Login</title>
+  <title>Memberlist Admin Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body{ background:#f6f7fb; }
-    .login-card{ max-width: 420px; border-radius: 18px; box-shadow: 0 18px 45px rgba(0,0,0,.10); border: 1px solid rgba(0,0,0,.08); }
-    .pin{ letter-spacing: .35em; text-align: center; font-weight: 800; font-size: 1.25rem; }
+    .login-card{ max-width: 460px; border-radius: 18px; box-shadow: 0 18px 45px rgba(0,0,0,.10); border: 1px solid rgba(0,0,0,.08); }
   </style>
 </head>
 <body>
   <main class="min-vh-100 d-flex align-items-center justify-content-center p-3">
     <div class="card login-card w-100">
       <div class="card-body p-4">
-        <h1 class="h4 fw-bold mb-1">Member List Admin</h1>
-        <p class="text-muted mb-3">Enter 6-digit password to continue.</p>
+        <h1 class="h4 fw-bold mb-1">Memberlist Admin</h1>
+        <p class="text-muted mb-3">Login with admin email and password.</p>
 
         <?php if ($errAuth): ?>
           <div class="alert alert-danger py-2"><?= htmlspecialchars($errAuth) ?></div>
@@ -62,13 +64,20 @@ if (!$authed):
 
         <form method="POST" action="memberlist-admin.php" autocomplete="off">
           <input type="hidden" name="auth_action" value="login">
-          <label class="form-label fw-semibold">6-digit Password</label>
-          <input type="password" name="admin_pass" inputmode="numeric" pattern="[0-9]{6}" maxlength="6"
-                 class="form-control pin" placeholder="••••••" required>
-          <button class="btn btn-primary w-100 mt-3">Login</button>
 
-          <a href="view-memberlist.php" class="btn btn-success w-100 mt-3">View Our Member List</a>
+          <label class="form-label fw-semibold">Admin Email</label>
+          <input type="email" name="admin_email" class="form-control" placeholder="admin@siet.org.sg" required>
+
+          <label class="form-label fw-semibold mt-3">Password</label>
+          <input type="password" name="admin_pass" class="form-control" placeholder="Your password" required>
+
+          <button class="btn btn-primary w-100 mt-3">Login</button>
+          <a href="view-memberlist.php" class="btn btn-success w-100 mt-3">View Memberlist</a>
         </form>
+
+        <!-- <div class="small text-muted mt-3">
+          Logged in users are stored in session.
+        </div> -->
       </div>
     </div>
   </main>
@@ -76,7 +85,7 @@ if (!$authed):
 </html>
 <?php
   exit;
-endif;
+        endif;
 
 $active = 'members';
 $page_css = ['sections.css'];
