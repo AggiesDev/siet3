@@ -64,6 +64,8 @@
     ["Partnerships & Recognition - Sponsorship", "sponsorship.php"],
     ["Partnerships & Recognition - Awards", "awards.php"],
     ["Partnerships & Recognition - Expert Services", "resources.php"],
+     ["Partnerships & Recognition - Events", "news.php"],
+      ["Partnerships & Recognition - News", "events.php"],
 
     // Contact
     ["Contact Us", "contact.php"],
@@ -106,6 +108,11 @@
     "Accreditation" => [
       ["title" => "International Accreditation", "href" => "accreditation-international.php"],
       ["title" => "Local Accreditation", "href" => "accreditation-local.php"],
+    ],
+    
+    "Events & News" => [
+      ["title" => "Events", "href" => "events.php"],
+      ["title" => "News", "href" => "news.php"],
     ],
 
   ];
@@ -432,6 +439,8 @@
             <li><hr class="dropdown-divider"></li>
             <li><h5 class="dropdown-header">Resources</h5></li>
             <li><a class="dropdown-item" href="resources.php">Expert Services</a></li>
+            <li><a class="dropdown-item" href="events.php">Events</a></li>
+            <li><a class="dropdown-item" href="news.php">News</a></li>
             <!-- <li><a class="dropdown-item" href="#">Other benefits</a></li> -->
           </ul>
         </li>
