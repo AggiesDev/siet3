@@ -88,7 +88,7 @@
           <!-- About + Gallery (2 columns if gallery exists) -->
           <div class="row g-4 align-items-start">
             <div class="<?= count($gallery) ? 'col-12 col-lg-6' : 'col-12' ?>">
-              <h2 class="op-detail-h2">About Us</h2>
+              <h2 class="op-detail-h2">About the Organisation</h2>
 
               <?php if (!empty($partner['about'])): ?>
                 <p class="op-detail-about2 mb-0">
