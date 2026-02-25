@@ -108,6 +108,7 @@
     "Accreditation" => [
       ["title" => "International Accreditation", "href" => "accreditation-international.php"],
       ["title" => "Local Accreditation", "href" => "accreditation-local.php"],
+      ["title" => "Local Accredited Course", "href" => "accredited-courses.php"],
     ],
     
     "Events & News" => [
