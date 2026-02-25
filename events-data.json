@@ -5,5 +5,14 @@
         "Past Events"
     ],
     "events": [],
-    "gallery": []
+    "gallery": [],
+    "subcategories_map": {
+        "Upcoming Events": [
+            "Announcement 1"
+        ],
+        "Special Events": [
+            "special event 1"
+        ],
+        "Past Events": []
+    }
 }

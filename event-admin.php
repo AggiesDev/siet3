@@ -4,7 +4,7 @@ require_once __DIR__ . '/events-data.php';
 
 $AREA = "events";
 
-// logout_to support
+/* logout_to */
 if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   $to = $_GET['logout_to'];
   $allow = ['events.php','event-detail.php','index.php'];
@@ -16,6 +16,7 @@ if (isset($_GET['logout_to']) && $_GET['logout_to'] !== '') {
   exit;
 }
 
+/* login */
 $errAuth = '';
 if (isset($_POST['auth_action']) && $_POST['auth_action'] === 'login') {
   $email = strtolower(trim($_POST['admin_email'] ?? ''));
@@ -66,33 +67,27 @@ if (!admin_is_authed($AREA)):
           <input type="hidden" name="auth_action" value="login">
 
           <label class="form-label fw-semibold">Admin Email</label>
-          <input type="email" name="admin_email" class="form-control" placeholder="admin@siet.org.sg" required>
+          <input type="email" name="admin_email" class="form-control" placeholder="Enter Gamil" required>
 
           <label class="form-label fw-semibold mt-3">Password</label>
-          <input type="password" name="admin_pass" class="form-control" placeholder="Your password" required>
+          <input type="password" name="admin_pass" class="form-control" placeholder="Enter Your Password" required>
 
           <button class="btn btn-primary w-100 mt-3">Login</button>
           <a href="events.php" class="btn btn-success w-100 mt-3">View Events</a>
         </form>
-
-        <!-- <div class="small text-muted mt-3">
-          Logged in users are stored in session.
-        </div> -->
       </div>
     </div>
   </main>
 </body>
 </html>
-<?php
-  exit;
-endif;?>
+<?php exit; endif; ?>
 
 <?php
-$active = 'news';
+$active = 'events';
 $page_css = ['sections.css'];
 include 'header.php';
 
-/* Filesystem paths */
+/* Paths */
 $thumb_dir = __DIR__ . "/images/events/thumbs/";
 $thumb_url = "images/events/thumbs/";
 $banner_dir = __DIR__ . "/images/events/banners/";
@@ -104,7 +99,7 @@ $event_root_url = "images/events/";
 @mkdir($banner_dir, 0775, true);
 @mkdir($event_root_dir, 0775, true);
 
-/* helpers */
+/* Helpers */
 function rrmdir($dir): void {
   if (!is_dir($dir)) return;
   foreach (scandir($dir) as $item) {
@@ -133,7 +128,6 @@ function safe_event_gallery_dir(string $root, string $id): string {
 function safe_event_gallery_url(string $rootUrl, string $id): string {
   return safe_event_url($rootUrl, $id) . "gallery/";
 }
-
 function delete_if_local(string $path, string $baseUrl, string $baseDir): void {
   $path = trim($path);
   if ($path === '') return;
@@ -142,13 +136,11 @@ function delete_if_local(string $path, string $baseUrl, string $baseDir): void {
   $full = rtrim($baseDir, "/\\") . DIRECTORY_SEPARATOR . $file;
   if (is_file($full)) @unlink($full);
 }
-
 function is_youtube_url(string $url): bool {
   $u = trim($url);
   if ($u === '') return true;
   return (bool)preg_match("~^(https?://)?(www\.)?(youtube\.com|youtu\.be)/~i", $u);
 }
-
 function youtube_embed_url(string $url): string {
   $url = trim($url);
   if ($url === '') return '';
@@ -162,6 +154,7 @@ function youtube_embed_url(string $url): string {
 $data = load_events_data();
 $events = $data['events'];
 $categories = $data['categories'];
+$sub_map = $data['subcategories_map']; //  category => sub list
 
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 $edit_id = $_GET['edit'] ?? '';
@@ -171,10 +164,9 @@ $msg = '';
 $err = '';
 $id_error = '';
 
-/* Delete event */
+/* Delete */
 if ($delete_id) {
   $toDelete = find_event_by_id($events, $delete_id);
-
   $events = array_values(array_filter($events, fn($e) => ($e['id'] ?? '') !== $delete_id));
   $data['events'] = $events;
 
@@ -182,9 +174,7 @@ if ($delete_id) {
     if ($toDelete) {
       delete_if_local($toDelete['image'] ?? '', $thumb_url, $thumb_dir);
       delete_if_local($toDelete['banner'] ?? '', $banner_url, $banner_dir);
-
-      $folder = safe_event_dir($event_root_dir, $delete_id);
-      rrmdir($folder);
+      rrmdir(safe_event_dir($event_root_dir, $delete_id));
     }
     $msg = "Event deleted successfully.";
   } else {
@@ -192,19 +182,22 @@ if ($delete_id) {
   }
 }
 
-/* Save event */
+/* Save */
 if ($action === 'save') {
   $id = clean_event_id($_POST['id'] ?? '');
   $editing_id = trim($_POST['editing_id'] ?? '');
 
   $category_select = trim($_POST['category_select'] ?? '');
   $category_new = trim($_POST['category_new'] ?? '');
+  $category = ($category_select === '__new__') ? $category_new : $category_select;
 
-  $category = $category_select;
-  if ($category_select === '__new__') $category = $category_new;
+  //  sub-category depends on category
+  $subcat_select = trim($_POST['subcategory_select'] ?? '');
+  $subcat_new = trim($_POST['subcategory_new'] ?? '');
+  $subcategory = ($subcat_select === '__new__') ? $subcat_new : $subcat_select;
 
   $title = trim($_POST['title'] ?? '');
-  $date = trim($_POST['date'] ?? '');        // YYYY-MM-DD
+  $date = trim($_POST['date'] ?? '');
   $location = trim($_POST['location'] ?? '');
   $summary = trim($_POST['summary'] ?? '');
 
@@ -218,26 +211,22 @@ if ($action === 'save') {
   $desc_text = trim($_POST['desc_text'] ?? '');
   $desc = array_values(array_filter(array_map('trim', preg_split("/\r\n|\n|\r/", $desc_text))));
 
-  // Downloads toggle (default OFF)
   $downloads_on = !empty($_POST['downloads_on']);
-  $download_button_name = trim($_POST['download_button_name'] ?? ''); // NEW
+  $download_button_name = trim($_POST['download_button_name'] ?? '');
   $existing_downloads = $_POST['existing_downloads'] ?? [];
   if (!is_array($existing_downloads)) $existing_downloads = [];
-
   $remove_downloads = $_POST['remove_downloads'] ?? [];
   if (!is_array($remove_downloads)) $remove_downloads = [];
 
-  // Gallery toggle default OFF
   $enable_gallery = !empty($_POST['enable_gallery']);
   $existing_gallery = $_POST['existing_gallery'] ?? [];
   if (!is_array($existing_gallery)) $existing_gallery = [];
-
   $remove_gallery = $_POST['remove_gallery'] ?? [];
   if (!is_array($remove_gallery)) $remove_gallery = [];
 
-  if ($err === '' && ($id === '' || $title === '')) {
-    $err = "ID and Title are required.";
-  } else if ($err === '') {
+  if ($err === '' && ($id === '' || $title === '')) $err = "ID and Title are required.";
+
+  if ($err === '') {
     $dup = false;
     foreach ($events as $ev) {
       if (($ev['id'] ?? '') === $id) { $dup = true; break; }
@@ -248,12 +237,20 @@ if ($action === 'save') {
     }
   }
 
+  // Save Category and ensure sub-map exists
   if ($err === '' && $category !== '') {
     ensure_category($data, $category);
     $categories = $data['categories'];
+    $sub_map = $data['subcategories_map'];
   }
 
-  /* Thumb upload */
+  // Save Sub-Category under category
+  if ($err === '' && $category !== '' && $subcategory !== '') {
+    ensure_subcategory($data, $category, $subcategory);
+    $sub_map = $data['subcategories_map'];
+  }
+
+  /* Thumbnail upload */
   $thumb_path = $existing_thumb;
   if ($err === '' && !empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     $tmp = $_FILES['image']['tmp_name'];
@@ -261,19 +258,13 @@ if ($action === 'save') {
     $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
     $allowed = ['png','jpg','jpeg','webp'];
 
-    if (!in_array($ext, $allowed, true)) {
-      $err = "Thumbnail must be PNG/JPG/JPEG/WEBP.";
-    } else {
+    if (!in_array($ext, $allowed, true)) $err = "Thumbnail must be PNG/JPG/JPEG/WEBP.";
+    else {
       $safe = $id . "-thumb-" . time() . "." . $ext;
-      $dest = $thumb_dir . $safe;
-      if (move_uploaded_file($tmp, $dest)) {
-        if ($existing_thumb && $existing_thumb !== ($thumb_url . $safe)) {
-          delete_if_local($existing_thumb, $thumb_url, $thumb_dir);
-        }
+      if (move_uploaded_file($tmp, $thumb_dir . $safe)) {
+        if ($existing_thumb && $existing_thumb !== ($thumb_url . $safe)) delete_if_local($existing_thumb, $thumb_url, $thumb_dir);
         $thumb_path = $thumb_url . $safe;
-      } else {
-        $err = "Failed to upload thumbnail.";
-      }
+      } else $err = "Failed to upload thumbnail.";
     }
   }
 
@@ -285,23 +276,17 @@ if ($action === 'save') {
     $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
     $allowed = ['png','jpg','jpeg','webp'];
 
-    if (!in_array($ext, $allowed, true)) {
-      $err = "Banner must be PNG/JPG/JPEG/WEBP.";
-    } else {
+    if (!in_array($ext, $allowed, true)) $err = "Banner must be PNG/JPG/JPEG/WEBP.";
+    else {
       $safe = $id . "-banner-" . time() . "." . $ext;
-      $dest = $banner_dir . $safe;
-      if (move_uploaded_file($tmp, $dest)) {
-        if ($existing_banner && $existing_banner !== ($banner_url . $safe)) {
-          delete_if_local($existing_banner, $banner_url, $banner_dir);
-        }
+      if (move_uploaded_file($tmp, $banner_dir . $safe)) {
+        if ($existing_banner && $existing_banner !== ($banner_url . $safe)) delete_if_local($existing_banner, $banner_url, $banner_dir);
         $banner_path = $banner_url . $safe;
-      } else {
-        $err = "Failed to upload banner.";
-      }
+      } else $err = "Failed to upload banner.";
     }
   }
 
-  /* Downloads keep + remove physical */
+  /* Downloads keep/remove */
   $downloads_keep = [];
   foreach ($existing_downloads as $d) {
     $d = trim((string)$d);
@@ -309,28 +294,22 @@ if ($action === 'save') {
     if (in_array($d, $remove_downloads, true)) continue;
     $downloads_keep[] = $d;
   }
-
   if (!empty($remove_downloads)) {
     $ddir = safe_event_download_dir($event_root_dir, $id);
     $durl = safe_event_download_url($event_root_url, $id);
-
     foreach ($remove_downloads as $rd) {
       $rd = trim((string)$rd);
-      if ($rd === '') continue;
-      if (strpos($rd, $durl) !== 0) continue;
-      $file = basename($rd);
-      $full = $ddir . $file;
+      if ($rd === '' || strpos($rd, $durl) !== 0) continue;
+      $full = $ddir . basename($rd);
       if (is_file($full)) @unlink($full);
     }
   }
 
-  /* Downloads upload (PDF/DOC/DOCX only), only when ON */
+  /* Upload Downloads */
   $downloads_new = [];
   if ($err === '' && $downloads_on && !empty($_FILES['downloads']) && is_array($_FILES['downloads']['name'])) {
-    $ddir = safe_event_download_dir($event_root_dir, $id);
+    @mkdir(safe_event_download_dir($event_root_dir, $id), 0775, true);
     $durl = safe_event_download_url($event_root_url, $id);
-    @mkdir($ddir, 0775, true);
-
     $allowed_docs = ['pdf','doc','docx'];
 
     $total = count($_FILES['downloads']['name']);
@@ -341,26 +320,17 @@ if ($action === 'save') {
 
       $tmp = $_FILES['downloads']['tmp_name'][$i];
       $ext = strtolower(pathinfo($n, PATHINFO_EXTENSION));
-      if (!in_array($ext, $allowed_docs, true)) {
-        $err = "Downloads can upload PDF/DOC/DOCX only.";
-        break;
-      }
+      if (!in_array($ext, $allowed_docs, true)) { $err = "Downloads can upload PDF/DOC/DOCX only."; break; }
 
       $safe = $id . "-file-" . time() . "-" . $i . "." . $ext;
-      $dest = $ddir . $safe;
-
-      if (move_uploaded_file($tmp, $dest)) {
-        $downloads_new[] = $durl . $safe;
-      } else {
-        $err = "Failed to upload a download file.";
-        break;
-      }
+      $dest = safe_event_download_dir($event_root_dir, $id) . $safe;
+      if (move_uploaded_file($tmp, $dest)) $downloads_new[] = $durl . $safe;
+      else { $err = "Failed to upload a download file."; break; }
     }
   }
-
   $final_downloads = $downloads_on ? array_values(array_merge($downloads_keep, $downloads_new)) : [];
 
-  /* Gallery keep + remove physical */
+  /* Gallery keep/remove */
   $gallery_keep = [];
   foreach ($existing_gallery as $g) {
     $g = trim((string)$g);
@@ -368,41 +338,31 @@ if ($action === 'save') {
     if (in_array($g, $remove_gallery, true)) continue;
     $gallery_keep[] = $g;
   }
-
   if (!empty($remove_gallery)) {
     $gdir = safe_event_gallery_dir($event_root_dir, $id);
     $gurl = safe_event_gallery_url($event_root_url, $id);
-
     foreach ($remove_gallery as $rg) {
       $rg = trim((string)$rg);
-      if ($rg === '') continue;
-      if (strpos($rg, $gurl) !== 0) continue;
-
-      $file = basename($rg);
-      $full = $gdir . $file;
+      if ($rg === '' || strpos($rg, $gurl) !== 0) continue;
+      $full = $gdir . basename($rg);
       if (is_file($full)) @unlink($full);
     }
   }
 
-  /* Gallery upload (max 10 total), only when ON */
+  /* Upload gallery (max 10) */
   $gallery_new = [];
   if ($err === '' && $enable_gallery && !empty($_FILES['gallery']) && is_array($_FILES['gallery']['name'])) {
     $selectedCount = 0;
     foreach ($_FILES['gallery']['name'] as $n) if (trim((string)$n) !== '') $selectedCount++;
 
-    $count_existing = count($gallery_keep);
-    $slots_left = max(0, 10 - $count_existing);
-
-    if ($selectedCount > $slots_left) {
-      $err = "Unsuccessful: You selected {$selectedCount} image(s) but only {$slots_left} slot(s) left. Max gallery images is 10.";
-    } else {
-      $gdir = safe_event_gallery_dir($event_root_dir, $id);
+    $slots_left = max(0, 10 - count($gallery_keep));
+    if ($selectedCount > $slots_left) $err = "Unsuccessful: selected {$selectedCount} image(s) but only {$slots_left} slot(s) left. Max 10.";
+    else {
+      @mkdir(safe_event_gallery_dir($event_root_dir, $id), 0775, true);
       $gurl = safe_event_gallery_url($event_root_url, $id);
-      @mkdir($gdir, 0775, true);
 
       $allowed_img = ['png','jpg','jpeg','webp'];
       $total = count($_FILES['gallery']['name']);
-
       for ($i=0; $i<$total; $i++) {
         $n = trim((string)($_FILES['gallery']['name'][$i] ?? ''));
         if ($n === '') continue;
@@ -413,21 +373,18 @@ if ($action === 'save') {
         if (!in_array($ext, $allowed_img, true)) continue;
 
         $safe = $id . "-g-" . time() . "-" . $i . "." . $ext;
-        $dest = $gdir . $safe;
-
-        if (move_uploaded_file($tmp, $dest)) {
-          $gallery_new[] = $gurl . $safe;
-        }
+        $dest = safe_event_gallery_dir($event_root_dir, $id) . $safe;
+        if (move_uploaded_file($tmp, $dest)) $gallery_new[] = $gurl . $safe;
       }
     }
   }
-
   $final_gallery = $enable_gallery ? array_slice(array_merge($gallery_keep, $gallery_new), 0, 10) : [];
 
   if ($err === '') {
     $obj = [
       "id" => $id,
       "category" => $category,
+      "subcategory" => $subcategory, //  stored
       "title" => $title,
       "date" => $date,
       "location" => $location,
@@ -438,7 +395,7 @@ if ($action === 'save') {
       "youtube" => $youtube,
       "youtube_embed" => $youtube_embed,
       "downloads_on" => $downloads_on ? true : false,
-      "download_button_name" => $download_button_name, // NEW
+      "download_button_name" => $download_button_name,
       "downloads" => $final_downloads,
       "gallery_on" => $enable_gallery ? true : false,
       "gallery" => $final_gallery
@@ -446,14 +403,9 @@ if ($action === 'save') {
 
     $found = false;
     foreach ($events as &$ev) {
-      if (($ev['id'] ?? '') === $id) {
-        $ev = array_merge($ev, $obj);
-        $found = true;
-        break;
-      }
+      if (($ev['id'] ?? '') === $id) { $ev = array_merge($ev, $obj); $found = true; break; }
     }
     unset($ev);
-
     if (!$found) $events[] = $obj;
 
     $data['events'] = $events;
@@ -463,11 +415,10 @@ if ($action === 'save') {
   }
 }
 
-/* Load edit */
-$edit_event = null;
-if ($edit_id) $edit_event = find_event_by_id($events, $edit_id);
+/* Edit */
+$edit_event = $edit_id ? find_event_by_id($events, $edit_id) : null;
 
-/* Sticky */
+/* sticky */
 $sticky_id = $edit_event['id'] ?? ($_POST['id'] ?? '');
 $sticky_title = $edit_event['title'] ?? ($_POST['title'] ?? '');
 $sticky_date = $edit_event['date'] ?? ($_POST['date'] ?? '');
@@ -477,14 +428,15 @@ $sticky_image = $edit_event['image'] ?? ($_POST['existing_image'] ?? '');
 $sticky_banner = $edit_event['banner'] ?? ($_POST['existing_banner'] ?? '');
 $sticky_desc_text = $edit_event ? implode("\n", ($edit_event['desc'] ?? [])) : ($_POST['desc_text'] ?? '');
 $sticky_youtube = $edit_event['youtube'] ?? ($_POST['youtube'] ?? '');
+
 $sticky_cat = $edit_event['category'] ?? '';
-$sticky_dl_btn = $edit_event['download_button_name'] ?? ($_POST['download_button_name'] ?? ''); // NEW
+$sticky_subcat = $edit_event['subcategory'] ?? '';
+$sticky_dl_btn = $edit_event['download_button_name'] ?? ($_POST['download_button_name'] ?? '');
 
 $sticky_gallery = [];
 if ($edit_event && !empty($edit_event['gallery']) && is_array($edit_event['gallery'])) {
   $sticky_gallery = array_values(array_filter($edit_event['gallery'], fn($x)=>is_string($x) && trim($x)!=='' ));
 }
-
 $sticky_downloads = [];
 if ($edit_event && !empty($edit_event['downloads']) && is_array($edit_event['downloads'])) {
   $sticky_downloads = array_values(array_filter($edit_event['downloads'], fn($x)=>is_string($x) && trim($x)!=='' ));
@@ -492,11 +444,13 @@ if ($edit_event && !empty($edit_event['downloads']) && is_array($edit_event['dow
 
 $downloads_checked = isset($_POST['downloads_on']) ? !empty($_POST['downloads_on']) : (!empty($edit_event['downloads_on']));
 $gallery_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_gallery']) : (!empty($edit_event['gallery_on']));
-if (!$edit_event && !isset($_POST['enable_gallery'])) $gallery_checked = false;
 if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
+if (!$edit_event && !isset($_POST['enable_gallery'])) $gallery_checked = false;
+
+// pass map to JS
+$sub_map_js = $sub_map;
 ?>
 
-<main>
 <section class="page-hero">
   <div class="container py-5">
     <div class="d-flex align-items-end justify-content-between flex-wrap gap-2">
@@ -523,26 +477,27 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
       <div class="card-body">
         <h5 class="fw-bold mb-3">Current Events (<?= count($events) ?>)</h5>
 
-        <?php if (count($events) === 0): ?>
-          <div class="text-muted">No events yet.</div>
-        <?php else: ?>
-          <div class="pa-scrollwrap">
-            <table class="table table-hover align-middle mb-0 pa-table">
-              <thead>
-                <tr>
-                  <th style="width:70px;">No</th>
-                  <th style="width:120px;">Thumb</th>
-                  <th>Title</th>
-                  <th style="width:160px;">Category</th>
-                  <th style="width:120px;">Date</th>
-                  <th style="width:140px;">Location</th>
-                  <th style="width:110px; text-align:center;">Gallery</th>
-                   <th style="width:110px; text-align:center;">YouTube Link</th>
-                  <th style="width:110px; text-align:center;">Downloads</th>
-                  <th style="width:420px; text-align:center;">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
+        <div class="pa-scrollwrap">
+          <table class="table table-hover align-middle mb-0 pa-table">
+            <thead>
+              <tr>
+                <th style="width:70px;">No</th>
+                <th style="width:120px;">Thumb</th>
+                <th>Title</th>
+                <th style="width:160px;">Category</th>
+                <th style="width:180px;">Sub-Category</th>
+                <th style="width:120px;">Date</th>
+                <th style="width:140px;">Location</th>
+                <th style="width:110px; text-align:center;">Gallery</th>
+                <th style="width:110px; text-align:center;">YouTube</th>
+                <th style="width:110px; text-align:center;">Downloads</th>
+                <th style="width:420px; text-align:center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (count($events) === 0): ?>
+                <tr><td colspan="10" class="text-muted">No events yet.</td></tr>
+              <?php else: ?>
                 <?php foreach($events as $i => $e): ?>
                   <?php
                     $g = $e['gallery'] ?? [];
@@ -556,33 +511,19 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
                       <?php if (!empty($e['image'])): ?>
                         <img src="<?= htmlspecialchars($e['image']) ?>" alt=""
                              style="width:78px; height:48px; object-fit:cover; border-radius:10px; background:#fff;">
-                      <?php else: ?>
-                        <span class="text-muted small">No image</span>
-                      <?php endif; ?>
+                      <?php else: ?><span class="text-muted small">No image</span><?php endif; ?>
                     </td>
                     <td>
                       <div class="fw-semibold"><?= htmlspecialchars($e['title'] ?? '') ?></div>
                       <div class="small text-muted"><?= htmlspecialchars($e['id'] ?? '') ?></div>
                     </td>
                     <td><?= htmlspecialchars($e['category'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($e['subcategory'] ?? '') ?></td>
                     <td><?= htmlspecialchars($e['date'] ?? '') ?></td>
                     <td><?= htmlspecialchars($e['location'] ?? '') ?></td>
-                    <td class="text-center">
-                      <?php if ($gcount <= 0): ?><span class="pa-badge-none">0</span>
-                      <?php else: ?><span class="pa-badge-ok"><?= $gcount ?></span><?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                      <?php if (empty($e['youtube'])): ?>
-                        <span class="pa-badge-none">No</span>
-                      <?php else: ?>
-                        <span class="pa-badge-ok">Yes</span>
-                      <?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                      <?php if ($dcount <= 0): ?><span class="pa-badge-none">0</span>
-                      <?php else: ?><span class="pa-badge-ok"><?= $dcount ?></span><?php endif; ?>
-                    </td>
-                    
+                    <td class="text-center"><?= $gcount ? '<span class="pa-badge-ok">'.$gcount.'</span>' : '<span class="pa-badge-none">0</span>' ?></td>
+                    <td class="text-center"><?= !empty($e['youtube_embed']) ? '<span class="pa-badge-ok">Yes</span>' : '<span class="pa-badge-none">No</span>' ?></td>
+                    <td class="text-center"><?= $dcount ? '<span class="pa-badge-ok">'.$dcount.'</span>' : '<span class="pa-badge-none">0</span>' ?></td>
                     <td>
                       <div class="pa-actions">
                         <a class="btn btn-sm btn-outline-primary pa-btn" href="event-admin.php?edit=<?= urlencode($e['id']) ?>">Edit</a>
@@ -596,10 +537,10 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
                     </td>
                   </tr>
                 <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
-        <?php endif; ?>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
 
       </div>
     </div>
@@ -623,13 +564,8 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
           <input type="hidden" name="existing_image" value="<?= htmlspecialchars($sticky_image) ?>">
           <input type="hidden" name="existing_banner" value="<?= htmlspecialchars($sticky_banner) ?>">
 
-          <?php foreach ($sticky_gallery as $g): ?>
-            <input type="hidden" name="existing_gallery[]" value="<?= htmlspecialchars($g) ?>">
-          <?php endforeach; ?>
-
-          <?php foreach ($sticky_downloads as $d): ?>
-            <input type="hidden" name="existing_downloads[]" value="<?= htmlspecialchars($d) ?>">
-          <?php endforeach; ?>
+          <?php foreach ($sticky_gallery as $g): ?><input type="hidden" name="existing_gallery[]" value="<?= htmlspecialchars($g) ?>"><?php endforeach; ?>
+          <?php foreach ($sticky_downloads as $d): ?><input type="hidden" name="existing_downloads[]" value="<?= htmlspecialchars($d) ?>"><?php endforeach; ?>
 
           <div class="row g-3">
 
@@ -637,9 +573,9 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
               <label class="form-label fw-semibold">ID (unique)</label>
               <input type="text" name="id"
                      class="form-control <?= !empty($id_error) ? 'is-invalid' : '' ?>"
+                     placeholder="Enter Event ID"
                      value="<?= htmlspecialchars($sticky_id) ?>"
                      <?= $edit_event ? 'readonly' : '' ?>
-                     placeholder="example: cpd-workshop-2026"
                      required>
               <?php if (!empty($id_error)): ?>
                 <div class="invalid-feedback d-block"><?= htmlspecialchars($id_error) ?></div>
@@ -649,9 +585,9 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
             </div>
 
             <div class="col-md-6">
-              <label class="form-label fw-semibold">Category</label>
+              <label class="form-label fw-semibold">Main Category</label>
               <select name="category_select" id="categorySelect" class="form-select">
-                <option value="">Select Category</option>
+                <option value="">Select Main Category</option>
                 <?php
                   $baseOptions = ["Upcoming Events","Special Events","Past Events"];
                   foreach ($baseOptions as $bo){
@@ -673,59 +609,59 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
               </div>
             </div>
 
-            <div class="col-12">
-              <label class="form-label fw-semibold">Title</label>
-              <input type="text" name="title" class="form-control"
-                     value="<?= htmlspecialchars($sticky_title) ?>" required>
+            <!--  Sub-category depends on category -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Sub-Category</label>
+              <select name="subcategory_select" id="subCategorySelect" class="form-select">
+                <option value="">Select Sub-Category</option>
+                <!-- options will be injected by JS based on category -->
+                <option value="__new__">New Sub-Category</option>
+              </select>
+
+              <div class="mt-2" id="newSubCategoryWrap" style="display:none;">
+                <input type="text" name="subcategory_new" id="subCategoryNew" class="form-control" placeholder="Type new sub-category name">
+                <div class="form-text">This sub-category will be saved under the selected category.</div>
+              </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label class="form-label fw-semibold">Event Date</label>
               <input type="date" name="date" class="form-control" value="<?= htmlspecialchars($sticky_date) ?>">
             </div>
 
-            <div class="col-md-4">
-              <label class="form-label fw-semibold">Location</label>
-              <input type="text" name="location" class="form-control"
-                     value="<?= htmlspecialchars($sticky_location) ?>" placeholder="Singapore / Online">
+            <div class="col-12">
+              <label class="form-label fw-semibold">Title</label>
+              <input type="text" name="title" class="form-control" value="<?= htmlspecialchars($sticky_title) ?>" placeholder="Enter Event Title Name" required>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Location</label>
+              <input type="text" name="location" class="form-control" value="<?= htmlspecialchars($sticky_location) ?>" placeholder="Enter Event Location">
+            </div>
+
+            <div class="col-md-6">
               <label class="form-label fw-semibold">Summary (listing)</label>
-              <input type="text" name="summary" class="form-control"
-                     value="<?= htmlspecialchars($sticky_summary) ?>">
+              <input type="text" name="summary" class="form-control" value="<?= htmlspecialchars($sticky_summary) ?>" placeholder="Enter Event Summary">
             </div>
 
             <div class="col-12">
               <label class="form-label fw-semibold">YouTube Video Link (optional)</label>
-              <input type="url" name="youtube" class="form-control"
-                     value="<?= htmlspecialchars($sticky_youtube) ?>"
-                     placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
-              <div class="form-text">Only YouTube links are allowed.</div>
+              <input type="url" name="youtube" class="form-control" value="<?= htmlspecialchars($sticky_youtube) ?>" placeholder="Enter YouTube Link">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Thumbnail Image (listing)</label>
               <input type="file" name="image" class="form-control" accept=".png,.jpg,.jpeg,.webp">
-              <?php if (!empty($sticky_image)): ?>
-                <div class="small text-muted mt-2">Current:</div>
-                <img src="<?= htmlspecialchars($sticky_image) ?>" style="max-width:180px; max-height:80px; object-fit:cover; border-radius:12px;">
-              <?php endif; ?>
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Banner Image (detail)</label>
               <input type="file" name="banner" class="form-control" accept=".png,.jpg,.jpeg,.webp">
-              <?php if (!empty($sticky_banner)): ?>
-                <div class="small text-muted mt-2">Current:</div>
-                <img src="<?= htmlspecialchars($sticky_banner) ?>" style="max-width:180px; max-height:80px; object-fit:cover; border-radius:12px;">
-              <?php endif; ?>
             </div>
 
             <div class="col-12">
               <label class="form-label fw-semibold">About this event (one paragraph per line)</label>
-              <textarea name="desc_text" class="form-control" rows="5"
-                        placeholder="Write each paragraph in a new line..."><?= htmlspecialchars($sticky_desc_text) ?></textarea>
+              <textarea name="desc_text" placeholder="Enter Event Description" class="form-control" rows="5"><?= htmlspecialchars($sticky_desc_text) ?></textarea>
             </div>
 
             <!-- Downloads toggle -->
@@ -739,33 +675,14 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
               </div>
             </div>
 
-            <!-- NEW: download button name -->
             <div class="col-12" id="downloadNameBlock">
               <label class="form-label fw-semibold">Download Button Name (optional)</label>
-              <input type="text" name="download_button_name" class="form-control"
-                     value="<?= htmlspecialchars($sticky_dl_btn) ?>"
-                     placeholder="Example: Download Event Brochure">
-              <div class="form-text">If empty, the button will show the filename.</div>
+              <input type="text" name="download_button_name" class="form-control" value="<?= htmlspecialchars($sticky_dl_btn) ?>" placeholder="Enter Download Button Name">
             </div>
 
             <div class="col-12" id="downloadsBlock">
               <label class="form-label fw-semibold">Upload Files</label>
               <input type="file" name="downloads[]" class="form-control" accept=".pdf,.doc,.docx" multiple>
-              <div class="form-text">Files are stored in <code>images/events/&lt;event-id&gt;/downloads/</code></div>
-
-              <?php if (!empty($sticky_downloads)): ?>
-                <div class="mt-3">
-                  <div class="small text-muted mb-2">Existing Downloads (tick to remove):</div>
-                  <div class="d-flex flex-column gap-2">
-                    <?php foreach($sticky_downloads as $d): ?>
-                      <label class="border rounded p-2 d-flex align-items-center gap-2">
-                        <input class="form-check-input mt-0" type="checkbox" name="remove_downloads[]" value="<?= htmlspecialchars($d) ?>">
-                        <span class="small text-muted"><?= htmlspecialchars(basename($d)) ?></span>
-                      </label>
-                    <?php endforeach; ?>
-                  </div>
-                </div>
-              <?php endif; ?>
             </div>
 
             <!-- Gallery toggle -->
@@ -782,26 +699,6 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
             <div class="col-12" id="galleryUploadBlock">
               <label class="form-label fw-semibold">Gallery Images</label>
               <input type="file" name="gallery[]" class="form-control" accept=".png,.jpg,.jpeg,.webp" multiple>
-              <div class="form-text">Stored in <code>images/events/&lt;event-id&gt;/gallery/</code></div>
-
-              <?php if (!empty($sticky_gallery)): ?>
-                <div class="mt-3">
-                  <div class="small text-muted mb-2">Existing Gallery (tick to remove):</div>
-                  <div class="d-flex flex-wrap gap-2">
-                    <?php foreach($sticky_gallery as $g): ?>
-                      <label class="border rounded p-2" style="width:120px;">
-                        <img src="<?= htmlspecialchars($g) ?>" alt="gallery"
-                             style="width:100%; height:70px; object-fit:cover; border-radius:8px;"
-                             onerror="this.style.display='none';">
-                        <div class="form-check mt-2">
-                          <input class="form-check-input" type="checkbox" name="remove_gallery[]" value="<?= htmlspecialchars($g) ?>">
-                          <label class="form-check-label small">Remove</label>
-                        </div>
-                      </label>
-                    <?php endforeach; ?>
-                  </div>
-                </div>
-              <?php endif; ?>
             </div>
 
           </div>
@@ -819,7 +716,7 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
 
 <style>
 .pa-scrollwrap{ max-height:560px; overflow:auto; border-radius:14px; border:1px solid rgba(0,0,0,.06); position:relative; }
-.pa-table{ min-width: 1400px; border-collapse: separate; border-spacing: 0; }
+.pa-table{ min-width: 1600px; border-collapse: separate; border-spacing: 0; }
 .pa-table thead th{ position: sticky; top: 0; background:#fff; z-index: 6; border-bottom:1px solid rgba(0,0,0,.10); white-space:nowrap; }
 .pa-table thead th:nth-child(1), .pa-table tbody td:nth-child(1){
   position: sticky; left:0; z-index: 7; background:#fff; box-shadow: 1px 0 0 rgba(0,0,0,.08);
@@ -832,50 +729,106 @@ if (!$edit_event && !isset($_POST['downloads_on'])) $downloads_checked = false;
 .pa-modal{ border-radius:18px; overflow:hidden; }
 .modal-header{ background: linear-gradient(180deg, rgba(13,110,253,.10), rgba(255,255,255,0)); }
 
-.pa-badge-ok{
-  display:inline-flex; align-items:center; justify-content:center;
-  min-width:40px; padding:6px 12px; border-radius:999px;
-  font-weight:900; font-size:.9rem;
-  background: rgba(13,110,253,.12);
-  border: 1px solid rgba(13,110,253,.22);
-  color:#0d6efd;
-}
-.pa-badge-none{
-  display:inline-flex; align-items:center; justify-content:center;
-  min-width:40px; padding:6px 12px; border-radius:999px;
-  font-weight:900; font-size:.9rem;
-  background: rgba(220,53,69,.12);
-  border: 1px solid rgba(220,53,69,.22);
-  color:#dc3545;
-}
+.pa-badge-ok{ display:inline-flex; align-items:center; justify-content:center; min-width:40px; padding:6px 12px; border-radius:999px; font-weight:900; font-size:.9rem; background: rgba(13,110,253,.12); border: 1px solid rgba(13,110,253,.22); color:#0d6efd; }
+.pa-badge-none{ display:inline-flex; align-items:center; justify-content:center; min-width:40px; padding:6px 12px; border-radius:999px; font-weight:900; font-size:.9rem; background: rgba(220,53,69,.12); border: 1px solid rgba(220,53,69,.22); color:#dc3545; }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
+  const subMap = <?= json_encode($sub_map_js, JSON_UNESCAPED_SLASHES) ?>;
+
   const categorySelect = document.getElementById("categorySelect");
-  const newWrap = document.getElementById("newCategoryWrap");
-  const newInput = document.getElementById("categoryNew");
+  const newCategoryWrap = document.getElementById("newCategoryWrap");
+  const categoryNew = document.getElementById("categoryNew");
 
-  function syncCategory(){
-    if(!categorySelect || !newWrap) return;
-    const isNew = categorySelect.value === "__new__";
-    newWrap.style.display = isNew ? "block" : "none";
-    if (newInput) newInput.required = isNew;
+  const subSelect = document.getElementById("subCategorySelect");
+  const newSubWrap = document.getElementById("newSubCategoryWrap");
+  const subNew = document.getElementById("subCategoryNew");
+
+  const stickySub = <?= json_encode($sticky_subcat) ?>;
+  const stickyCat = <?= json_encode($sticky_cat) ?>;
+
+  function getCurrentCategory(){
+    if (!categorySelect) return "";
+    if (categorySelect.value === "__new__") return (categoryNew?.value || "").trim();
+    return (categorySelect.value || "").trim();
   }
-  if(categorySelect) categorySelect.addEventListener("change", syncCategory);
-  syncCategory();
 
+  function syncCategoryUI(){
+    if(!categorySelect || !newCategoryWrap) return;
+    const isNew = categorySelect.value === "__new__";
+    newCategoryWrap.style.display = isNew ? "block" : "none";
+    if (categoryNew) categoryNew.required = isNew;
+  }
+
+  function rebuildSubOptions(keepSelected){
+    if (!subSelect) return;
+    const cat = getCurrentCategory();
+    const list = (cat && subMap[cat]) ? subMap[cat] : [];
+
+    // keep the current selected value (if asked)
+    const current = keepSelected ? (subSelect.value || "") : "";
+
+    // remove all options except placeholder + new
+    subSelect.innerHTML = "";
+    const opt0 = document.createElement("option");
+    opt0.value = "";
+    opt0.textContent = "Select Sub-Category";
+    subSelect.appendChild(opt0);
+
+    list.forEach(s => {
+      const o = document.createElement("option");
+      o.value = s;
+      o.textContent = s;
+      subSelect.appendChild(o);
+    });
+
+    const optNew = document.createElement("option");
+    optNew.value = "__new__";
+    optNew.textContent = "New Sub-Category";
+    subSelect.appendChild(optNew);
+
+    // restore selection:
+    if (stickySub && stickySub !== "" && (stickyCat === cat || (stickyCat === "" && cat === ""))) {
+      // if editing and category matches, set sticky
+      subSelect.value = stickySub;
+    } else if (current) {
+      subSelect.value = current;
+    } else {
+      subSelect.value = "";
+    }
+
+    syncSubUI();
+  }
+
+  function syncSubUI(){
+    if(!subSelect || !newSubWrap) return;
+    const isNew = subSelect.value === "__new__";
+    newSubWrap.style.display = isNew ? "block" : "none";
+    if (subNew) subNew.required = isNew;
+  }
+
+  if (categorySelect) categorySelect.addEventListener("change", function(){
+    syncCategoryUI();
+    rebuildSubOptions(false);
+  });
+
+  if (categoryNew) categoryNew.addEventListener("input", function(){
+    // when typing new category, sub options should refresh for that new category (currently empty)
+    rebuildSubOptions(true);
+  });
+
+  if (subSelect) subSelect.addEventListener("change", syncSubUI);
+
+  // toggles (same as before)
   const downloadsToggle = document.getElementById("downloadsToggle");
   const downloadsBlock = document.getElementById("downloadsBlock");
   const downloadNameBlock = document.getElementById("downloadNameBlock");
-
   function syncDownloads(){
     if(!downloadsToggle || !downloadsBlock || !downloadNameBlock) return;
     const on = downloadsToggle.checked;
-
     downloadsBlock.style.display = on ? "block" : "none";
     downloadNameBlock.style.display = on ? "block" : "none";
-
     downloadsBlock.querySelectorAll("input").forEach(el => el.disabled = !on);
     downloadNameBlock.querySelectorAll("input").forEach(el => el.disabled = !on);
   }
@@ -892,6 +845,10 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   if(galleryToggle) galleryToggle.addEventListener("change", syncGallery);
   syncGallery();
+
+  // initial
+  syncCategoryUI();
+  rebuildSubOptions(false);
 
   const shouldOpen = <?= json_encode((bool)$edit_event || (bool)$err || (bool)$id_error) ?>;
   if (shouldOpen) {

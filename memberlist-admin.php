@@ -66,10 +66,10 @@ if (!admin_is_authed($AREA)):
           <input type="hidden" name="auth_action" value="login">
 
           <label class="form-label fw-semibold">Admin Email</label>
-          <input type="email" name="admin_email" class="form-control" placeholder="admin@siet.org.sg" required>
+          <input type="email" name="admin_email" class="form-control" placeholder="Enter Gmail" required>
 
           <label class="form-label fw-semibold mt-3">Password</label>
-          <input type="password" name="admin_pass" class="form-control" placeholder="Your password" required>
+          <input type="password" name="admin_pass" class="form-control" placeholder="Enter Your Password" required>
 
           <button class="btn btn-primary w-100 mt-3">Login</button>
           <a href="view-memberlist.php" class="btn btn-success w-100 mt-3">View Memberlist</a>
@@ -341,7 +341,7 @@ $sticky_areas = $edit_member['areas'] ?? ($_POST['areas'] ?? '');
             <div class="col-md-6">
               <label class="form-label fw-semibold">ID (unique)</label>
               <input type="text" name="id" class="form-control <?= $id_error ? 'is-invalid' : '' ?>"
-                     value="<?= h($sticky_id) ?>" <?= $edit_member ? 'readonly' : '' ?> required>
+                     value="<?= h($sticky_id) ?>" <?= $edit_member ? 'readonly' : '' ?> required placeholder="Enter Member ID">
               <?php if ($id_error): ?>
                 <div class="invalid-feedback d-block"><?= h($id_error) ?></div>
               <?php else: ?>
@@ -354,47 +354,47 @@ $sticky_areas = $edit_member['areas'] ?? ($_POST['areas'] ?? '');
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Name</label>
-              <input type="text" name="name" class="form-control" value="<?= h($sticky_name) ?>" required>
+              <input type="text" name="name" class="form-control" value="<?= h($sticky_name) ?>" required placeholder="Enter Member Name">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Certification Post-nominal</label>
-              <input type="text" name="post_nominal" class="form-control" value="<?= h($sticky_post) ?>">
+              <input type="text" name="post_nominal" class="form-control" value="<?= h($sticky_post) ?>" placeholder="Enter Post-nominal">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Membership No.</label>
-              <input type="text" name="membership_no" class="form-control" value="<?= h($sticky_no) ?>" required>
+              <input type="text" name="membership_no" class="form-control" value="<?= h($sticky_no) ?>" required placeholder="Enter Membership No">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Certification No.</label>
-              <input type="text" name="certification_no" class="form-control" value="<?= h($sticky_certno) ?>">
+              <input type="text" name="certification_no" class="form-control" value="<?= h($sticky_certno) ?>" placeholder="Enter Certification No">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Membership Grade</label>
-              <input type="text" name="membership_grade" class="form-control" value="<?= h($sticky_grade) ?>">
+              <input type="text" name="membership_grade" class="form-control" value="<?= h($sticky_grade) ?>" placeholder="Enter Membership Grade">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Certification Level</label>
-              <input type="text" name="certified_grade" class="form-control" value="<?= h($sticky_cert_level) ?>">
+              <input type="text" name="certified_grade" class="form-control" value="<?= h($sticky_cert_level) ?>" placeholder="Enter Certification Level">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Membership Title</label>
-              <input type="text" name="membership_title" class="form-control" value="<?= h($sticky_title) ?>">
+              <input type="text" name="membership_title" class="form-control" value="<?= h($sticky_title) ?>" placeholder="Enter Membership Title">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Branch of Engineering</label>
-              <input type="text" name="branch" class="form-control" value="<?= h($sticky_branch) ?>">
+              <input type="text" name="branch" class="form-control" value="<?= h($sticky_branch) ?>" placeholder="Enter Branch of Engineering">
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Specialisation (Areas of Certification)</label>
-              <input type="text" name="areas" class="form-control" value="<?= h($sticky_areas) ?>">
+              <input type="text" name="areas" class="form-control" value="<?= h($sticky_areas) ?>" placeholder="Enter Specialisation">
             </div>
 
             <div class="col-md-6">

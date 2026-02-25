@@ -66,10 +66,10 @@ if (!admin_is_authed($AREA)):
           <input type="hidden" name="auth_action" value="login">
 
           <label class="form-label fw-semibold">Admin Email</label>
-          <input type="email" name="admin_email" class="form-control" placeholder="admin@siet.org.sg" required>
+          <input type="email" name="admin_email" class="form-control" placeholder="Enter Gmail" required>
 
           <label class="form-label fw-semibold mt-3">Password</label>
-          <input type="password" name="admin_pass" class="form-control" placeholder="Your password" required>
+          <input type="password" name="admin_pass" class="form-control" placeholder="Enter Your Password" required>
 
           <button class="btn btn-primary w-100 mt-3">Login</button>
           <a href="organisational-partnership.php" class="btn btn-success w-100 mt-3">View Our Partners</a>
@@ -489,7 +489,7 @@ $toggle_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_galler
   </div>
 </section>
 <br>
-<!-- MODAL: Add / Edit Partner (DESIGN ONLY – same form logic) -->
+<!-- MODAL: Add / Edit Partner  -->
 <div class="modal fade" id="partnerModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content pa-modal">
@@ -519,7 +519,7 @@ $toggle_checked = isset($_POST['enable_gallery']) ? !empty($_POST['enable_galler
                 name="id"
                 class="form-control <?= !empty($id_error) ? 'is-invalid' : '' ?>"
                 value="<?= htmlspecialchars($sticky_id) ?>"
-                placeholder="example: engineers-australia"
+                placeholder="enter unique ID"
                 <?= $edit_partner ? "readonly" : "" ?>
                 required>
               <?php if(!empty($id_error)): ?>
