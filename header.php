@@ -86,7 +86,7 @@
     ],
 
     "Certifications" => [
-      ["title" => "Professionals of Examinations", "href" => "professionalexaminations.php"],
+      ["title" => "Professionals Examinations", "href" => "professionalexaminations.php"],
       ["title" => "Certification & Progression", "href" => "cert-vs-membership.php"],
       ["title" => "SIET – TPC", "href" => "siet-tpc.php"],
       ["title" => "Certification Application", "href" => "cert-application.php"],
