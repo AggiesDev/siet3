@@ -612,7 +612,7 @@ $sub_map_js = $sub_map;
             <!--  Sub-category depends on category -->
             <div class="col-md-6">
               <label class="form-label fw-semibold">Sub-Category</label>
-              <select name="subcategory_select" id="subCategorySelect" class="form-select">
+              <select name="subcategory_select" id="subCategorySelect" class="form-select" required>
                 <option value="">Select Sub-Category</option>
                 <!-- options will be injected by JS based on category -->
                 <option value="__new__">New Sub-Category</option>
@@ -626,7 +626,7 @@ $sub_map_js = $sub_map;
 
             <div class="col-md-6">
               <label class="form-label fw-semibold">Event Date</label>
-              <input type="date" name="date" class="form-control" value="<?= htmlspecialchars($sticky_date) ?>">
+              <input type="date" name="date" class="form-control" value="<?= htmlspecialchars($sticky_date) ?>" required>
             </div>
 
             <div class="col-12">
@@ -657,6 +657,12 @@ $sub_map_js = $sub_map;
             <div class="col-md-6">
               <label class="form-label fw-semibold">Banner Image (detail)</label>
               <input type="file" name="banner" class="form-control" accept=".png,.jpg,.jpeg,.webp">
+              <?php if ($sticky_banner): ?>
+                <div class="mt-2">
+                  <img src="<?= htmlspecialchars($sticky_banner) ?>" alt="Current Banner" style="width:100%; max-height:150px; object-fit:cover; border-radius:10px; background:#fff;">
+                  <div class="form-text">Current banner image. Uploading a new one will replace this.</div>
+                </div>
+              <?php endif; ?>
             </div>
 
             <div class="col-12">

@@ -44,12 +44,16 @@
 <section class="section-pad">
   <div class="container">
     <?php if ($event): ?>
-
-      <img src="<?php echo htmlspecialchars($event['banner'] ?? ($event['image'] ?? 'images/1.jpg')); ?>"
+      <?php if (!empty($event['banner'] ?? '') || !empty($event['image'] ?? '')): ?>
+      <img src="<?php echo htmlspecialchars($event['banner'] ?? ($event['image'] ?? 'images/example.png')); ?>"
            alt="<?php echo htmlspecialchars($event['title'] ?? ''); ?>"
            class="w-100 rounded-4 img-hover"
            style="max-height:360px; object-fit:cover;" />
-
+        <?php else: ?>
+        <div class="w-100 rounded-4 img-hover placeholder" style="padding-top:56.25%; max-height:360px;">
+          <img src="images/example.png" alt="example" class="w-100" style="max-height:360px; object-fit:cover;" />
+        </div>
+      <?php endif; ?>
       <div class="row g-4 mt-1">
 
         <!-- LEFT -->

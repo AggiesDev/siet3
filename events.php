@@ -90,9 +90,16 @@
             <div class="col-md-4">
               <a class="link-card" href="event-detail.php?id=<?php echo urlencode($e['id'] ?? ''); ?>">
                 <div class="doc-card h-100 card-hover">
+                  <?php
+                  if (!empty($e['image'])) { ?>
                   <img class="doc-thumb"
                        src="<?php echo htmlspecialchars($e['image'] ?? 'images/1.jpg'); ?>"
                        alt="<?php echo htmlspecialchars($e['title'] ?? ''); ?>" />
+                  <?php }
+                  else { ?>
+                  <div class="doc-thumb placeholder">
+                    <img src="images/example.png" alt="example" class="doc-thumb">
+                  </div> <?php } ?>
                   <div class="p-3">
                     <div class="meta-row mb-2">
                       <span class="badge-soft"><?php echo htmlspecialchars($e['date'] ?? ''); ?></span>
