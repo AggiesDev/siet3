@@ -2,7 +2,7 @@
 // sync-config.php (LIVE SERVER)
 // Change token and allowed directories/files here.
 
-define('SYNC_TOKEN', 'CHANGE_THIS_TO_A_LONG_RANDOM_TOKEN_2026');
+define('SYNC_TOKEN', '0ec77b41fa44032ecd33ed761169352ff183574efc030f6dd3b5aacdaf8a6e21');
 
 // Only allow syncing these directories (relative to site root)
 $SYNC_ALLOW_DIRS = [
