@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/data-config.php';
 
 function news_data_file(): string {
-  return __DIR__ . '/news-data.json';
+  return data_path('news-data.json');
 }
 
 function load_news_data(): array {
@@ -12,7 +13,6 @@ function load_news_data(): array {
       "news" => []
     ];
   }
-
   $raw = file_get_contents($file);
   $data = json_decode($raw, true);
   if (!is_array($data)) $data = [];
@@ -21,7 +21,6 @@ function load_news_data(): array {
     $data["categories"] = ["Latest News","Special News","Past News"];
   }
   if (!isset($data["news"]) || !is_array($data["news"])) $data["news"] = [];
-
   return $data;
 }
 

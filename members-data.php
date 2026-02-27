@@ -1,15 +1,18 @@
 <?php
-// members-data.php (no database)
+
+require_once __DIR__ . '/data-config.php';
 
 function members_json_path(): string {
-  return __DIR__ . "/members-data.json";
+  return data_path('members-data.json');
 }
 
 function load_members(): array {
   $path = members_json_path();
   if (!file_exists($path)) return [];
+
   $raw = file_get_contents($path);
   $data = json_decode($raw, true);
+
   return is_array($data) ? $data : [];
 }
 

@@ -1,8 +1,9 @@
 <?php
-// partners-data.php (no database, JSON storage)
+
+require_once __DIR__ . '/data-config.php';
 
 function partners_json_path(): string {
-  return __DIR__ . "/partners-data.json";
+  return data_path('partners-data.json');
 }
 
 function load_partners(): array {
@@ -22,7 +23,7 @@ function load_partners(): array {
     if (!isset($p['about'])) $p['about'] = '';
     if (!isset($p['website'])) $p['website'] = '';
 
-    // NEW: gallery field (array of image paths)
+    // Gallery field (array of image paths)
     if (!isset($p['gallery']) || !is_array($p['gallery'])) {
       $p['gallery'] = [];
     }

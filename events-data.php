@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/data-config.php';
 
 function events_data_file(): string {
-  return __DIR__ . '/events-data.json';
+  return data_path('events-data.json');
 }
 
 function load_events_data(): array {
@@ -11,7 +12,7 @@ function load_events_data(): array {
     return [
       "gallery" => [],
       "categories" => ["Upcoming Events","Special Events","Past Events"],
-      "subcategories_map" => [], //  category => [sub1, sub2...]
+      "subcategories_map" => [],
       "events" => []
     ];
   }
@@ -24,15 +25,11 @@ function load_events_data(): array {
   if (!isset($data["categories"]) || !is_array($data["categories"])) {
     $data["categories"] = ["Upcoming Events","Special Events","Past Events"];
   }
-
-  //  NEW: map of subcategories by category
   if (!isset($data["subcategories_map"]) || !is_array($data["subcategories_map"])) {
     $data["subcategories_map"] = [];
   }
-
   if (!isset($data["events"]) || !is_array($data["events"])) $data["events"] = [];
 
-  // Ensure each category has an array key in subcategories_map
   foreach ($data["categories"] as $c) {
     $c = trim((string)$c);
     if ($c === '') continue;
@@ -81,13 +78,11 @@ function ensure_category(array &$data, string $cat): void {
   }
   if (!$exists) $data['categories'][] = $cat;
 
-  // make sure map entry exists
   if (!isset($data["subcategories_map"][$cat]) || !is_array($data["subcategories_map"][$cat])) {
     $data["subcategories_map"][$cat] = [];
   }
 }
 
-//  NEW: subcategory depends on category
 function ensure_subcategory(array &$data, string $category, string $sub): void {
   $category = trim($category);
   $sub = trim($sub);
