@@ -4,7 +4,7 @@
 // It will download allowed files from live server and overwrite local copies.
 
 $LIVE_BASE = 'https://aggiesdev.infinityfreeapp.com/'; //  change this
-$TOKEN = '0d2fc8ecd7bea0add5b6dda78aa0391bbcaa1cc93808829977950c040f3fb55a'; //  same as sync-config.php
+$TOKEN = '0ec77b41fa44032ecd33ed761169352ff183574efc030f6dd3b5aacdaf8a6e21'; //  same as sync-config.php
 
 $manifestUrl = rtrim($LIVE_BASE, '/') . '/sync-manifest.php?token=' . urlencode($TOKEN);
 
