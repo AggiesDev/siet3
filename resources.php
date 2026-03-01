@@ -27,8 +27,8 @@
         </p>
 
         <div class="res-cta">
-          <a class="btn btn-primary btn-lg res-btn" href="tel:12345678">
-            📞 Call Hotline: any phone number
+          <a class="btn btn-primary btn-lg res-btn" href="tel:+6580373662">
+            📞 Call Hotline: +6580373662
           </a>
           <a class="btn btn-outline-primary btn-lg res-btn" href="cert-application.php">
             Get Certified with SIET
@@ -40,7 +40,7 @@
         <div class="res-hotline-card">
           <div class="res-hotline-title">Need Assistance?</div>
           <div class="res-hotline-sub">Referral &amp; Quotation Support</div>
-          <div class="res-hotline-number">any phone number</div>
+          <div class="res-hotline-number">+6580373662</div>
           <div class="res-hotline-note text-muted">
             Operating hours: Mon–Fri, 9:00 AM – 5:00 PM
           </div>
